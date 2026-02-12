@@ -36,7 +36,51 @@ chmod +x restore.sh && ./restore.sh
 │   ├── 03-tasks/          # 任务追踪
 │   ├── 04-learnings/      # 学习与经验
 │   └── 05-archive/        # 归档资料
+│
+├── 📈 A股量价策略回测项目
+│   ├── 数据获取
+│   │   ├── stock_data_manager.py  # 数据缓存系统
+│   │   └── get_multi_stocks.py    # 多股票获取
+│   │
+│   ├── 策略回测
+│   │   ├── strategy_ranker.py      # 单股票策略回测
+│   │   └── multi_stock_backtest.py # 多股票汇总回测
+│   │
+│   ├── stock_data/              # 股票数据 (CSV)
+│   │   ├── 600519.csv  # 贵州茅台
+│   │   ├── 600036.csv  # 招商银行
+│   │   └── ...
+│   │
+│   └── README量价策略.md        # 项目说明
+│
 └── README.md              # 本说明文件
+```
+
+## 📈 A股量价策略回测项目
+
+### 项目概述
+
+用真实A股数据验证15种量价策略的有效性。
+
+### 核心发现
+
+| 策略类型 | 结论 |
+|----------|------|
+| **缩量策略** | ✅ 整体有效 (胜率56-58%) |
+| **放量策略** | ❌ 整体无效 (胜率<50%) |
+| **核心假设** | "放量买入"策略胜率仅47% |
+
+### 运行方式
+
+```bash
+# 获取股票数据
+python3 get_multi_stocks.py
+
+# 单股票回测
+python3 strategy_ranker.py
+
+# 多股票汇总
+python3 multi_stock_backtest.py
 ```
 
 ## 🔄 同步命令
