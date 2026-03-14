@@ -40,6 +40,18 @@ knowledge-base/
 
 ---
 
+### 英语学习平台 (sentences-dictation)
+
+**文档**: `projects/sentences-dictation/PROJECT_OVERVIEW.md`
+**源码**: `/home/wingo/code/sentences-dictation/` (symlink: `workspace/sentences-dictation`)
+**技术栈**: React 19 + Vite 7 + Supabase + Netlify Functions
+**核心功能**: 多数据源听写练习、语音合成、音标显示、闪卡间隔重复
+**数据库**: Supabase（articles/sentences/tags/article_tags/sentence_audios）
+**已知修复**: ImmersiveSpelling 句子自动切换 bug（useRef 替代 isCompleted 依赖）
+**优化状态**: 输入防抖✅ 语音预加载✅ 单元测试✅ 字典懒加载⏳
+
+---
+
 ## 📈 股市分析自动化系统
 
 **功能**: 自动化数据收集 → 人工分析 → Notion 同步
@@ -756,6 +768,7 @@ python3 scripts/fetch.py validate data/book3/3-001.json
 |------|------|--------|
 | AI Scout (投研主系统) | `projects/ai_scout/PROJECT_OVERVIEW.md` | `/mnt/d/Pycharm/ai_scout_refactor/` |
 | AI Scout Crawler (爬虫服务) | `projects/ai_scout_crawler/PROJECT_OVERVIEW.md` | `/mnt/d/Pycharm/ai_scout_crawler_refactor/` |
+| sentences-dictation (英语听写) | `projects/sentences-dictation/PROJECT_OVERVIEW.md` | `/home/wingo/code/sentences-dictation/` |
 
 **项目关系**:
 - ai_scout (Django) 通过 HTTP 调用 ai_scout_crawler (Flask) 的爬虫 API
