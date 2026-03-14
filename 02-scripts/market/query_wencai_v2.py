@@ -1,0 +1,123 @@
+#!/usr/bin/env python3
+"""
+分步访问问财：先首页建立 Cookie，再查询
+"""
+
+import asyncio
+from playwright.async_api import async_playwright
+from playwright_stealth import Stealth
+import csv
+
+
+async def query_wencai():
+    # 选股条件
+    query = "所属行业为近期热门版块 且近10日有放量上涨 且最近3日成交量明显萎缩 且股价在20日均线上方 且非ST股 且非创业板非科创板非北交所"
+    
+    # URL 编码
+    import urllib.parse
+    encoded_query = urllib.parse.quote(query)
+    search_url = f"https://www.iwencai.com/unifywap/home/index?w={encoded_query}"
+    
+    print(f"查询条件: {query}")
+    print("-" * 60)
+    
+    async with async_playwright() as p:
+        # 启动本地 Chrome
+        browser = await p.chromium.launch(
+            headless=True,
+            executable_path="/usr/bin/google-chrome-stable",
+            args=[
+                "--no-sandbox",
+                "--disable-setuid-sandbox",
+                "--disable-dev-shm-usage",
+                "--disable-gpu",
+                "--disable-blink-features=AutomationControlled",
+                "--window-size=1920,1080",
+            ]
+        )
+        
+        # 创建上下文（保持 Cookie）
+        context = await browser.new_context(
+            viewport={"width": 1920, "height": 1080},
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            locale="zh-CN",
+        )
+        
+        # 应用 stealth 模式
+        stealth_config = Stealth()
+        await stealth_config.apply_stealth_async(context)
+        
+        # 创建新页面
+        page = await context.new_page()
+        
+        # 第一步：访问首页建立 Cookie
+        print("1. 访问首页建立 Cookie...")
+        await page.goto("https://www.iwencai.com/", wait_until="domcontentloaded", timeout=30000)
+        await asyncio.sleep(3)
+        
+        title1 = await page.title()
+        print(f"   首页标题: {title1}")
+        
+        # 截图首页
+        await page.screenshot(path="/root/.openclaw/workspace/wencai_home.png")
+        print("   首页截图保存")
+        
+        # 第二步：执行查询
+        print("2. 执行查询...")
+        await page.goto(search_url, wait_until="domcontentloaded", timeout=60000)
+        await asyncio.sleep(5)
+        
+        title2 = await page.title()
+        print(f"   查询页标题: {title2}")
+        
+        # 截图查询结果
+        await page.screenshot(path="/root/.openclaw/workspace/wencai_result.png", full_page=True)
+        print("   查询结果截图保存")
+        
+        # 获取页面内容
+        content = await page.content()
+        print(f"   HTML 长度: {len(content)} 字符")
+        
+        # 保存 HTML
+        with open("/root/.openclaw/workspace/wencai_page.html", "w", encoding="utf-8") as f:
+            f.write(content)
+        
+        # 获取可见文本
+        text = await page.inner_text("body")
+        print(f"\n页面可见文本 (前 1000 字符):\n{text[:1000]}")
+        
+        # 尝试提取表格数据
+        try:
+            await page.wait_for_selector("table", timeout=5000)
+            rows = await page.query_selector_all("table tr")
+            print(f"\n找到 {len(rows)} 行数据")
+            
+            results = []
+            for row in rows:
+                cells = await row.query_selector_all("td, th")
+                if cells:
+                    row_data = [await cell.inner_text() for cell in cells]
+                    results.append([t.strip() for t in row_data])
+            
+            # 输出结果
+            print("\n查询结果:")
+            print("-" * 60)
+            for i, row in enumerate(results[:15]):
+                print(f"{i}: {' | '.join(row[:5])}")
+            
+            # 保存到 CSV
+            output_file = "/root/.openclaw/workspace/wencai_result.csv"
+            with open(output_file, "w", newline="", encoding="utf-8-sig") as f:
+                writer = csv.writer(f)
+                writer.writerows(results)
+            print(f"\n结果已保存到: {output_file}")
+            
+        except Exception as e:
+            print(f"提取表格失败: {e}")
+        
+        await browser.close()
+        print("\n完成！")
+
+
+if __name__ == "__main__":
+    asyncio.run(query_wencai())

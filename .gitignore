@@ -35,8 +35,13 @@ node_modules/
 *.pem
 
 # 数据文件（太大，不上传）
-stock_data/
+00-raw/stock_data/*.csv
+00-raw/stock_data/*.txt
 *.csv
+
+# 归档区（不参与版本管理）
+04-archive/old-images/
+04-archive/old-scripts/
 
 # 截图/导出产物
 *.png

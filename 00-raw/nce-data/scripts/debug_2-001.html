@@ -1,0 +1,74 @@
+ 
+<style>
+    :root {
+        --wave-brown: url('data:image/svg+xml,%3Csvg%20width%3D%22120%22%20height%3D%226%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M0%2C3%20C15%2C0%2030%2C6%2045%2C3%20S75%2C0%2090%2C3%20S120%2C6%20120%2C3%22%20stroke%3D%22%238b4513%22%20fill%3D%22none%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M0%2C3%20C10%2C1%2020%2C5%2030%2C3%20S50%2C1%2060%2C3%20S80%2C5%2090%2C3%20S110%2C1%20120%2C3%22%20stroke%3D%22%238b4513%22%20fill%3D%22none%22%20stroke-width%3D%221%22%20opacity%3D%220.6%22%2F%3E%0A%3C%2Fsvg%3E');
+        --wave-blue: url('data:image/svg+xml,%3Csvg%20width%3D%22120%22%20height%3D%226%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M0%2C3%20C15%2C0%2030%2C6%2045%2C3%20S75%2C0%2090%2C3%20S120%2C6%20120%2C3%22%20stroke%3D%22%23233C6E%22%20fill%3D%22none%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M0%2C3%20C10%2C1%2020%2C5%2030%2C3%20S50%2C1%2060%2C3%20S80%2C5%2090%2C3%20S110%2C1%20120%2C3%22%20stroke%3D%22%23233C6E%22%20fill%3D%22none%22%20stroke-width%3D%221%22%20opacity%3D%220.6%22%2F%3E%0A%3C%2Fsvg%3E');
+    }
+    [data-theme="dark"] {
+        --wave-brown: url('data:image/svg+xml,%3Csvg%20width%3D%22120%22%20height%3D%226%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M0%2C3%20C15%2C0%2030%2C6%2045%2C3%20S75%2C0%2090%2C3%20S120%2C6%20120%2C3%22%20stroke%3D%22%23c49a6c%22%20fill%3D%22none%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M0%2C3%20C10%2C1%2020%2C5%2030%2C3%20S50%2C1%2060%2C3%20S80%2C5%2090%2C3%20S110%2C1%20120%2C3%22%20stroke%3D%22%23c49a6c%22%20fill%3D%22none%22%20stroke-width%3D%221%22%20opacity%3D%220.6%22%2F%3E%0A%3C%2Fsvg%3E');
+        --wave-blue: url('data:image/svg+xml,%3Csvg%20width%3D%22120%22%20height%3D%226%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M0%2C3%20C15%2C0%2030%2C6%2045%2C3%20S75%2C0%2090%2C3%20S120%2C6%20120%2C3%22%20stroke%3D%22%236d8a9e%22%20fill%3D%22none%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M0%2C3%20C10%2C1%2020%2C5%2030%2C3%20S50%2C1%2060%2C3%20S80%2C5%2090%2C3%20S110%2C1%20120%2C3%22%20stroke%3D%22%236d8a9e%22%20fill%3D%22none%22%20stroke-width%3D%221%22%20opacity%3D%220.6%22%2F%3E%0A%3C%2Fsvg%3E');
+    }
+</style><!doctype html>
+<html lang="zh-CN">
+<head>
+    <script>
+    // 拦截可疑跳转
+        if (window.location.href.indexOf('//newconceptenglish.com/') === -1) {
+          window.location.href = 'https://newconceptenglish.com/';
+        }
+    </script>    
+	<title>新概念英语 | NewConceptEnglish.com</title>
+	<meta charset = "utf-8" />
+	<meta name="description" content="新概念英语(NCE)专业学习平台，提供课文精讲、词汇解析、听力练习和拓展资源。">
+	<meta name="author" content="新概念英语" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="style.css?v=1772436928">
+	<link rel="icon" href="favicon.svg" type="image/svg+xml">
+	<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+</head>
+<body>
+    <header>
+<h1 id="siteheader">
+    <a href="index.php">
+        新概念英语
+        <span id="slogan">NewConceptEnglish.com</span>
+    </a>
+        <form method="post" class="version-form" 
+          >
+        <input type="hidden" name="toggle_nce_version" value="1">
+        <button type="submit" class="nce-ver" 
+                style="background: #00247D;"
+                >
+            97        </button>
+    </form>
+</h1>
+</header><nav>
+    <span id="nav-left">
+        <a href="index.php?id=nce-1" title="新概念英语第一册" class="circle-link" style="background-color: var(--nav-1-color);"><span class="centered-icon" aria-hidden="true">1</span><span class="sr-only">新概念英语第一册</span></a>
+        <a href="index.php?id=nce-2" title="新概念英语第二册"class="circle-link" style="background-color: var(--nav-2-color);"><span class="centered-icon" aria-hidden="true">2</span><span class="sr-only">新概念英语第二册</span></a>
+        <a href="index.php?id=nce-3" title="新概念英语第三册"class="circle-link" style="background-color: var(--nav-3-color);"><span class="centered-icon" aria-hidden="true">3</span><span class="sr-only">新概念英语第三册</span></a>
+        <a href="index.php?id=nce-4" title="新概念英语第四册"class="circle-link" style="background-color: var(--nav-4-color);"><span class="centered-icon" aria-hidden="true">4</span><span class="sr-only">新概念英语第四册</span></a>
+        <a href="index.php?id=search" title="新概念英语全文检索" class="circle-link" style="background-color: var(--nav-search-color);"><span class="centered-icon" aria-hidden="true">S</span><span class="sr-only">新概念英语全文检索</span></a>          
+        <a href="index.php?id=words" title="新概念英语单词速查" class="circle-link" style="background-color: var(--nav-words-color);"><span class="centered-icon" aria-hidden="true">W</span><span class="sr-only">新概念英语单词速查</span></a>
+        <a href="index.php?id=wip" title="实战英语-English in Action" class="circle-link" style="background-color: var(--nav-search-color);"><span class="centered-icon" aria-hidden="true">A</span><span class="sr-only">实战英语</span></a>        
+        <a href="index.php?id=grammar.nce.001.start" title="新概念英语语法指南" class="circle-link" style="background-color: var(--nav-grammar-color); "><span class="centered-icon" aria-hidden="true">G</span><span class="sr-only">新概念英语语法指南</span></a>        
+        <a href="index.php?id=ef" title="扩展阅读"class="circle-link" style="background-color: var(--nav-2-color);"><span class="centered-icon" aria-hidden="true" style="font-size:12px">ef</span><span class="sr-only">扩展阅读</span></a>
+    </span>
+    <span id="nav-right">
+        <a href="index.php?id=bbs" title="bbs" class="circle-link" style="background-color:var(--nav-bbs-color)"><span class="art-fonts" aria-hidden="true" style="font-size:16px">bbs</span><span class="sr-only">bbs讨论区</span></a>   
+        <a href="index.php?id=shares" title="资源中心" class="circle-link" style="background-color:var(--nav-shares-color)"><span class="centered-icon" aria-hidden="true"️></span>⬇<span class="sr-only">全网最强学英语资源宝库</span></a>
+    </span>
+</nav><main><article>
+    <div class="contents-box category-meta">
+        <h2>这位客官，请稍候！</h2>
+    	<p>因为各种原因，您要找的文章还没有上线，请耐心等候，等待期间可以访问如下页面：<p>
+    	<div class="blockquote">
+    		<ul>
+        		<li>访问 <a href="index.php"> 首页 </a> </li>
+        		<li>访问 <a href="index.php?id=shares"> 资料分享页面 </a> </li>
+        		<li>访问 <a href="index.php?id=bbs"> BBS </a> </li>
+        		<li>邮件 <b> nce@diqiu.org </b> 给我们提建议</li>
+    		</ul>
+    	</div>
+	</div>
+</article>

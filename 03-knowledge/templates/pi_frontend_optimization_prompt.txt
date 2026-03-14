@@ -1,0 +1,63 @@
+# 前端优化任务 - Pi Agent Prompt
+
+**项目**: 英语句子拼写练习平台
+**路径**: `/home/wingo/code/sentences-dictation/`
+**技术栈**: React + Supabase + Tailwind + Netlify
+
+## 优化目标
+
+1. **性能提升**
+   - 首屏加载 <1.5s
+   - FPS >50
+   - 减少 bundle 大小
+
+2. **用户体验**
+   - 练习流程更流畅
+   - 减少卡顿/误操作
+   - 音频播放延迟优化
+
+3. **代码质量**
+   - 遵循 React 最佳实践
+   - 组件拆分合理
+   - 清晰的错误边界
+
+4. **可维护性**
+   - 增加单元/集成测试
+   - 性能监控（Sentry/LogRocket 可选）
+
+5. **移动端与可访问性**
+   - 响应式完善
+   - 触摸友好
+   - ARIA 标签 + 键盘导航
+
+## 重点关注
+
+- `ImmersiveSpelling.jsx` 的自动切换逻辑（刚修复过，别引入新 bug）
+- 句子输入框的实时验证与反馈
+- Netlify Dev 环境的性能瓶颈
+- WSL2 环境兼容性（IPv4 强制）
+
+## 交付物
+
+1. 优化后的代码（保持 Git 历史）
+2. 性能对比报告（Lighthouse / WebPageTest 数据）
+3. 更新后的 Playwright 测试用例
+4. 优化说明文档（markdown）
+
+## 约束
+
+- 不要破坏现有功能
+- 保持 Supabase 集成不变
+- 所有修改需通过现有 Playwright 测试
+- 每完成一个子任务立即通知用户（进度可见）
+
+## 建议工具
+
+- React DevTools + Profiler
+- Lighthouse CI
+- webpack-bundle-analyzer
+- bundle analyzer
+
+---
+
+**启动方式**: 分析现有代码库，制定优化计划，逐步实施并测试。每完成一个优化点（如：组件拆分、懒加载、代码分割等）立即汇报进度。

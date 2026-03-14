@@ -1,0 +1,1097 @@
+{
+  "timestamp": "2026-03-14 00:04:44",
+  "nce2_total_articles": 181,
+  "unique_lessons": 96,
+  "keep_count": 96,
+  "remove_count": 85,
+  "keep": [
+    {
+      "lesson": 1,
+      "id": 39,
+      "title": "2-001 私人谈话",
+      "sentences": 9
+    },
+    {
+      "lesson": 2,
+      "id": 38,
+      "title": "2-002 早餐还是午餐？",
+      "sentences": 13
+    },
+    {
+      "lesson": 3,
+      "id": 40,
+      "title": "2-003 请给我寄一张明信片",
+      "sentences": 11
+    },
+    {
+      "lesson": 4,
+      "id": 41,
+      "title": "2-004 激动人心的旅行",
+      "sentences": 6
+    },
+    {
+      "lesson": 5,
+      "id": 42,
+      "title": "2-005 无错号之虞",
+      "sentences": 6
+    },
+    {
+      "lesson": 6,
+      "id": 43,
+      "title": "2-006 珀西·巴顿斯",
+      "sentences": 9
+    },
+    {
+      "lesson": 7,
+      "id": 44,
+      "title": "2-007 为时太晚",
+      "sentences": 7
+    },
+    {
+      "lesson": 8,
+      "id": 45,
+      "title": "2-008 最好的和最差的",
+      "sentences": 6
+    },
+    {
+      "lesson": 9,
+      "id": 138,
+      "title": "2-009 冷遇",
+      "sentences": 11
+    },
+    {
+      "lesson": 10,
+      "id": 139,
+      "title": "2-010 不适于演奏爵士乐",
+      "sentences": 12
+    },
+    {
+      "lesson": 11,
+      "id": 48,
+      "title": "2-011 礼尚往来",
+      "sentences": 8
+    },
+    {
+      "lesson": 12,
+      "id": 140,
+      "title": "2-012 再见，一路顺风",
+      "sentences": 10
+    },
+    {
+      "lesson": 13,
+      "id": 141,
+      "title": "2-013 绿林少年",
+      "sentences": 10
+    },
+    {
+      "lesson": 14,
+      "id": 142,
+      "title": "2-014 你会讲英语吗？",
+      "sentences": 8
+    },
+    {
+      "lesson": 15,
+      "id": 52,
+      "title": "2-015",
+      "sentences": 0
+    },
+    {
+      "lesson": 16,
+      "id": 144,
+      "title": "2-016 彬彬有礼的要求",
+      "sentences": 8
+    },
+    {
+      "lesson": 17,
+      "id": 145,
+      "title": "2-017 青春常驻",
+      "sentences": 8
+    },
+    {
+      "lesson": 18,
+      "id": 146,
+      "title": "2-018 他经常干这种事！",
+      "sentences": 7
+    },
+    {
+      "lesson": 19,
+      "id": 56,
+      "title": "2-019",
+      "sentences": 0
+    },
+    {
+      "lesson": 20,
+      "id": 148,
+      "title": "2-020 独坐孤舟",
+      "sentences": 12
+    },
+    {
+      "lesson": 21,
+      "id": 149,
+      "title": "2-021 是不是疯了？",
+      "sentences": 9
+    },
+    {
+      "lesson": 22,
+      "id": 150,
+      "title": "2-022 玻璃信封",
+      "sentences": 7
+    },
+    {
+      "lesson": 23,
+      "id": 151,
+      "title": "2-023 新居",
+      "sentences": 11
+    },
+    {
+      "lesson": 24,
+      "id": 152,
+      "title": "2-024 不幸中之万幸",
+      "sentences": 9
+    },
+    {
+      "lesson": 25,
+      "id": 62,
+      "title": "2-025",
+      "sentences": 0
+    },
+    {
+      "lesson": 26,
+      "id": 154,
+      "title": "2-026 最佳艺术评论家",
+      "sentences": 15
+    },
+    {
+      "lesson": 27,
+      "id": 155,
+      "title": "2-027 雨夜",
+      "sentences": 12
+    },
+    {
+      "lesson": 28,
+      "id": 156,
+      "title": "2-028 禁止停车",
+      "sentences": 10
+    },
+    {
+      "lesson": 29,
+      "id": 157,
+      "title": "2-029 出租汽车！",
+      "sentences": 9
+    },
+    {
+      "lesson": 30,
+      "id": 67,
+      "title": "2-030",
+      "sentences": 0
+    },
+    {
+      "lesson": 31,
+      "id": 159,
+      "title": "2-031 成功者的故事",
+      "sentences": 10
+    },
+    {
+      "lesson": 32,
+      "id": 69,
+      "title": "2-032",
+      "sentences": 0
+    },
+    {
+      "lesson": 33,
+      "id": 161,
+      "title": "2-033 冲出黑暗",
+      "sentences": 10
+    },
+    {
+      "lesson": 34,
+      "id": 162,
+      "title": "2-034 破案神速",
+      "sentences": 10
+    },
+    {
+      "lesson": 35,
+      "id": 163,
+      "title": "2-035 捉贼！",
+      "sentences": 11
+    },
+    {
+      "lesson": 36,
+      "id": 164,
+      "title": "2-036 横渡海峡",
+      "sentences": 11
+    },
+    {
+      "lesson": 37,
+      "id": 165,
+      "title": "2-037 奥林匹克运动会",
+      "sentences": 9
+    },
+    {
+      "lesson": 38,
+      "id": 166,
+      "title": "2-038 唯独没有考虑到天气",
+      "sentences": 10
+    },
+    {
+      "lesson": 39,
+      "id": 167,
+      "title": "2-039 我是否痊愈？",
+      "sentences": 9
+    },
+    {
+      "lesson": 40,
+      "id": 77,
+      "title": "2-040",
+      "sentences": 0
+    },
+    {
+      "lesson": 41,
+      "id": 169,
+      "title": "2-041 你把那个叫帽子吗？",
+      "sentences": 8
+    },
+    {
+      "lesson": 42,
+      "id": 170,
+      "title": "2-042 并非很懂音乐",
+      "sentences": 8
+    },
+    {
+      "lesson": 43,
+      "id": 171,
+      "title": "2-043 飞越南极",
+      "sentences": 10
+    },
+    {
+      "lesson": 44,
+      "id": 81,
+      "title": "2-044",
+      "sentences": 0
+    },
+    {
+      "lesson": 45,
+      "id": 173,
+      "title": "2-045 问心无愧",
+      "sentences": 6
+    },
+    {
+      "lesson": 46,
+      "id": 174,
+      "title": "2-046 既昂贵又受罪",
+      "sentences": 10
+    },
+    {
+      "lesson": 47,
+      "id": 175,
+      "title": "2-047 嗜酒的鬼魂",
+      "sentences": 8
+    },
+    {
+      "lesson": 48,
+      "id": 176,
+      "title": "2-048 你想对我说什么吗？",
+      "sentences": 9
+    },
+    {
+      "lesson": 49,
+      "id": 86,
+      "title": "2-049 美梦告终",
+      "sentences": 0
+    },
+    {
+      "lesson": 50,
+      "id": 87,
+      "title": "2-050 乘车兜风",
+      "sentences": 0
+    },
+    {
+      "lesson": 51,
+      "id": 177,
+      "title": "2-051 对美德的奖赏",
+      "sentences": 12
+    },
+    {
+      "lesson": 52,
+      "id": 89,
+      "title": "2-052 漂亮的地毯",
+      "sentences": 10
+    },
+    {
+      "lesson": 53,
+      "id": 90,
+      "title": "2-053 触电的蛇",
+      "sentences": 12
+    },
+    {
+      "lesson": 54,
+      "id": 91,
+      "title": "2-054 粘糊的手指",
+      "sentences": 0
+    },
+    {
+      "lesson": 55,
+      "id": 178,
+      "title": "2-055 并非金矿",
+      "sentences": 10
+    },
+    {
+      "lesson": 56,
+      "id": 179,
+      "title": "2-056 比声音还快！",
+      "sentences": 12
+    },
+    {
+      "lesson": 57,
+      "id": 180,
+      "title": "2-057 您要买什么，夫人？",
+      "sentences": 11
+    },
+    {
+      "lesson": 58,
+      "id": 181,
+      "title": "2-058 是因祸得福吗？",
+      "sentences": 9
+    },
+    {
+      "lesson": 59,
+      "id": 182,
+      "title": "2-059 进来还是出去？",
+      "sentences": 11
+    },
+    {
+      "lesson": 60,
+      "id": 183,
+      "title": "2-060 卜算未来",
+      "sentences": 11
+    },
+    {
+      "lesson": 61,
+      "id": 98,
+      "title": "2-061",
+      "sentences": 0
+    },
+    {
+      "lesson": 62,
+      "id": 185,
+      "title": "2-062 大火之后",
+      "sentences": 9
+    },
+    {
+      "lesson": 63,
+      "id": 186,
+      "title": "2-063 她并不觉得好笑",
+      "sentences": 12
+    },
+    {
+      "lesson": 64,
+      "id": 187,
+      "title": "2-064 海峡隧道",
+      "sentences": 11
+    },
+    {
+      "lesson": 65,
+      "id": 188,
+      "title": "2-065 小象对警察",
+      "sentences": 9
+    },
+    {
+      "lesson": 66,
+      "id": 103,
+      "title": "2-066",
+      "sentences": 0
+    },
+    {
+      "lesson": 67,
+      "id": 190,
+      "title": "2-067 火山",
+      "sentences": 10
+    },
+    {
+      "lesson": 68,
+      "id": 191,
+      "title": "2-068 纠缠不休",
+      "sentences": 11
+    },
+    {
+      "lesson": 69,
+      "id": 192,
+      "title": "2-069 并非谋杀！",
+      "sentences": 11
+    },
+    {
+      "lesson": 70,
+      "id": 193,
+      "title": "2-070 危险的红色",
+      "sentences": 10
+    },
+    {
+      "lesson": 71,
+      "id": 194,
+      "title": "2-071 一个著名的大钟",
+      "sentences": 9
+    },
+    {
+      "lesson": 72,
+      "id": 195,
+      "title": "2-072 名叫'蓝鸟'的汽车",
+      "sentences": 11
+    },
+    {
+      "lesson": 73,
+      "id": 196,
+      "title": "2-073 纪录保持者",
+      "sentences": 11
+    },
+    {
+      "lesson": 74,
+      "id": 197,
+      "title": "2-074 舞台之外",
+      "sentences": 14
+    },
+    {
+      "lesson": 75,
+      "id": 198,
+      "title": "2-075 呼救信号",
+      "sentences": 13
+    },
+    {
+      "lesson": 76,
+      "id": 199,
+      "title": "2-076 愚人节",
+      "sentences": 12
+    },
+    {
+      "lesson": 77,
+      "id": 200,
+      "title": "2-077 一例成功的手术",
+      "sentences": 11
+    },
+    {
+      "lesson": 78,
+      "id": 115,
+      "title": "2-078",
+      "sentences": 0
+    },
+    {
+      "lesson": 79,
+      "id": 116,
+      "title": "2-079",
+      "sentences": 0
+    },
+    {
+      "lesson": 80,
+      "id": 203,
+      "title": "2-080 水晶宫",
+      "sentences": 11
+    },
+    {
+      "lesson": 81,
+      "id": 204,
+      "title": "2-081 逃脱",
+      "sentences": 13
+    },
+    {
+      "lesson": 82,
+      "id": 205,
+      "title": "2-082 是妖还是鱼？",
+      "sentences": 10
+    },
+    {
+      "lesson": 83,
+      "id": 206,
+      "title": "2-083 大选之后",
+      "sentences": 12
+    },
+    {
+      "lesson": 84,
+      "id": 207,
+      "title": "2-084 罢工",
+      "sentences": 13
+    },
+    {
+      "lesson": 85,
+      "id": 208,
+      "title": "2-085 活到老学到老",
+      "sentences": 9
+    },
+    {
+      "lesson": 86,
+      "id": 209,
+      "title": "2-086 失控",
+      "sentences": 12
+    },
+    {
+      "lesson": 87,
+      "id": 210,
+      "title": "2-087 极好的不在犯罪现场的证据",
+      "sentences": 7
+    },
+    {
+      "lesson": 88,
+      "id": 211,
+      "title": "2-088 困在矿井里",
+      "sentences": 12
+    },
+    {
+      "lesson": 89,
+      "id": 212,
+      "title": "2-089 口误",
+      "sentences": 12
+    },
+    {
+      "lesson": 90,
+      "id": 213,
+      "title": "2-090 晚餐吃什么？",
+      "sentences": 8
+    },
+    {
+      "lesson": 91,
+      "id": 214,
+      "title": "2-091 三人同篮",
+      "sentences": 10
+    },
+    {
+      "lesson": 92,
+      "id": 129,
+      "title": "2-092",
+      "sentences": 0
+    },
+    {
+      "lesson": 93,
+      "id": 216,
+      "title": "2-093 崇高的礼物",
+      "sentences": 9
+    },
+    {
+      "lesson": 94,
+      "id": 217,
+      "title": "2-094 未来的冠军",
+      "sentences": 11
+    },
+    {
+      "lesson": 95,
+      "id": 135,
+      "title": "2-095 纯属虚构",
+      "sentences": 13
+    },
+    {
+      "lesson": 96,
+      "id": 218,
+      "title": "2-096 亡灵返乡",
+      "sentences": 9
+    }
+  ],
+  "remove": [
+    {
+      "lesson": 9,
+      "id": 46,
+      "title": "2-009",
+      "sentences": 0
+    },
+    {
+      "lesson": 10,
+      "id": 47,
+      "title": "2-010",
+      "sentences": 0
+    },
+    {
+      "lesson": 12,
+      "id": 49,
+      "title": "2-012",
+      "sentences": 0
+    },
+    {
+      "lesson": 13,
+      "id": 50,
+      "title": "2-013",
+      "sentences": 0
+    },
+    {
+      "lesson": 14,
+      "id": 51,
+      "title": "2-014",
+      "sentences": 0
+    },
+    {
+      "lesson": 15,
+      "id": 143,
+      "title": "2-015 佳音",
+      "sentences": 0
+    },
+    {
+      "lesson": 16,
+      "id": 53,
+      "title": "2-016",
+      "sentences": 0
+    },
+    {
+      "lesson": 17,
+      "id": 54,
+      "title": "2-017",
+      "sentences": 0
+    },
+    {
+      "lesson": 18,
+      "id": 55,
+      "title": "2-018",
+      "sentences": 0
+    },
+    {
+      "lesson": 19,
+      "id": 147,
+      "title": "2-019 票已售完",
+      "sentences": 0
+    },
+    {
+      "lesson": 20,
+      "id": 57,
+      "title": "2-020",
+      "sentences": 0
+    },
+    {
+      "lesson": 21,
+      "id": 58,
+      "title": "2-021",
+      "sentences": 0
+    },
+    {
+      "lesson": 22,
+      "id": 59,
+      "title": "2-022",
+      "sentences": 0
+    },
+    {
+      "lesson": 23,
+      "id": 60,
+      "title": "2-023",
+      "sentences": 0
+    },
+    {
+      "lesson": 24,
+      "id": 61,
+      "title": "2-024",
+      "sentences": 0
+    },
+    {
+      "lesson": 25,
+      "id": 153,
+      "title": "2-025 英国人讲的是英语吗？",
+      "sentences": 0
+    },
+    {
+      "lesson": 26,
+      "id": 63,
+      "title": "2-026",
+      "sentences": 0
+    },
+    {
+      "lesson": 27,
+      "id": 64,
+      "title": "2-027",
+      "sentences": 0
+    },
+    {
+      "lesson": 28,
+      "id": 65,
+      "title": "2-028",
+      "sentences": 0
+    },
+    {
+      "lesson": 29,
+      "id": 66,
+      "title": "2-029",
+      "sentences": 0
+    },
+    {
+      "lesson": 30,
+      "id": 158,
+      "title": "2-030 足球还是水球？",
+      "sentences": 0
+    },
+    {
+      "lesson": 31,
+      "id": 68,
+      "title": "2-031",
+      "sentences": 0
+    },
+    {
+      "lesson": 32,
+      "id": 160,
+      "title": "2-032 购物变得很方便",
+      "sentences": 0
+    },
+    {
+      "lesson": 33,
+      "id": 70,
+      "title": "2-033",
+      "sentences": 0
+    },
+    {
+      "lesson": 34,
+      "id": 71,
+      "title": "2-034",
+      "sentences": 0
+    },
+    {
+      "lesson": 35,
+      "id": 72,
+      "title": "2-035",
+      "sentences": 0
+    },
+    {
+      "lesson": 36,
+      "id": 73,
+      "title": "2-036",
+      "sentences": 0
+    },
+    {
+      "lesson": 37,
+      "id": 74,
+      "title": "2-037",
+      "sentences": 0
+    },
+    {
+      "lesson": 38,
+      "id": 75,
+      "title": "2-038",
+      "sentences": 0
+    },
+    {
+      "lesson": 39,
+      "id": 76,
+      "title": "2-039",
+      "sentences": 0
+    },
+    {
+      "lesson": 40,
+      "id": 168,
+      "title": "2-040 进餐与交谈",
+      "sentences": 0
+    },
+    {
+      "lesson": 41,
+      "id": 78,
+      "title": "2-041",
+      "sentences": 0
+    },
+    {
+      "lesson": 42,
+      "id": 79,
+      "title": "2-042",
+      "sentences": 0
+    },
+    {
+      "lesson": 43,
+      "id": 80,
+      "title": "2-043",
+      "sentences": 0
+    },
+    {
+      "lesson": 44,
+      "id": 172,
+      "title": "2-044 穿过森林",
+      "sentences": 0
+    },
+    {
+      "lesson": 45,
+      "id": 82,
+      "title": "2-045",
+      "sentences": 0
+    },
+    {
+      "lesson": 46,
+      "id": 83,
+      "title": "2-046",
+      "sentences": 0
+    },
+    {
+      "lesson": 47,
+      "id": 84,
+      "title": "2-047",
+      "sentences": 0
+    },
+    {
+      "lesson": 48,
+      "id": 85,
+      "title": "2-048",
+      "sentences": 0
+    },
+    {
+      "lesson": 51,
+      "id": 88,
+      "title": "2-051",
+      "sentences": 0
+    },
+    {
+      "lesson": 55,
+      "id": 92,
+      "title": "2-055",
+      "sentences": 0
+    },
+    {
+      "lesson": 56,
+      "id": 93,
+      "title": "2-056",
+      "sentences": 0
+    },
+    {
+      "lesson": 57,
+      "id": 94,
+      "title": "2-057",
+      "sentences": 0
+    },
+    {
+      "lesson": 58,
+      "id": 95,
+      "title": "2-058",
+      "sentences": 0
+    },
+    {
+      "lesson": 59,
+      "id": 96,
+      "title": "2-059",
+      "sentences": 0
+    },
+    {
+      "lesson": 60,
+      "id": 97,
+      "title": "2-060",
+      "sentences": 0
+    },
+    {
+      "lesson": 61,
+      "id": 184,
+      "title": "2-061 哈勃望远镜的困境",
+      "sentences": 0
+    },
+    {
+      "lesson": 62,
+      "id": 99,
+      "title": "2-062",
+      "sentences": 0
+    },
+    {
+      "lesson": 63,
+      "id": 100,
+      "title": "2-063",
+      "sentences": 0
+    },
+    {
+      "lesson": 64,
+      "id": 101,
+      "title": "2-064",
+      "sentences": 0
+    },
+    {
+      "lesson": 65,
+      "id": 102,
+      "title": "2-065",
+      "sentences": 0
+    },
+    {
+      "lesson": 66,
+      "id": 189,
+      "title": "2-066 像蜜一样甜！",
+      "sentences": 0
+    },
+    {
+      "lesson": 67,
+      "id": 104,
+      "title": "2-067",
+      "sentences": 0
+    },
+    {
+      "lesson": 68,
+      "id": 105,
+      "title": "2-068",
+      "sentences": 0
+    },
+    {
+      "lesson": 69,
+      "id": 106,
+      "title": "2-069",
+      "sentences": 0
+    },
+    {
+      "lesson": 70,
+      "id": 107,
+      "title": "2-070",
+      "sentences": 0
+    },
+    {
+      "lesson": 71,
+      "id": 108,
+      "title": "2-071",
+      "sentences": 0
+    },
+    {
+      "lesson": 72,
+      "id": 109,
+      "title": "2-072",
+      "sentences": 0
+    },
+    {
+      "lesson": 73,
+      "id": 110,
+      "title": "2-073",
+      "sentences": 0
+    },
+    {
+      "lesson": 74,
+      "id": 111,
+      "title": "2-074",
+      "sentences": 0
+    },
+    {
+      "lesson": 75,
+      "id": 112,
+      "title": "2-075",
+      "sentences": 0
+    },
+    {
+      "lesson": 76,
+      "id": 113,
+      "title": "2-076",
+      "sentences": 0
+    },
+    {
+      "lesson": 77,
+      "id": 114,
+      "title": "2-077",
+      "sentences": 0
+    },
+    {
+      "lesson": 78,
+      "id": 201,
+      "title": "2-078 最后一支吗？",
+      "sentences": 0
+    },
+    {
+      "lesson": 79,
+      "id": 202,
+      "title": "2-079 乘飞机",
+      "sentences": 0
+    },
+    {
+      "lesson": 80,
+      "id": 117,
+      "title": "2-080",
+      "sentences": 0
+    },
+    {
+      "lesson": 81,
+      "id": 118,
+      "title": "2-081",
+      "sentences": 0
+    },
+    {
+      "lesson": 82,
+      "id": 119,
+      "title": "2-082",
+      "sentences": 0
+    },
+    {
+      "lesson": 83,
+      "id": 120,
+      "title": "2-083",
+      "sentences": 0
+    },
+    {
+      "lesson": 84,
+      "id": 121,
+      "title": "2-084",
+      "sentences": 0
+    },
+    {
+      "lesson": 85,
+      "id": 122,
+      "title": "2-085",
+      "sentences": 0
+    },
+    {
+      "lesson": 86,
+      "id": 123,
+      "title": "2-086",
+      "sentences": 0
+    },
+    {
+      "lesson": 87,
+      "id": 124,
+      "title": "2-087",
+      "sentences": 0
+    },
+    {
+      "lesson": 88,
+      "id": 125,
+      "title": "2-088",
+      "sentences": 0
+    },
+    {
+      "lesson": 89,
+      "id": 126,
+      "title": "2-089",
+      "sentences": 0
+    },
+    {
+      "lesson": 90,
+      "id": 127,
+      "title": "2-090",
+      "sentences": 0
+    },
+    {
+      "lesson": 91,
+      "id": 128,
+      "title": "2-091",
+      "sentences": 0
+    },
+    {
+      "lesson": 92,
+      "id": 130,
+      "title": "2-092",
+      "sentences": 0
+    },
+    {
+      "lesson": 92,
+      "id": 215,
+      "title": "2-092 自找麻烦",
+      "sentences": 0
+    },
+    {
+      "lesson": 93,
+      "id": 131,
+      "title": "2-093",
+      "sentences": 0
+    },
+    {
+      "lesson": 93,
+      "id": 132,
+      "title": "2-093",
+      "sentences": 0
+    },
+    {
+      "lesson": 94,
+      "id": 133,
+      "title": "2-094",
+      "sentences": 0
+    },
+    {
+      "lesson": 94,
+      "id": 134,
+      "title": "2-094",
+      "sentences": 0
+    },
+    {
+      "lesson": 95,
+      "id": 136,
+      "title": "2-095 纯属虚构",
+      "sentences": 0
+    },
+    {
+      "lesson": 96,
+      "id": 137,
+      "title": "2-096",
+      "sentences": 0
+    }
+  ]
+}
