@@ -23,9 +23,33 @@ share/python-wheels/
 *.egg
 MANIFEST
 
+# Node / JS
+node_modules/
+.npm/
+.pnpm-store/
+
+# Env / secrets
+.env
+.env.*
+*.key
+*.pem
+
 # 数据文件（太大，不上传）
 stock_data/
 *.csv
+
+# 截图/导出产物
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+
+# HTML 抓取与临时导出
+wencai_*.html
+page-*.png
+screenshot*.png
+debug_*.png
 
 # IDE
 .vscode/
@@ -38,6 +62,18 @@ stock_data/
 .DS_Store
 Thumbs.db
 
-# 临时文件
+# 临时文件与日志
 *.tmp
 *.log
+
+# Workspace runtime noise
+.openclaw/
+.clawhub/
+memory/evolution/
+memory/heartbeat/
+memory/doc_update_history.jsonl
+memory/doc_update_state.json
+memory/notion_sync_journal.jsonl
+
+# OS packages / artifacts
+*.deb
