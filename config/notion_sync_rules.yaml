@@ -1,0 +1,58 @@
+version: 1
+notion:
+  root_page_id: "31f67b21-8207-8035-bd60-ea2d04be7798"
+  notion_cli: "/root/.openclaw/workspace/skills/notion-api/scripts/notion-api.mjs"
+  # 默认挂载页（未识别类型时）
+  default_parent_page_id: "31f67b21-8207-8035-bd60-ea2d04be7798"
+
+routes:
+  stock:
+    parent_page_id: "31f67b21-8207-8136-a0b4-fc5b90700791"
+    keywords: ["A股", "复盘", "预判", "个股", "股票", "观察池", "投资"]
+    title_patterns:
+      - "{date} A股深度复盘与{next_trade_date}预判"
+      - "{date} {subject} 深度分析"
+
+  daily:
+    parent_page_id: "32067b21-8207-800a-aa05-ee313678c719"
+    keywords: ["日报", "每日", "daily", "会话", "日志"]
+    title_patterns:
+      - "{date}"
+
+  tool:
+    parent_page_id: "32067b21-8207-8101-8942-d27e9c1234ec"
+    keywords: ["工具", "脚本", "skill", "技能", "使用说明", "API"]
+    title_patterns:
+      - "{project} - {topic} - {date}"
+
+  memory:
+    parent_page_id: "32067b21-8207-813d-be36-cd073e90b59c"
+    keywords: ["记忆", "经验", "复盘总结", "方法论"]
+
+  project:
+    parent_page_id: "32167b21-8207-8087-90ac-f8b0e40bb6c4"
+    keywords: ["项目", "里程碑", "需求", "实施", "方案"]
+
+  todo:
+    parent_page_id: "32267b21-8207-80ae-b813-c8f0c83f1e76"
+    keywords: ["TODO", "待办", "行动项", "任务清单"]
+
+sync_policy:
+  dedup:
+    mode: "exact_title"
+    on_duplicate: "append_update"   # append_update | create_new_version
+    new_version_suffix: ["v2", "优化版", "修复版"]
+
+  append_update:
+    heading_template: "Update @{time}"
+    include_source_path: true
+
+  create:
+    create_child_under_page: true
+
+  write:
+    max_blocks_per_request: 80
+    chunk_chars: 1800
+
+logging:
+  journal_file: "/root/.openclaw/workspace/memory/notion_sync_journal.jsonl"
