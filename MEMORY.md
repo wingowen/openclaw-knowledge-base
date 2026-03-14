@@ -743,3 +743,22 @@ python3 scripts/fetch.py validate data/book3/3-001.json
 - 用户希望使用 `rate` 或 `汇率` 触发时，在结果中同时显示主流货币（USD/CNY/JPY/EUR/HKD）的中间价或参考价
 - 显示来源（中国外汇交易中心）
 - 保持简洁：1-2行即可
+
+---
+
+## 📂 AI Scout 项目文档维护
+
+**创建时间**: 2026-03-14
+
+**工作空间文档路径**: `/root/.openclaw/workspace/projects/`
+
+| 项目 | 文档 | 源路径 |
+|------|------|--------|
+| AI Scout (投研主系统) | `projects/ai_scout/PROJECT_OVERVIEW.md` | `/mnt/d/Pycharm/ai_scout_refactor/` |
+| AI Scout Crawler (爬虫服务) | `projects/ai_scout_crawler/PROJECT_OVERVIEW.md` | `/mnt/d/Pycharm/ai_scout_crawler_refactor/` |
+
+**项目关系**:
+- ai_scout (Django) 通过 HTTP 调用 ai_scout_crawler (Flask) 的爬虫 API
+- 主系统用 DB: `test_as`，爬虫用 DB: `test_asc`，同一 MySQL 实例
+
+**维护说明**: 用户要求在工作空间维护这两个项目文档，需要时从源项目重新分析同步。
