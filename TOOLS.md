@@ -39,6 +39,15 @@ Things like:
 ### TTS
 
 （待补充）
+
+### Coding Agent
+
+- **优先使用**：`opencode`（版本 1.2.17）
+- **可用备选**：`codex`（gpt-5.3-codex）、`claude`（有 root 权限限制）
+- **注意**：
+  - `codex` 在 WSL2 中 git worktree 路径可能异常，不影响功能
+  - `claude --dangerously-skip-permissions` 在 root 环境下被禁用，用 `--print --permission-mode bypassPermissions` 代替
+  - `opencode` 用法：`opencode run 'prompt'`（PTY 模式推荐）
 ```
 
 ## Why Separate?

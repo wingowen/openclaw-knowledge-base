@@ -7,10 +7,12 @@
 
 ## 项目列表
 
+### 投研项目
+
 | 项目 | 路径 | 文档 | 源路径 |
 |------|------|------|--------|
-| **AI Scout** (投研主系统) | `ai_scout/` | [PROJECT_OVERVIEW.md](./ai_scout/PROJECT_OVERVIEW.md) | `/mnt/d/Pycharm/ai_scout_refactor/` |
-| **AI Scout Crawler** (爬虫服务) | `ai_scout_crawler/` | [PROJECT_OVERVIEW.md](./ai_scout_crawler/PROJECT_OVERVIEW.md) | `/mnt/d/Pycharm/ai_scout_crawler_refactor/` |
+| **AI Scout** (投研主系统) | `投研项目/ai_scout/` | [PROJECT_OVERVIEW.md](./投研项目/ai_scout/PROJECT_OVERVIEW.md) | `/mnt/d/Pycharm/ai_scout_refactor/` |
+| **AI Scout Crawler** (爬虫服务) | `投研项目/ai_scout_crawler/` | [PROJECT_OVERVIEW.md](./投研项目/ai_scout_crawler/PROJECT_OVERVIEW.md) | `/mnt/d/Pycharm/ai_scout_crawler_refactor/` |
 
 ---
 

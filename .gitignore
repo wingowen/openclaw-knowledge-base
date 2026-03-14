@@ -82,3 +82,7 @@ memory/notion_sync_journal.jsonl
 
 # OS packages / artifacts
 *.deb
+
+# Symlinks (外部源码软链接)
+ai_scout_refactor
+ai_scout_crawler_refactor
