@@ -87,3 +87,6 @@ memory/notion_sync_journal.jsonl
 ai_scout_refactor
 ai_scout_crawler_refactor
 sentences-dictation
+*.onnx
+*.npz
+tts_samples/

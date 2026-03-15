@@ -1,0 +1,3214 @@
+[
+  {
+    "lesson": "2-006",
+    "issues": [
+      {
+        "sentence": 10,
+        "type": "divergent",
+        "en": "His name is Percy Buttons.",
+        "api_cn": "他的名字叫Percy Buttons。"
+      }
+    ]
+  },
+  {
+    "lesson": "2-013",
+    "issues": [
+      {
+        "sentence": 6,
+        "type": "divergent",
+        "en": "The Greenwood Boys will be staying for five days.",
+        "api_cn": "Greenwood Boys将入住五天。"
+      }
+    ]
+  },
+  {
+    "lesson": "2-026",
+    "issues": [
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "My sister is only seven, but she always tells me w"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "She came into my room yesterday."
+      },
+      {
+        "sentence": 11,
+        "type": "missing",
+        "en": "'What are you doing?' she asked."
+      },
+      {
+        "sentence": 12,
+        "type": "missing",
+        "en": "'I'm hanging this picture on the wall,' I answered"
+      },
+      {
+        "sentence": 13,
+        "type": "missing",
+        "en": "'It's a new one."
+      },
+      {
+        "sentence": 14,
+        "type": "missing",
+        "en": "Do you like it?' She looked at it critically for a"
+      },
+      {
+        "sentence": 15,
+        "type": "missing",
+        "en": "'It's all right,' she said, 'but isn't it upside-d"
+      },
+      {
+        "sentence": 16,
+        "type": "missing",
+        "en": "She was right!"
+      }
+    ]
+  },
+  {
+    "lesson": "2-027",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "Late in the afternoon, the boys put up their tent "
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "As soon as this was done, they cooked a meal over "
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "They were all hungry and the food smelled good."
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "After a wonderful meal, they told stories and sang"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "But some time later it began to rain."
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "The boys felt tired so they put out the fire and c"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "Their sleeping bags were warm and comfortable, so "
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "In the middle of the night, two boys woke up and b"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "The tent was full of water!"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "They all leapt out of their sleeping bags and hurr"
+      },
+      {
+        "sentence": 11,
+        "type": "missing",
+        "en": "It was raining heavily and they found that a strea"
+      },
+      {
+        "sentence": 12,
+        "type": "missing",
+        "en": "The stream wound its way across the field and then"
+      }
+    ]
+  },
+  {
+    "lesson": "2-028",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "Jasper White is one of those rare people who belie"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "He has just bought a new house in the city, but ev"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "When he returns home at night, he always finds tha"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "Because of this, he has not been able to get his o"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "Jasper has put up 'No Parking' signs outside his g"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "Now he has put an ugly stone head over the gate."
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "It is one of the ugliest faces I have ever seen."
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "I asked him what it was and he told me that it was"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "Jasper hopes that she will turn cars and their own"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "But none of them has been turned to stone yet!"
+      }
+    ]
+  },
+  {
+    "lesson": "2-029",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "Captain Ben Fawcett has bought an unusual taxi and"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "The 'taxi' is a small Swiss aeroplane called a 'Pi"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "This wonderful plane can carry seven passengers."
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "The most surprising thing about it, however, is th"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "Captain Fawcett's first passenger was a doctor who"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "Since then, Captain Fawcett has flown passengers t"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "Once he landed on the roof of a block of flats and"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "Captain Fawcett has just refused a strange request"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "The man wanted to fly to Rockall, a lonely island "
+      }
+    ]
+  },
+  {
+    "lesson": "2-030",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "The Wayle is a small river that cuts across the pa"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "I like sitting by the Wayle on fine afternoons."
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "It was warm last Sunday, so I went and sat on the "
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "Some children were playing games on the bank and t"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "Suddenly, one of the children kicked a ball very h"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "Some people on the bank called out to the man in t"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "The ball struck him so hard that he nearly fell in"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "I turned to look at the children, but there weren'"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "The man laughed when he realized what had happened"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "He called out to the children and threw the ball b"
+      }
+    ]
+  },
+  {
+    "lesson": "2-031",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "Yesterday afternoon Frank Hawkins was telling me a"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "Before he retired, Frank was the head of a very la"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "It was his job to repair bicycles and at that time"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "He saved money for years and in 1958 he bought a s"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "During the war Frank used to make spare parts for "
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "At that time he had two helpers."
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "By the end of the war, the small workshop had beco"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "Frank smiled when he remembered his hard early yea"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "He was still smiling when the door opened and his "
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "She wanted him to repair their son's bicycle!"
+      }
+    ]
+  },
+  {
+    "lesson": "2-032",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "People are not so honest as they once were."
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "The temptation to steal is greater than ever befor"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "A detective recently watched a well-dressed woman "
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "One Monday, there were fewer people in the shop th"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "The woman first bought a few small articles."
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "After a little time, she chose one of the most exp"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "Then the woman simply took the parcel and walked o"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "When she was arrested, the detective found out tha"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "The girl 'gave' her mother a free dress once a wee"
+      }
+    ]
+  },
+  {
+    "lesson": "2-033",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "Nearly a week passed before the girl was able to e"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "One afternoon she set out from the coast in a smal"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "Towards evening, the boat struck a rock and the gi"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "Then she swam to the shore after spending the whol"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "During that time she covered a distance of eight m"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "Early next morning, she saw a light ahead."
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "She knew she was near the shore because the light "
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "On arriving at the shore, the girl struggled up th"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "That was all she remembered."
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "When she woke up a day later, she found herself in"
+      }
+    ]
+  },
+  {
+    "lesson": "2-034",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "Dan Robinson has been worried all week."
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "Last Tuesday he received a letter from the local p"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "In the letter he was asked to call at the station."
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "Dan wondered why he was wanted by the police, but "
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "At the station, he was told by a smiling policeman"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "Five days ago, the policeman told him, the bicycle"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "It is now being sent to his home by train."
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "Dan was most surprised when he heard the news."
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "He was amused too, because he never expected the b"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "It was stolen twenty years ago when Dan was a boy "
+      }
+    ]
+  },
+  {
+    "lesson": "2-035",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "Roy Trenton used to drive a taxi."
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "A short while ago, however, he became a bus driver"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "He is finding his new work far more exciting."
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "When he was driving along Catford Street recently,"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "One of them was carrying a bag full of money."
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "Roy acted quickly and drove the bus straight at th"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "The one with the money got such a fright that he d"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "As the thieves were trying to get away in their ca"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "While the battered car was moving away, Roy stoppe"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "The thieves' car was badly damaged and easy to rec"
+      },
+      {
+        "sentence": 11,
+        "type": "missing",
+        "en": "Shortly afterwards, the police stopped the car and"
+      }
+    ]
+  },
+  {
+    "lesson": "2-036",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "Debbie Hart is going to swim across the English Ch"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "She is going to set out from the French coast at f"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "Debbie is only eleven years old and she hopes to s"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "She is a strong swimmer and many people feel that "
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "Debbie's father will set out with her in a small b"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "Mr Hart has trained his daughter for years."
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "Tomorrow he will be watching her anxiously as she "
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "Debbie intends to take short rests every two hours"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "She will have something to drink but she will not "
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "Most of Debbie's school friends will be waiting fo"
+      },
+      {
+        "sentence": 11,
+        "type": "missing",
+        "en": "Among them will be Debbie's mother, who swam the C"
+      }
+    ]
+  },
+  {
+    "lesson": "2-037",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "The Olympic Games will be held in our country in f"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "As a great many people will be visiting the countr"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "They will also be building new roads and a special"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "The Games will be held just outside the capital an"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "Workers will have completed the new roads by the e"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "By the end of next year, they will have finished w"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "The fantastic modern buildings have been designed "
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "Everybody will be watching anxiously as the new bu"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "We are all very excited and are looking forward to"
+      }
+    ]
+  },
+  {
+    "lesson": "2-038",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "My old friend, Harrison, had lived in the Mediterr"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "He had often dreamed of retiring in England and ha"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "He had no sooner returned than he bought a house a"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "Almost immediately he began to complain about the "
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "After so many years of sunshine, Harrison got a sh"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "He acted as if he had never lived in England befor"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "In the end, it was more than he could bear."
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "He had hardly had time to settle down when he sold"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "The dream he had had for so many years ended there"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "Harrison had thought of everything except the weat"
+      }
+    ]
+  },
+  {
+    "lesson": "2-039",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "While John Gilbert was in hospital, he asked his d"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "The following day, the patient asked for a bedside"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "When he was alone, he telephoned the hospital exch"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "When the doctor answered the phone, Mr Gilbert sai"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "He asked if Mr Gilbert's operation had been succes"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "He then asked when Mr Gilbert would be allowed to "
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "Millington asked the caller if he was a relative o"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "'No,' the patient answered, 'I am Mr John Gilbert."
+      }
+    ]
+  },
+  {
+    "lesson": "2-040",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "Last week at a dinner party, the hostess asked me "
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "Mrs Rumbold was a large, unsmiling lady in a tight"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "She did not even look up when I took my seat besid"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "Her eyes were fixed on her plate and in a short ti"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "I tried to make conversation."
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "'A new play is coming to &quot;The Globe&quot; soo"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "'Will you be seeing it?' 'Will you be spending you"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "'Will you be staying in England?' I asked."
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "In despair, I asked her whether she was enjoying h"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "'Young man,' she answered, 'if you ate more and ta"
+      }
+    ]
+  },
+  {
+    "lesson": "2-041",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "'You needn't be so rude about it,' my wife answere"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "I sat down on one of those modern chairs with hole"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "We had been in the hat shop for half an hour and m"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "'We mustn't buy things we don't need,' I remarked "
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "I regretted saying it almost at once."
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "'You needn't have said that,' my wife answered."
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "'I need not remind you of that terrible tie you bo"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "'A man can never have too many ties.' 'And a woman"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "Ten minutes later we walked out of the shop togeth"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "My wife was wearing a hat that looked like a light"
+      }
+    ]
+  },
+  {
+    "lesson": "2-042",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "As we had had a long walk through one of the marke"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "After a time, we noticed a snake charmer with two "
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "As soon as he saw us, he picked up a long pipe whi"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "When he began to play a tune, we had our first gli"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "It rose out of the basket and began to follow the "
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "We were very much surprised when the snake charmer"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "The snake, however, continued to 'dance' slowly."
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "It obviously could not tell the difference between"
+      }
+    ]
+  },
+  {
+    "lesson": "2-043",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "In 1929, three years after his flight over the Nor"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "Byrd, successfully flew over the South Pole for th"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "Though, at first, Byrd and his men were able to ta"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "At one point, it seemed certain that their plane w"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "It could only get over the mountains if it rose to"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "Byrd at once ordered his men to throw out two heav"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "The plane was then able to rise and it cleared the"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "Byrd now knew that he would be able to reach the S"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "The aircraft was able to fly over the endless whit"
+      }
+    ]
+  },
+  {
+    "lesson": "2-044",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "Mrs Anne Sterling did not think of the risk she wa"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "They had rushed up to her while she was having a p"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "In the struggle, the strap broke and, with the bag"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "Mrs Sterling got so angry that she ran after them."
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "She was soon out of breath, but she continued to r"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "When she caught up with them, she saw that they ha"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "The men got such a fright that they dropped the ba"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "'The strap needs mending,' said Mrs Sterling later"
+      }
+    ]
+  },
+  {
+    "lesson": "2-045",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "The whole village soon learnt that a large sum of "
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "Sam Benton, the local butcher, had lost his wallet"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "Sam was sure that the wallet must have been found "
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "Three months passed, and then one morning, Sam fou"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "It had been wrapped up in newspaper and it contain"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "The last note said: 'I am 100 per cent honest now!"
+      }
+    ]
+  },
+  {
+    "lesson": "2-046",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "When a plane from London arrived at Sydney airport"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "No one could account for the fact that one of the "
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "It suddenly occurred to one of the workers to open"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "He was astonished at what he found."
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "A man was lying in the box on top of a pile of woo"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "He was so surprised at being discovered that he di"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "After he was arrested, the man admitted hiding in "
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "He had had a long and uncomfortable trip, for he h"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "The man was ordered to pay £3500 for the cost of t"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "The normal price of a ticket is £2000!"
+      }
+    ]
+  },
+  {
+    "lesson": "2-047",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "A public house which was recently bought by Mr Ian"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "MrThompson is going to sell it because it is haunt"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "He told me that he could not go to sleep one night"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "The next morning, he found that the doors had been"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "Though Mr Thompson had turned the lights off befor"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "He also said that he had found five empty whisky b"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "When I suggested that some villagers must have com"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "The villagers have told him that they will not acc"
+      }
+    ]
+  },
+  {
+    "lesson": "2-048",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "Dentists always ask questions when it is impossibl"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "My dentist had just pulled out one of my teeth and"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "I tried to say something, but my mouth was full of"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "He knew I collected match boxes and asked me wheth"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "He then asked me how my brother was and whether I "
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "In answer to these questions I either nodded or ma"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "Meanwhile, my tongue was busy searching out the ho"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "I suddenly felt very worried, but could not say an"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "When the dentist at last removed the cotton wool f"
+      }
+    ]
+  },
+  {
+    "lesson": "2-049",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "Tired of sleeping on the floor, a young man in Teh"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "For the first time in his life, he became the prou"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "Because the weather was very hot, he carried the b"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "He slept very well for the first two nights, but o"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "A gust of wind swept the bed off the roof and sent"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "The young man did not wake up until the bed had st"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "Although the bed was smashed to pieces, the man wa"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "When he woke up, he was still on the mattress."
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "Glancing at the bits of wood and metal that lay ar"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "After he had put it on the floor, he promptly went"
+      }
+    ]
+  },
+  {
+    "lesson": "2-050",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "I love travelling in the country, but I don't like"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "I went on an excursion recently, but my trip took "
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "'I'm going to Woodford Green,' I said to the condu"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "I sat in the front of the bus to get a good view o"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "After some time, the bus stopped."
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "Looking round, I realized with a shock that I was "
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "'You'll have to get off here,' the conductor said."
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "'This is as far as we go.' 'Is this Woodford Green"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "'Oh dear,' said the conductor suddenly."
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "'I forgot to put you off.' 'It doesn't matter,' I "
+      },
+      {
+        "sentence": 11,
+        "type": "missing",
+        "en": "'I'll get off here.' 'We're going back now,' said "
+      },
+      {
+        "sentence": 12,
+        "type": "missing",
+        "en": "'Well, in that case, I prefer to stay on the bus,'"
+      }
+    ]
+  },
+  {
+    "lesson": "2-051",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "My friend, Herbert, has always been fat, but thing"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "He began his diet a week ago."
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "First of all, he wrote out a long list of all the "
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "The list included most of the things Herbert loves"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "Yesterday I paid him a visit."
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "I rang the bell and was not surprised to see that "
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "He led me into his room and hurriedly hid a large "
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "It was obvious that he was very embarrassed."
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "When I asked him what he was doing, he smiled guil"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "He explained that his diet was so strict that he h"
+      },
+      {
+        "sentence": 11,
+        "type": "missing",
+        "en": "Then he showed me the contents of the parcel."
+      },
+      {
+        "sentence": 12,
+        "type": "missing",
+        "en": "It contained five large bars of chocolate and thre"
+      }
+    ]
+  },
+  {
+    "lesson": "2-052",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "We have just moved into a new house and I have bee"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "I have been trying to get my new room in order."
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "This has not been easy because I own over a thousa"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "To make matters worse, the room is rather small, s"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "At the moment, they cover every inch of floor spac"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "A short while ago, my sister helped me to carry on"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "She went into my room and got a big surprise when "
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "'This is the prettiest carpet I have ever seen,' s"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "She gazed at it for some time then added, 'You don"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "You can sit here in your spare time and read the c"
+      }
+    ]
+  },
+  {
+    "lesson": "2-053",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "At last firemen have put out a big forest fire in "
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "Since then, they have been trying to find out how "
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "Forest fires are often caused by broken glass or b"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "Yesterday the firemen examined the ground carefull"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "They were also quite sure that a cigarette end did"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "This morning, however, a fireman accidentally disc"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "He noticed the remains of a snake which was wound "
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "In this way, he was able to solve the mystery."
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "The explanation was simple but very unusual."
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "A bird had snatched up the snake from the ground a"
+      },
+      {
+        "sentence": 11,
+        "type": "missing",
+        "en": "The snake then wound itself round the wires."
+      },
+      {
+        "sentence": 12,
+        "type": "missing",
+        "en": "When it did so, it sent sparks down to the ground "
+      }
+    ]
+  },
+  {
+    "lesson": "2-054",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "After breakfast, I sent the children to school and"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "It was still early when I returned home."
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "The children were at school, my husband was at wor"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "So I decided to make some meat pies."
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "In a short time I was busy mixing butter and flour"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "At exactly that moment, the telephone rang."
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "Nothing could have been more annoying."
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "I picked up the receiver between two sticky finger"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "It took me ten minutes to persuade her to ring bac"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "At last I hung up the receiver."
+      },
+      {
+        "sentence": 11,
+        "type": "missing",
+        "en": "What a mess!"
+      },
+      {
+        "sentence": 12,
+        "type": "missing",
+        "en": "There was pastry on my fingers, on the telephone, "
+      },
+      {
+        "sentence": 13,
+        "type": "missing",
+        "en": "I had no sooner got back to the kitchen than the d"
+      },
+      {
+        "sentence": 14,
+        "type": "missing",
+        "en": "This time it was the postman and he wanted me to s"
+      }
+    ]
+  },
+  {
+    "lesson": "2-055",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "Dreams of finding lost treasure almost came true r"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "A new machine called 'The Revealer' has been inven"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "The machine was used in a cave near the seashore w"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "The pirates would often bury gold in the cave and "
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "Armed with the new machine, a search party went in"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "The leader of the party was examining the soil nea"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "Very excited, the party dug a hole two feet deep."
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "They finally found a small gold coin which was alm"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "The party then searched the whole cave thoroughly "
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "In spite of this, many people are confident that '"
+      }
+    ]
+  },
+  {
+    "lesson": "2-056",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "Once a year a race is held for old cars."
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "A lot of cars entered for this race last year and "
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "One of the most handsome cars was a Rolls-Royce Si"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "The most unusual car was a Benz which had only thr"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "Built in 1885, it was the oldest car taking part."
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "After a great many loud explosions, the race began"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "Many of the cars broke down on the course and some"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "A few cars, however, completed the race."
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "The winning car reached a speed of forty miles an "
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "It sped downhill at the end of the race and its dr"
+      },
+      {
+        "sentence": 11,
+        "type": "missing",
+        "en": "The race gave everyone a great deal of pleasure."
+      },
+      {
+        "sentence": 12,
+        "type": "missing",
+        "en": "It was very different from modern car races but no"
+      }
+    ]
+  },
+  {
+    "lesson": "2-057",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "A woman in jeans stood at the window of an expensi"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "Though she hesitated for a moment, she finally wen"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "The assistant who served her did not like the way "
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "Glancing at her scornfully, he told her that the d"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "The woman walked out of the shop angrily and decid"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "She returned to the shop the following morning dre"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "After seeking out the rude assistant, she asked fo"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "Not realizing who she was, the assistant was eager"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "With great difficulty, he climbed into the shop wi"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "As soon as she saw it, the woman said she did not "
+      },
+      {
+        "sentence": 11,
+        "type": "missing",
+        "en": "She enjoyed herself making the assistant bring alm"
+      }
+    ]
+  },
+  {
+    "lesson": "2-058",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "The tiny village of Frinley is said to possess a '"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "Because the tree was mentioned in a newspaper, the"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "The tree was planted near a church fifty years ago"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "It is said that if anyone touches the tree, he wil"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "Many villagers believe that the tree has already c"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "The vicar has been asked to have the tree cut down"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "He has pointed out that the tree is a useful sourc"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "In spite of all that has been said, the tourists h"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "So far, not one of them has been struck down by su"
+      }
+    ]
+  },
+  {
+    "lesson": "2-059",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "Our dog, Rex, used to sit outside our front gate a"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "Every time he wanted to come into the garden he wo"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "As the neighbours complained of the noise, my husb"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "Rex soon became an expert at opening the gate."
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "However, when I was going out shopping last week, "
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "This time he was barking so that someone would let"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "Since then, he has developed another bad habit."
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "As soon as he opens the gate from the outside, he "
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "Then he sits and barks until someone lets him out."
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "After this he immediately lets himself in and begi"
+      },
+      {
+        "sentence": 11,
+        "type": "missing",
+        "en": "Yesterday my husband removed the gate and Rex got "
+      }
+    ]
+  },
+  {
+    "lesson": "2-060",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "At a village fair, I decided to visit a fortune-te"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "I went into her tent and she told me to sit down."
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "After I had given her some money, she looked into "
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "She will be arriving this evening and intends to s"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "The moment you leave this tent, you will get a big"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "A woman you know well will rush towards you."
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "She will speak to you and then she will lead you a"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "That is all.' As soon as I went outside, I forgot "
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "'Where have you been hiding?' she asked impatientl"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "'Your sister will be here in less than an hour and"
+      },
+      {
+        "sentence": 11,
+        "type": "missing",
+        "en": "We are late already.' As she walked away, I follow"
+      }
+    ]
+  },
+  {
+    "lesson": "2-061",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "The Hubble telescope was launched into space by NA"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "The pictures it sent us were very disappointing be"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "NASA is now going to put the telescope right, so i"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "The shuttle Endeavour will be taking the astronaut"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "A robot-arm from the Endeavour will grab the teles"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "Of course, the Hubble is above the earth's atmosph"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "The Hubble will tell us a great deal about the age"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "By the time you read this, the Hubble's eagle eye "
+      }
+    ]
+  },
+  {
+    "lesson": "2-062",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "Firemen had been fighting the forest fire for near"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "A short time before, great trees had covered the c"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "Now, smoke still rose up from the warm ground over"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "Winter was coming on and the hills threatened the "
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "When the fire had at last been put out, the forest"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "The seed was sprayed over the ground in huge quant"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "The planes had been planting seed for nearly a mon"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "By then, however, in many places the grass had alr"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "In place of the great trees which had been growing"
+      }
+    ]
+  },
+  {
+    "lesson": "2-063",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "Jeremy Hampden has a large circle of friends and i"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "Everybody admires him for his great sense of humou"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "Recently, one of Jeremy's closest friends asked hi"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "This is the sort of thing that Jeremy loves."
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "He prepared the speech carefully and went to the w"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "He had included a large number of funny stories in"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "As soon as he had finished, Jenny told him she wan"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "Jeremy was a little disappointed by this but he di"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "On the way home, he asked Jenny if she had enjoyed"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "To his surprise, she said she hadn't."
+      },
+      {
+        "sentence": 11,
+        "type": "missing",
+        "en": "Jeremy asked her why this was so and she told him "
+      }
+    ]
+  },
+  {
+    "lesson": "2-064",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "In 1858, a French engineer, Aimé Thomé de Gamond, "
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "He said that it would be possible to build a platf"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "This platform would serve as a port and a railway "
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "The tunnel would be well-ventilated if tall chimne"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "In 1860, a better plan was put forward by an Engli"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "He suggested that a double railway tunnel should b"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "This would solve the problem of ventilation, for i"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "Forty-two years later a tunnel was actually begun."
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "If, at the time, the British had not feared invasi"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "It was officially opened on March 7, 1994, finally"
+      }
+    ]
+  },
+  {
+    "lesson": "2-065",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "Last Christmas, the circus owner, Jimmy Gates, dec"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "Dressed up as Father Christmas and accompanied by "
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "He should have known that the police would never a"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "A policeman approached Jimmy and told him he ought"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "Though Jimmy agreed to go at once, Jumbo refused t"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "Fifteen policemen had to push very hard to get him"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "The police had a difficult time, but they were mos"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "'Jumbo must weigh a few tons,' said a policeman af"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "Of course, we should arrest him, but as he has a g"
+      }
+    ]
+  },
+  {
+    "lesson": "2-066",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "In 1963 a Lancaster bomber crashed on Wallis Islan"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "The plane wasn't too badly damaged, but over the y"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "By this time, a Lancaster bomber in reasonable con"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "The French authorities had the plane packaged and "
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "Now a group of enthusiasts are going to have the p"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "It has four Rolls-Royce Merlin engines, but the gr"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "Imagine their surprise and delight when they broke"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "A colony of bees had turned the engine into a hive"
+      }
+    ]
+  },
+  {
+    "lesson": "2-067",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "Haroun Tazieff, the Polish scientist, has spent hi"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "In 1948, he went to Lake Kivu in the Congo to obse"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "Tazieff was able to set up his camp very close to "
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "Though he managed to take a number of brilliant ph"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "He noticed that a river of liquid rock was coming "
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "It threatened to surround him completely, but Tazi"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "He waited until the volcano became quiet and he wa"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "This time, he managed to climb into the mouth of K"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "Tazieff has often risked his life in this way."
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "He has been able to tell us more about active volc"
+      }
+    ]
+  },
+  {
+    "lesson": "2-068",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "I crossed the street to avoid meeting him, but he "
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "It was no use pretending that I had not seen him, "
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "I never enjoy meeting Bert Dykes."
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "He never has anything to do."
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "No matter how busy you are, he always insists on c"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "I had to think of a way of preventing him from fol"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "'Hello, Bert,' I said."
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "'Fancy meeting you here!' 'Hi, Elizabeth,' Bert an"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "'I was just wondering how to spend the morning -- "
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "You're not busy doing anything, are you?' 'No, not"
+      },
+      {
+        "sentence": 11,
+        "type": "missing",
+        "en": "'I'm going to ...' 'Would you mind my coming with "
+      },
+      {
+        "sentence": 12,
+        "type": "missing",
+        "en": "'Not at all,' I lied, 'but I'm going to the dentis"
+      },
+      {
+        "sentence": 13,
+        "type": "missing",
+        "en": "'There's always plenty to read in the waiting room"
+      }
+    ]
+  },
+  {
+    "lesson": "2-069",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "I was being tested for a driving licence for the t"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "I had been asked to drive in heavy traffic and had"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "After having been instructed to drive out of town,"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "Sure that I had passed, I was almost beginning to "
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "The examiner must have been pleased with my perfor"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "Let us suppose that a child suddenly crosses the r"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "As soon as I tap on the window, I want the car to "
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "Though the sound could be heard clearly, it took m"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "I suddenly pressed the brake pedal hard and we wer"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "The examiner looked at me sadly."
+      },
+      {
+        "sentence": 11,
+        "type": "missing",
+        "en": "'Mr Eames,' he said, in a mournful voice, 'you hav"
+      }
+    ]
+  },
+  {
+    "lesson": "2-070",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "During a bullfight, a drunk suddenly wandered into"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "The crowd began to shout, but the drunk was unawar"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "The bull was busy with the matador at the time, bu"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "Apparently sensitive to criticism, the bull forgot"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "The crowd suddenly grew quiet."
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "The drunk, however, seemed quite sure of himself."
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "When the bull got close to him, he clumsily steppe"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "The crowd broke into cheers and the drunk bowed."
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "By this time, however, three men had come into the"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "Even the bull seemed to feel sorry for him, for it"
+      }
+    ]
+  },
+  {
+    "lesson": "2-071",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "When you visit London, one of the first things you"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "If the Houses of Parliament had not been burned do"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "Big Ben takes its name from Sir Benjamin Hall who "
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "It is not only of immense size, but is extremely a"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "Officials from Greenwich Observatory have the cloc"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "On the B.B.C. you can hear the clock when it is ac"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "Big Ben has rarely gone wrong."
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "Once, however, it failed to give the correct time."
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "A painter who had been working on the tower hung a"
+      }
+    ]
+  },
+  {
+    "lesson": "2-072",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "The great racing driver, Sir Malcolm Campbell, was"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "He set up a new world record in September 1935 at "
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "Bluebird, the car he was driving, had been special"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "It was over 30 feet in length and had a 2,500-hors"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "Although Campbell reached a speed of over 304 mile"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "After his attempt, Campbell was disappointed to le"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "However, a few days later, he was told that a mist"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "His average speed had been 301 miles per hour."
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "Since that time, racing drivers have reached speed"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "Following his father's footsteps many years later,"
+      },
+      {
+        "sentence": 11,
+        "type": "missing",
+        "en": "Like his father, he was driving a car called Blueb"
+      }
+    ]
+  },
+  {
+    "lesson": "2-073",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "Little boys who play truant from school are unimag"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "A quiet day's fishing, or eight hours in a cinema "
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "They have all been put to shame by a boy who, whil"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "He hitchhiked to Dover and, towards evening, went "
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "When he woke up next morning, he discovered that t"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "No one noticed the boy as he crept off."
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "From there, he hitchhiked to Paris in a lorry."
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "The driver gave him a few biscuits and a cup of co"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "The next car the boy stopped did not take him into"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "There he was picked up by a policeman and sent bac"
+      },
+      {
+        "sentence": 11,
+        "type": "missing",
+        "en": "He has surely set up a record for the thousands of"
+      }
+    ]
+  },
+  {
+    "lesson": "2-074",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "An ancient bus stopped by a dry river bed and a pa"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "Dressed in dark glasses and old clothes, they had "
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "But as they soon discovered, disguises can sometim"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "'This is a wonderful place for a picnic,' said Glo"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "'It couldn't be better, Gloria,' Brinksley Meers a"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "'No newspaper men, no film fans!"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "Why don't we come more often?' Meanwhile, two othe"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "When they had all made themselves comfortable, a s"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "He looked very angry."
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "'Now you get out of here, all of you!' he shouted."
+      },
+      {
+        "sentence": 11,
+        "type": "missing",
+        "en": "'I'm sheriff here."
+      },
+      {
+        "sentence": 12,
+        "type": "missing",
+        "en": "Do you see that notice?"
+      },
+      {
+        "sentence": 13,
+        "type": "missing",
+        "en": "It says &quot;No Camping&quot; -- in case you can'"
+      },
+      {
+        "sentence": 14,
+        "type": "missing",
+        "en": "I'm Rockwall Slinger and this is Merlin Greeves.' "
+      },
+      {
+        "sentence": 15,
+        "type": "missing",
+        "en": "'Well, I'm Brinksley Meers, and my other name is G"
+      },
+      {
+        "sentence": 16,
+        "type": "missing",
+        "en": "Now you get out of here fast!'"
+      }
+    ]
+  },
+  {
+    "lesson": "2-075",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "When a light passenger plane flew off course some "
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "The only passengers, a young woman and her two bab"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "It was the middle of winter."
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "Snow lay thick on the ground."
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "The woman knew that the nearest village was miles "
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "When it grew dark, she turned a suitcase into a be"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "During the night, it got terribly cold."
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "The woman kept as near as she could to the childre"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "Early next morning, she heard planes passing overh"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "Then she had an idea."
+      },
+      {
+        "sentence": 11,
+        "type": "missing",
+        "en": "She stamped out the letters 'SOS' in the snow."
+      },
+      {
+        "sentence": 12,
+        "type": "missing",
+        "en": "Fortunately, a pilot saw the signal and sent a mes"
+      },
+      {
+        "sentence": 13,
+        "type": "missing",
+        "en": "It was not long before a helicopter arrived on the"
+      }
+    ]
+  },
+  {
+    "lesson": "2-076",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "'To end our special news bulletin,' said the voice"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "Macaroni has been grown in this area for over six "
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "Two of the leading growers, Giuseppe Moldova and R"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "Here you can see two workers who, between them, ha"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "The whole village has been working day and night g"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "On the right, you can see Mrs Brabante herself."
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "She has been helping her husband for thirty years "
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "Mrs Brabante is talking to the manager of the loca"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "This last scene shows you what will happen at the "
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "Signor Fratelli, the present champion, has won it "
+      },
+      {
+        "sentence": 11,
+        "type": "missing",
+        "en": "And that ends our special bulletin for today, Thur"
+      },
+      {
+        "sentence": 12,
+        "type": "missing",
+        "en": "We are now returning you to the studio.'"
+      }
+    ]
+  },
+  {
+    "lesson": "2-077",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "The mummy of an Egyptian woman who died in 800 B.C"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "The mummy is that of Shepenmut who was once a sing"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "As there were strange marks on the X-ray plates ta"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "The only way to do this was to operate."
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "The operation, which lasted for over four hours, p"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "The doctors removed a section of the mummy and sen"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "They also found something which the X-ray plates d"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "This god which has the head of a cow was normally "
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "The doctors have not yet decided how the woman die"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "They feared that the mummy would fall to pieces wh"
+      },
+      {
+        "sentence": 11,
+        "type": "missing",
+        "en": "The mummy successfully survived the operation."
+      }
+    ]
+  },
+  {
+    "lesson": "2-078",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "After reading an article entitled 'Cigarette Smoki"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "I smoked with concentration and pleasure as I was "
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "For a whole week I did not smoke at all and during"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "I had all the usual symptoms of someone giving up "
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "My friends kept on offering me cigarettes and ciga"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "They made no effort to hide their amusement whenev"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "After seven days of this I went to a party."
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "Everybody around me was smoking and I felt extreme"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "When my old friend Brian urged me to accept a ciga"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "I took one guiltily, lit it and smoked with satisf"
+      },
+      {
+        "sentence": 11,
+        "type": "missing",
+        "en": "My wife was delighted that things had returned to "
+      },
+      {
+        "sentence": 12,
+        "type": "missing",
+        "en": "Anyway, as Brian pointed out, it is the easiest th"
+      },
+      {
+        "sentence": 13,
+        "type": "missing",
+        "en": "He himself has done it lots of times!"
+      }
+    ]
+  },
+  {
+    "lesson": "2-079",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "I used to travel by air a great deal when I was a "
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "My parents used to live in South America and I use"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "An air hostess would take charge of me and I never"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "I am used to travelling by air and only on one occ"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "After taking off, we were flying low over the city"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "While we were waiting to land, an air hostess told"
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "Everybody on board was worried and we were curious"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "Later we learnt that there was a very important pe"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "The police had been told that a bomb had been plan"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "After we had landed, the plane was searched thorou"
+      },
+      {
+        "sentence": 11,
+        "type": "missing",
+        "en": "Fortunately, nothing was found and five hours late"
+      }
+    ]
+  },
+  {
+    "lesson": "2-080",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "Perhaps the most extraordinary building of the nin"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "The Crystal Palace was different from all other bu"
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "It was one of the biggest buildings of all time an"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "A great many goods were sent to the exhibition fro"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "There was also a great deal of machinery on displa"
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "The most wonderful piece of machinery on show was "
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "Though in those days, travelling was not as easy a"
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "On arriving in England, they were taken to the Cry"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "There were six million visitors in all, and the pr"
+      },
+      {
+        "sentence": 10,
+        "type": "missing",
+        "en": "Later, the Crystal Palace was moved to South Londo"
+      },
+      {
+        "sentence": 11,
+        "type": "missing",
+        "en": "It remained one of the most famous buildings in th"
+      }
+    ]
+  },
+  {
+    "lesson": "2-095",
+    "issues": [
+      {
+        "sentence": 11,
+        "type": "missing",
+        "en": "'And how can you explain that?' she asked."
+      },
+      {
+        "sentence": 12,
+        "type": "missing",
+        "en": "'Oh, that,' said the Ambassador."
+      },
+      {
+        "sentence": 13,
+        "type": "missing",
+        "en": "'Someone fired a shot through my office window."
+      },
+      {
+        "sentence": 14,
+        "type": "missing",
+        "en": "Accurate, don't you think?"
+      },
+      {
+        "sentence": 15,
+        "type": "missing",
+        "en": "Fortunately, I wasn't wearing it at the time."
+      },
+      {
+        "sentence": 16,
+        "type": "missing",
+        "en": "If I had been, I would not have been able to get h"
+      }
+    ]
+  },
+  {
+    "lesson": "2-096",
+    "issues": [
+      {
+        "sentence": 1,
+        "type": "missing",
+        "en": "A Festival for the Dead is held once a year in Jap"
+      },
+      {
+        "sentence": 2,
+        "type": "missing",
+        "en": "This festival is a cheerful occasion, for on this "
+      },
+      {
+        "sentence": 3,
+        "type": "missing",
+        "en": "As they are expected to be hungry after their long"
+      },
+      {
+        "sentence": 4,
+        "type": "missing",
+        "en": "Specially-made lanterns are hung outside each hous"
+      },
+      {
+        "sentence": 5,
+        "type": "missing",
+        "en": "All night long, people dance and sing."
+      },
+      {
+        "sentence": 6,
+        "type": "missing",
+        "en": "In the early morning, the food that had been laid "
+      },
+      {
+        "sentence": 7,
+        "type": "missing",
+        "en": "In towns that are near the sea, the tiny lanterns "
+      },
+      {
+        "sentence": 8,
+        "type": "missing",
+        "en": "Thousands of lanterns slowly drift out to sea guid"
+      },
+      {
+        "sentence": 9,
+        "type": "missing",
+        "en": "This is a moving spectacle, for crowds of people s"
+      }
+    ]
+  }
+]
