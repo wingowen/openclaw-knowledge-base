@@ -1,30 +1,40 @@
-# Beyond Permission Prompts: Making Claude Code More Secure and Autonomous
-
 #security #sandboxing
 
-## 基本信息
-- **来源**: https://www.anthropic.com/engineering/claude-code-sandboxing
-- **发布**: 2025-10-20
-- **难度**: 🟣 进阶
-- **状态**: ⬜ 未开始
-- **阅读时间**: 约 35 分钟
+> [!info] 基本信息
+> 来源: [Beyond permission prompts](https://www.anthropic.com/engineering/claude-code-sandboxing)
+> 发布: 2025-10-20 | 难度: 🟣 进阶 | 状态: ⬜ 未开始 | 约 35 分钟
 
-## 为什么读这篇文章
-安全与自主性的平衡是编码 Agent 的核心难题。这篇文章讲怎么用沙箱替代烦人的权限弹窗。
+## 章节概括
 
-## 核心知识点
-- [ ] 沙箱架构设计
-- [ ] 权限模型
-- [ ] 安全边界设定
-- [ ] 自主性 vs 安全性的权衡
+### 问题：权限弹窗疲劳
+Claude Code 默认只读，每次修改/运行命令都需要批准 → 用户开始不看就点 → 更不安全。
+
+### 解决方案：Sandboxing
+用操作系统级沙箱预定义边界，Agent 在边界内自由工作。
+
+### 两层隔离
+- **文件系统隔离**：只能访问/修改指定目录（防止修改系统文件）
+- **网络隔离**：只能连接批准的服务器（防止数据泄露/下载恶意软件）
+- **两者缺一不可**：无网络隔离 → 可泄露 SSH key；无文件隔离 → 可逃逸沙箱
+
+### 实现细节
+- Linux：基于 [bubblewrap](https://github.com/containers/bubblewrap)
+- macOS：基于 seatbelt
+- 沙箱内命令通过 unix socket 代理访问网络
+- 用户可配置允许的域名/路径
+
+### 效果
+- 权限弹窗减少 **84%**
+- 即使 prompt 注入成功也无法突破沙箱
+- 已开源：[sandbox-runtime](https://github.com/anthropic-experimental/sandbox-runtime)
+
+### Claude Code on the Web
+- 云端隔离沙箱运行
+- Git 凭据不在沙箱内，通过 proxy 代理
+- Proxy 验证：分支名、仓库目标、认证 token
 
 ## 学习笔记
 （待阅读后补充）
-
-## 与其他文章的关联
-- → [[Claude Code Best practices]]：编码 Agent 最佳实践
-- → [[Code execution with MCP]]：代码执行安全
-- → [[Effective harnesses for long-running agents]]：运行环境保障
 
 ---
 
