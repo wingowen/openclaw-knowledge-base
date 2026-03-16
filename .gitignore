@@ -90,3 +90,5 @@ sentences-dictation
 *.onnx
 *.npz
 tts_samples/
+
+obsidian/.obsidian

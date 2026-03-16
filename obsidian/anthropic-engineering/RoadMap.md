@@ -1,4 +1,3 @@
-# Anthropic Engineering 文章学习路径
 
 ## 📌 学习目标
 系统掌握 LLM 工程化知识，从基础概念到高级 Agent 架构设计。
