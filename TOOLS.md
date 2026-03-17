@@ -60,7 +60,6 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 | # | Key (尾号) | 用途 | 状态 |
 |---|-----------|------|------|
-| 1 | `...79eaaa1e` | 备用 | ✅ |
 | 2 | 当前主 key | OpenClaw 主会话 | ✅ active |
 | 3 | `...36a98a166` | 备用/轮换 | ✅ 新增 2026-03-17 |
 
