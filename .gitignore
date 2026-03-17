@@ -91,4 +91,4 @@ sentences-dictation
 *.npz
 tts_samples/
 
-obsidian/.obsidian
+obsidian/.obsidian/
