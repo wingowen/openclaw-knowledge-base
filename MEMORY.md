@@ -10,6 +10,20 @@ This is your curated memory - the distilled essence of what's worth keeping long
 
 ---
 
+## 🏗️ 多 Agent 架构（2026-03-17 设计）
+
+**状态**：📋 方案已生成，待实施
+
+**架构**：管理者 + 执行者模式
+- 🧠 `main`（管理者）：用户交互、任务拆解、记忆管理 → hunter-alpha
+- 💻 `coder`（代码执行者）：写代码、调试、Git → gpt-5.3-codex
+- 📊 `data`（数据执行者）：数据抓取、报告 → 免费模型
+- 🔍 `researcher`（研究执行者）：搜索、总结 → 免费模型
+
+**方案文档**：`knowledge-base/02-projects/多Agent架构方案.md`
+
+---
+
 ## 📚 OpenClaw 记忆仓库
 
 **创建时间**: 2026-02-12

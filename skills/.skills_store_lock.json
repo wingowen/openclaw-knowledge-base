@@ -36,6 +36,12 @@
       "zip_url": "https://lightmake.site/api/v1/download?slug=webdav-backup",
       "source": "skillhub",
       "version": "1.2.2"
+    },
+    "bilibili-subtitle-download-skill": {
+      "name": "Bilibili Subtitle Downloader",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=bilibili-subtitle-download-skill",
+      "source": "skillhub",
+      "version": "1.0.0"
     }
   }
 }
