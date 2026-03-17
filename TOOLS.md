@@ -56,4 +56,34 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 ---
 
+## OpenRouter API Keys
+
+| # | Key (尾号) | 用途 | 状态 |
+|---|-----------|------|------|
+| 1 | `...79eaaa1e` | 备用 | ✅ |
+| 2 | 当前主 key | OpenClaw 主会话 | ✅ active |
+| 3 | `...36a98a166` | 备用/轮换 | ✅ 新增 2026-03-17 |
+
+注意：多个系统（OpenClaw、daily_stock_analysis、rss-reader）共用 OpenRouter key，高峰期可能触发限流。必要时轮换使用。
+
+---
+
+## WebDAV 备份 (坚果云)
+
+- **服务器**: `https://dav.jianguoyun.com/dav/openclaw-backup/`
+- **账户**: `wingo0721@163.com`
+- **密码**: 已配置在 openclaw.json (skills.entries.webdav-backup.env)
+- **本地备份目录**: `/root/openclaw/output/`
+- **备份内容**: workspace + openclaw.json + cron + workspace/config
+- **依赖**: `webdavclient3` (pip)
+- **注意**: 坚果云不允许上传到 WebDAV 根目录，必须在子文件夹内
+
+**手动执行**:
+```bash
+python3 ~/.openclaw/workspace/skills/webdav-backup/scripts/backup.py           # 本地+WebDAV
+python3 ~/.openclaw/workspace/skills/webdav-backup/scripts/backup.py --local-only  # 仅本地
+```
+
+---
+
 Add whatever helps you do your job. This is your cheat sheet.

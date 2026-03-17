@@ -80,6 +80,10 @@ memory/doc_update_history.jsonl
 memory/doc_update_state.json
 memory/notion_sync_journal.jsonl
 
+# Python venv
+.venv/
+venv/
+
 # OS packages / artifacts
 *.deb
 

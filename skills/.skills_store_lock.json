@@ -24,6 +24,18 @@
       "zip_url": "https://lightmake.site/api/v1/download?slug=notion-api",
       "source": "skillhub",
       "version": "1.1.0"
+    },
+    "qqmail-sender": {
+      "name": "Email Sender",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=qqmail-sender",
+      "source": "skillhub",
+      "version": "1.1.0"
+    },
+    "webdav-backup": {
+      "name": "webdav-backup",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=webdav-backup",
+      "source": "skillhub",
+      "version": "1.2.2"
     }
   }
 }
