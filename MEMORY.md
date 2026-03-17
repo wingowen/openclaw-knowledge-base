@@ -6,6 +6,7 @@ This is your curated memory - the distilled essence of what's worth keeping long
 
 - 用户希望在不产生歧义的情况下，回答尽量用中文
 - **子代理任务通知**：当开启子代理任务时，让子代理每完成一件子任务就发送通知，保持进度可见
+- **报告自动归档**：所有发送给用户的报告（复盘、分析、策略等）必须保存到知识库，并推送到 GitHub。多次修改的文件只保留最终版本（不保留中间稿）
 
 ---
 
