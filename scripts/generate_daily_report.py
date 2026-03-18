@@ -118,26 +118,43 @@ def parse_prev_report(date_str: str) -> dict:
 
 
 def parse_prev_reports_multi(date_str: str, days: int = 3) -> list:
-    """解析最近 N 天的报告预测，返回 [{date, predictions, actuals}] 列表"""
+    """解析最近 N 天的报告预测，返回 [{date, predictions, actuals}] 列表
+    关键逻辑：某日的预测，实际结果 = 次日报告里的收盘价
+    例如：3-17 的预测 → 实际结果在 3-18 的报告里
+    """
     reports_dir = Path(REPORTS_DIR)
     if not reports_dir.exists():
         return []
 
-    results = []
-    md_files = sorted(reports_dir.glob("*.md"), reverse=True)
+    # 按日期排序所有报告文件
+    all_reports = []
+    for f in reports_dir.glob("*.md"):
+        date_match = re.search(r'(\d{4}-\d{2}-\d{2})', f.name)
+        if date_match:
+            all_reports.append((date_match.group(1), f))
+    all_reports.sort(key=lambda x: x[0], reverse=True)
 
-    for f in md_files:
-        if date_str in f.name:
+    # 建立 {日期: {上证: close, 创业板: close}} 的收盘价映射
+    actuals_map = {}
+    for rdate, f in all_reports:
+        content = f.read_text(encoding="utf-8")
+        sh_actual = re.search(r'\*\*上证指数\*\*\s*\|\s*([\d.]+)', content)
+        gem_actual = re.search(r'\*\*创业板指\*\*\s*\|\s*([\d.]+)', content)
+        actuals_map[rdate] = {}
+        if sh_actual:
+            actuals_map[rdate]["上证"] = float(sh_actual.group(1))
+        if gem_actual:
+            actuals_map[rdate]["创业板"] = float(gem_actual.group(1))
+
+    # 遍历历史报告，提取预测 + 次日实际结果
+    results = []
+    for rdate, f in all_reports:
+        if rdate >= date_str:  # 跳过今天
             continue
         if len(results) >= days:
             break
 
         content = f.read_text(encoding="utf-8")
-        # 提取报告日期
-        date_match = re.search(r'(\d{4}-\d{2}-\d{2})', f.name)
-        if not date_match:
-            continue
-        rdate = date_match.group(1)
 
         # 提取该报告的预判区间
         predictions = {}
@@ -148,17 +165,20 @@ def parse_prev_reports_multi(date_str: str, days: int = 3) -> list:
         if cy_match:
             predictions["创业板"] = {"low": int(cy_match.group(1)), "high": int(cy_match.group(2))}
 
-        # 提取该报告的实际收盘（作为该日的实际结果）
-        actuals = {}
-        sh_actual = re.search(r'\*\*上证指数\*\*\s*\|\s*([\d.]+)', content)
-        gem_actual = re.search(r'\*\*创业板指\*\*\s*\|\s*([\d.]+)', content)
-        if sh_actual:
-            actuals["上证"] = float(sh_actual.group(1))
-        if gem_actual:
-            actuals["创业板"] = float(gem_actual.group(1))
+        if not predictions:
+            continue
 
-        if predictions:
-            results.append({"date": rdate, "predictions": predictions, "actuals": actuals})
+        # 次日实际结果 = 下一个交易日报告的收盘价
+        next_date = (datetime.strptime(rdate, "%Y-%m-%d") + timedelta(days=1)).strftime("%Y-%m-%d")
+        actuals = actuals_map.get(next_date, {})
+
+        # 如果次日没有报告（如周末），继续往后找
+        for offset in range(2, 5):
+            if not actuals:
+                next_date = (datetime.strptime(rdate, "%Y-%m-%d") + timedelta(days=offset)).strftime("%Y-%m-%d")
+                actuals = actuals_map.get(next_date, {})
+
+        results.append({"date": rdate, "predictions": predictions, "actuals": actuals})
 
     return results
 
