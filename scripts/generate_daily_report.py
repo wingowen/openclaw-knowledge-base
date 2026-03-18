@@ -99,19 +99,14 @@ def fetch_tencent_data(codes: list[str]) -> dict:
 
 def parse_prev_report(date_str: str) -> dict:
     """解析前一份报告的预测，用于复盘"""
-    # 读取 reports 目录中最近的报告
     reports_dir = Path(REPORTS_DIR)
     if not reports_dir.exists():
         return {}
-    
-    # 找到最近的报告文件
     md_files = sorted(reports_dir.glob("*.md"), reverse=True)
     for f in md_files:
         if date_str not in f.name:
             content = f.read_text(encoding="utf-8")
-            # 提取预判区间
             predictions = {}
-            # 简单解析
             sh_match = re.search(r'\*\*上证\*\*.*?(\d{4})~(\d{4})', content)
             if sh_match:
                 predictions["上证"] = {"low": int(sh_match.group(1)), "high": int(sh_match.group(2))}
@@ -122,7 +117,53 @@ def parse_prev_report(date_str: str) -> dict:
     return {}
 
 
-def generate_report(indices: dict, stocks: dict, date_str: str, prev_predictions: dict) -> str:
+def parse_prev_reports_multi(date_str: str, days: int = 3) -> list:
+    """解析最近 N 天的报告预测，返回 [{date, predictions, actuals}] 列表"""
+    reports_dir = Path(REPORTS_DIR)
+    if not reports_dir.exists():
+        return []
+
+    results = []
+    md_files = sorted(reports_dir.glob("*.md"), reverse=True)
+
+    for f in md_files:
+        if date_str in f.name:
+            continue
+        if len(results) >= days:
+            break
+
+        content = f.read_text(encoding="utf-8")
+        # 提取报告日期
+        date_match = re.search(r'(\d{4}-\d{2}-\d{2})', f.name)
+        if not date_match:
+            continue
+        rdate = date_match.group(1)
+
+        # 提取该报告的预判区间
+        predictions = {}
+        sh_match = re.search(r'\*\*上证\*\*.*?(\d{4})~(\d{4})', content)
+        cy_match = re.search(r'\*\*创业板\*\*.*?(\d{4})~(\d{4})', content)
+        if sh_match:
+            predictions["上证"] = {"low": int(sh_match.group(1)), "high": int(sh_match.group(2))}
+        if cy_match:
+            predictions["创业板"] = {"low": int(cy_match.group(1)), "high": int(cy_match.group(2))}
+
+        # 提取该报告的实际收盘（作为该日的实际结果）
+        actuals = {}
+        sh_actual = re.search(r'\*\*上证指数\*\*\s*\|\s*([\d.]+)', content)
+        gem_actual = re.search(r'\*\*创业板指\*\*\s*\|\s*([\d.]+)', content)
+        if sh_actual:
+            actuals["上证"] = float(sh_actual.group(1))
+        if gem_actual:
+            actuals["创业板"] = float(gem_actual.group(1))
+
+        if predictions:
+            results.append({"date": rdate, "predictions": predictions, "actuals": actuals})
+
+    return results
+
+
+def generate_report(indices: dict, stocks: dict, date_str: str, prev_predictions: dict, prev_reviews: list = None) -> str:
     """生成 Markdown 报告"""
     
     # 计算成交额
@@ -133,30 +174,53 @@ def generate_report(indices: dict, stocks: dict, date_str: str, prev_predictions
     sz_amount_yi = indices.get("sz399001", {}).get("amount_wan", 0) / 10000
     total_market_amount = sh_amount_yi + sz_amount_yi
     
-    # 预测复盘
+    # 预测复盘 - 最近3天
     review_section = ""
     sh_idx = indices.get("sh000001", {})
     cy_idx = indices.get("sz399001", {})
     gem_idx = indices.get("sz399006", {})
-    
+    sh_actual = sh_idx.get("current", 0)
+    gem_actual = gem_idx.get("current", 0)
+
+    # 构建3天复盘行
+    all_reviews = []
+    # 先加最近N天的历史复盘
+    if prev_reviews:
+        for rv in prev_reviews:
+            all_reviews.append(rv)
+    # 再加昨天的（兼容旧逻辑）
     if prev_predictions:
+        yesterday_pred = {
+            "date": (datetime.strptime(date_str, "%Y-%m-%d") - timedelta(days=1)).strftime("%m-%d"),
+            "predictions": prev_predictions,
+            "actuals": {"上证": sh_actual, "创业板": gem_actual}
+        }
+        # 避免重复（如果 prev_reviews 已经包含）
+        if not any(r.get("date", "").endswith(yesterday_pred["date"]) for r in all_reviews):
+            all_reviews.insert(0, yesterday_pred)
+
+    if all_reviews:
         review_lines = []
-        for name, pred in prev_predictions.items():
-            if name == "上证":
-                actual = sh_idx.get("current", 0)
-                if pred["low"] <= actual <= pred["high"]:
-                    review_lines.append(f"| 上证指数 | {pred['low']}~{pred['high']} | {actual:.2f} | ✅ 在区间内 |")
+        for rv in all_reviews[:3]:  # 最多3天
+            rdate = rv.get("date", "???")
+            preds = rv.get("predictions", {})
+            actuals = rv.get("actuals", {})
+
+            for idx_name, idx_key in [("上证指数", "上证"), ("创业板指", "创业板")]:
+                pred = preds.get(idx_key, {})
+                actual = actuals.get(idx_key, 0)
+                if not pred:
+                    continue
+                if actual and pred["low"] <= actual <= pred["high"]:
+                    status = "✅ 在区间内"
+                elif actual:
+                    status = "⚠️ 超出区间"
                 else:
-                    review_lines.append(f"| 上证指数 | {pred['low']}~{pred['high']} | {actual:.2f} | ❌ 超出区间 |")
-            elif name == "创业板":
-                actual = gem_idx.get("current", 0)
-                if pred["low"] <= actual <= pred["high"]:
-                    review_lines.append(f"| 创业板指 | {pred['low']}~{pred['high']} | {actual:.2f} | ✅ 在区间内 |")
-                else:
-                    review_lines.append(f"| 创业板指 | {pred['low']}~{pred['high']} | {actual:.2f} | ⚠️ 超出区间 |")
-        
+                    status = "—"
+                review_lines.append(f"| {rdate} {idx_name} | {pred['low']}~{pred['high']} | {actual:.2f} | {status} |")
+
         if review_lines:
-            review_section = f"""## 0) 昨日预测复盘
+            review_section = f"""## 0) 近期预测复盘
 
 | 预判项 | 预判区间 | 实际结果 | 评价 |
 |--------|----------|----------|------|
@@ -211,7 +275,7 @@ def generate_report(indices: dict, stocks: dict, date_str: str, prev_predictions
         style = "价值>成长"
     
     # 生成报告
-    report = f"""# {date_str} A股深度复盘与{next_day[:5]}预判
+    report = f"""# {date_str} A股深度复盘与{next_day[5:]}预判
 
 > 数据来源：腾讯财经实时API | 报告时间：{datetime.now().strftime('%Y-%m-%d %H:%M')}
 
@@ -247,7 +311,7 @@ def generate_report(indices: dict, stocks: dict, date_str: str, prev_predictions
 
 ---
 
-## 3) {next_day[:5]}（下个交易日）预判
+## 3) {next_day[5:]}（下个交易日）预判
 
 ### 指数预判
 
@@ -317,30 +381,30 @@ def send_qq_mail(report: str, date_str: str) -> bool:
         msg["To"] = QQ_MAIL_TO
         msg["Subject"] = f"📊 {date_str} A股复盘报告"
         
-        # 正文：完整报告内容（Markdown → HTML 简单转换）
-        html_body = report.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-        # 加粗
-        html_body = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', html_body)
-        # 标题
-        html_body = re.sub(r'^# (.+)$', r'<h1>\1</h1>', html_body, flags=re.MULTILINE)
-        html_body = re.sub(r'^## (.+)$', r'<h2>\1</h2>', html_body, flags=re.MULTILINE)
-        html_body = re.sub(r'^### (.+)$', r'<h3>\1</h3>', html_body, flags=re.MULTILINE)
-        # 表格行 → 简单缩进
-        html_lines = []
-        for line in html_body.split("\n"):
-            if line.startswith("|") and line.endswith("|"):
-                cells = [c.strip() for c in line.strip("|").split("|")]
-                html_lines.append("　" + " | ".join(cells))
-            elif line.startswith("---"):
-                continue
-            else:
-                html_lines.append(line)
-        html_body = "<br>".join(html_lines)
+        # 正文：Markdown → HTML（使用 markdown 库）
+        import markdown as md
+        html_body = md.markdown(
+            report,
+            extensions=['tables', 'fenced_code', 'nl2br', 'sane_lists'],
+            output_format='html5'
+        )
         
-        html = f"""<html><body style="font-family: -apple-system, sans-serif; font-size: 14px; line-height: 1.6; color: #333;">
+        html = f"""<html><head><style>
+body {{ font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; font-size: 14px; line-height: 1.8; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }}
+h1 {{ font-size: 20px; color: #1a1a1a; border-bottom: 2px solid #4CAF50; padding-bottom: 8px; }}
+h2 {{ font-size: 17px; color: #2c3e50; margin-top: 24px; }}
+h3 {{ font-size: 15px; color: #34495e; }}
+table {{ border-collapse: collapse; width: 100%; margin: 12px 0; }}
+th {{ background: #f5f7fa; color: #2c3e50; font-weight: 600; text-align: left; padding: 8px 12px; border: 1px solid #e0e4e8; }}
+td {{ padding: 7px 12px; border: 1px solid #e0e4e8; }}
+tr:nth-child(even) td {{ background: #fafbfc; }}
+strong {{ color: #1a1a1a; }}
+blockquote {{ border-left: 4px solid #4CAF50; margin: 12px 0; padding: 8px 16px; background: #f9fafb; color: #555; }}
+hr {{ border: none; border-top: 1px solid #e0e4e8; margin: 20px 0; }}
+</style></head><body>
 {html_body}
-<hr style="border:none;border-top:1px solid #eee;margin:20px 0;">
-<p style="color:#999;font-size:12px;">由 OpenClaw 自动生成 · 数据来源：腾讯财经</p>
+<hr>
+<p style="color:#999;font-size:12px;text-align:center;">由 OpenClaw 自动生成 · 数据来源：腾讯财经</p>
 </body></html>"""
         
         msg.attach(MIMEText(html, "html", "utf-8"))
@@ -473,12 +537,13 @@ def main():
         print("❌ 获取指数数据失败")
         sys.exit(1)
     
-    # 3. 解析前一份报告的预测
+    # 3. 解析前一份报告的预测 + 最近3天复盘
     prev_predictions = parse_prev_report(date_str)
+    prev_reviews = parse_prev_reports_multi(date_str, days=3)
     
     # 4. 生成报告
     print("  📝 生成报告...")
-    report = generate_report(indices, stocks, date_str, prev_predictions)
+    report = generate_report(indices, stocks, date_str, prev_predictions, prev_reviews)
     
     # 5. 保存到 Obsidian
     print("  💾 保存到 Obsidian...")
