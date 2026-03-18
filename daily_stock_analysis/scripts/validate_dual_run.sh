@@ -52,6 +52,72 @@ except Exception as e:
 conn.close()
 PY
 
+# 2.5) 简单数据有效性校验（报告内容 + 当天记录）
+if python3 - <<'PY' "$ROOT/data/stock_analysis.db" "$DATE_ISO" "$LOCAL_REPORT" "$LOCAL_MARKET"
+import re, sqlite3, sys
+from pathlib import Path
+
+db_path, date_iso, local_report, local_market = sys.argv[1:5]
+errs = []
+
+# A) 当天至少有 1 条分析记录
+try:
+    conn = sqlite3.connect(db_path)
+    cur = conn.cursor()
+    cur.execute("SELECT COUNT(*) FROM analysis_history WHERE substr(created_at,1,10)=?", (date_iso,))
+    today_cnt = cur.fetchone()[0]
+    conn.close()
+    if today_cnt <= 0:
+        errs.append(f"analysis_history 当天记录为 0（{date_iso}）")
+    else:
+        print(f"[OK] 数据校验: 当天 analysis_history 记录 {today_cnt} 条")
+except Exception as e:
+    errs.append(f"analysis_history 校验失败: {e}")
+
+# B) 个股报告应至少包含 1 个股票代码 + 1 个评分字段
+try:
+    txt = Path(local_report).read_text(encoding='utf-8', errors='ignore')
+    codes = set(re.findall(r"\((\d{6})\)", txt))
+    scores = re.findall(r"评分\s*\d+", txt)
+    if len(codes) == 0:
+        errs.append("个股报告未识别到 6 位股票代码")
+    else:
+        print(f"[OK] 数据校验: 个股报告识别股票代码 {len(codes)} 个")
+    if len(scores) == 0:
+        errs.append("个股报告未识别到评分字段")
+    else:
+        print(f"[OK] 数据校验: 个股报告识别评分字段 {len(scores)} 处")
+except Exception as e:
+    errs.append(f"个股报告内容校验失败: {e}")
+
+# C) 大盘报告存在时，校验关键指数关键词
+mkt = Path(local_market)
+if mkt.exists():
+    try:
+        mtxt = mkt.read_text(encoding='utf-8', errors='ignore')
+        required = ["上证指数", "创业板指"]
+        miss = [k for k in required if k not in mtxt]
+        if miss:
+            errs.append("大盘报告缺少关键指数字段: " + ",".join(miss))
+        else:
+            print("[OK] 数据校验: 大盘报告包含关键指数字段")
+    except Exception as e:
+        errs.append(f"大盘报告内容校验失败: {e}")
+
+if errs:
+    print("[FAIL] 数据校验未通过：")
+    for e in errs:
+        print("  -", e)
+    sys.exit(2)
+else:
+    print("[OK] 简单数据校验通过")
+PY
+then
+  :
+else
+  ok=false
+fi
+
 # 3) GitHub Action 最近 schedule run 校验
 RUN_INFO=$(gh run list --repo "$REPO" --workflow "$WORKFLOW" --limit 20 --json databaseId,event,status,conclusion,createdAt,url --jq 'map(select(.event=="schedule")) | first')
 if [[ -z "$RUN_INFO" || "$RUN_INFO" == "null" ]]; then
@@ -95,3 +161,4 @@ else
   echo "=== 校验结果：FAIL ==="
   exit 1
 fi
+
