@@ -1,0 +1,5 @@
+0 9 * * * /bin/bash /root/rss-reader/run.sh --config config_llm.yaml --once >> /root/rss-reader/cron.log 2>&1
+10 15 * * 1-5 /bin/bash /root/.openclaw/workspace/scripts/run_daily_report.sh
+*/15 * * * * cd /root/.openclaw/workspace/skills/capability-evolver && /usr/bin/node index.js run >> /root/.openclaw/workspace/memory/evolution/cron-runs.log 2>&1
+2-59/15 * * * * /usr/bin/python3 /root/.openclaw/workspace/scripts/evolver_loop_guard.py >> /root/.openclaw/workspace/memory/evolution/loop-guard.log 2>&1
+0 * * * * /bin/bash /root/.openclaw/workspace/scripts/hourly_git_push.sh >> /root/.openclaw/workspace/cron_hourly_push.log 2>&1
