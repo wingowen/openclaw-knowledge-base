@@ -144,18 +144,66 @@ def enrich_indicators(stocks, idx_chg):
         'hist_failed': 0,
         'hist_too_short': 0,
         'indicator_ok': 0,
+        'fallback_tx_used': 0,
+        'fallback_tx_failed': 0,
     }
 
     rows = []
     for s in stocks:
         code = s['code']
+
+        # 主数据源：EM；失败时回退腾讯历史数据
+        hist = None
         try:
-            hist = ak.stock_zh_a_hist(symbol=code, period='daily', start_date='20251201', end_date=datetime.now().strftime('%Y%m%d'), adjust='qfq')
+            hist = ak.stock_zh_a_hist(
+                symbol=code,
+                period='daily',
+                start_date='20251201',
+                end_date=datetime.now().strftime('%Y%m%d'),
+                adjust='qfq',
+            )
         except Exception:
-            stats['hist_failed'] += 1
-            continue
+            hist = None
+
         if hist is None or len(hist) < 35:
-            stats['hist_too_short'] += 1
+            tx_symbol = f"sh{code}" if code.startswith('6') else f"sz{code}"
+            try:
+                tx_df = ak.stock_zh_a_hist_tx(
+                    symbol=tx_symbol,
+                    start_date='20251201',
+                    end_date=datetime.now().strftime('%Y%m%d'),
+                    adjust='qfq',
+                )
+                if tx_df is not None and not tx_df.empty:
+                    # 对齐字段到 EM 命名
+                    col_map = {
+                        'date': '日期',
+                        'open': '开盘',
+                        'close': '收盘',
+                        'high': '最高',
+                        'low': '最低',
+                        'amount': '成交量',  # tx amount 对应成交量
+                        'vol': '成交额',
+                    }
+                    tx_df = tx_df.rename(columns=col_map)
+                    # 仅保留需要字段
+                    need_cols = ['日期', '开盘', '收盘', '最高', '最低', '成交量', '成交额']
+                    for c in need_cols:
+                        if c not in tx_df.columns:
+                            tx_df[c] = 0
+                    hist = tx_df[need_cols].copy()
+                    stats['fallback_tx_used'] += 1
+                else:
+                    stats['fallback_tx_failed'] += 1
+            except Exception:
+                stats['fallback_tx_failed'] += 1
+
+        if hist is None or len(hist) < 35:
+            # 区分失败与长度不足
+            if hist is None or len(hist) == 0:
+                stats['hist_failed'] += 1
+            else:
+                stats['hist_too_short'] += 1
             continue
 
         close = hist['收盘'].astype(float)
@@ -191,7 +239,7 @@ def enrich_indicators(stocks, idx_chg):
     return pd.DataFrame(rows), stats
 
 
-def build_report(main, idx_chg, observe, step_stats):
+def build_report(main, idx_chg, observe, confirm, attack, step_stats):
     dt = datetime.now().strftime('%Y-%m-%d %H:%M')
     lines = []
     lines.append(f"# 开盘前候选观察名单（放宽版）")
@@ -205,27 +253,46 @@ def build_report(main, idx_chg, observe, step_stats):
         lines.append(f"- {s['name']}：{s['chg']:.2f}%")
 
     lines.append("")
-    lines.append("## 候选观察名单（放宽版）")
+    lines.append("## 观察仓（放宽版）")
     if observe.empty:
-        lines.append("- 今日暂无候选，建议空仓观察。")
+        lines.append("- 今日暂无观察仓候选，建议空仓观察。")
     else:
-        for i, (_, r) in enumerate(observe.iterrows(), 1):
+        lines.append("| 代码 | 名称 | 板块 | 涨幅 | 换手 | 超额vs大盘 | 量比5日 | RSI | 理想买点(MA5) | 次优买点(MA10) | 止损位 | 目标位区间 |")
+        lines.append("|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---|")
+        for _, r in observe.iterrows():
             ideal_buy = r['ma5']
             secondary_buy = r['ma10']
-            stop_loss = min(r['ma20'], r['current'] * 0.96)  # MA20 与 -4% 取更严格
+            stop_loss = min(r['ma20'], r['current'] * 0.96)
             target_1 = max(r['high20'], r['current'] * 1.05)
             target_2 = max(target_1 * 1.03, r['current'] * 1.10)
+            lines.append(
+                f"| {r['code']} | {r['name']} | {r['sector']} | {r['chg']:.2f}% | {r['turnover']:.2f}% | {r['excess_vs_index']:.2f}% | {r['vol_ratio5']:.2f} | {r['rsi14']:.1f} | {ideal_buy:.2f} | {secondary_buy:.2f} | {stop_loss:.2f} | {target_1:.2f}~{target_2:.2f} |"
+            )
 
+    lines.append("")
+    lines.append("## 确认仓（1-2只）")
+    if confirm.empty:
+        lines.append("- 今日暂无确认仓标的（信号未达到确认阈值）。")
+    else:
+        lines.append("| 代码 | 名称 | 板块 | 涨幅 | 超额vs大盘 | 超额vs板块 | 量比5日 | RSI | 加仓理由 |")
+        lines.append("|---|---|---|---:|---:|---:|---:|---:|---|")
+        for _, r in confirm.head(2).iterrows():
+            reason = "相对强度领先 + 技术面延续 + 流动性达标"
             lines.append(
-                f"{i}. {r['code']} {r['name']}（{r['sector']}） | 涨幅{r['chg']:.2f}% | 换手{r['turnover']:.2f}% | "
-                f"超额vs大盘{r['excess_vs_index']:.2f}% | 量比5日{r['vol_ratio5']:.2f} | RSI{r['rsi14']:.1f}"
+                f"| {r['code']} | {r['name']} | {r['sector']} | {r['chg']:.2f}% | {r['excess_vs_index']:.2f}% | {r['excess_vs_sector']:.2f}% | {r['vol_ratio5']:.2f} | {r['rsi14']:.1f} | {reason} |"
             )
-            lines.append(
-                f"   - 买卖点：理想买点 {ideal_buy:.2f}（MA5）/ 次优买点 {secondary_buy:.2f}（MA10）/ 止损位 {stop_loss:.2f} / 目标位 {target_1:.2f}~{target_2:.2f}"
-            )
-            lines.append(
-                "   - 触发条件：回踩不破关键均线后企稳上行；失效条件：跌破止损位或放量转弱"
-            )
+
+    lines.append("")
+    lines.append("## 进攻仓（0-1只）")
+    if attack.empty:
+        lines.append("- 今日暂无进攻仓标的（高强度加速条件未满足）。")
+    else:
+        r = attack.iloc[0]
+        lines.append("| 代码 | 名称 | 板块 | 涨幅 | 换手 | 满仓理由 | 风险提示 |")
+        lines.append("|---|---|---|---:|---:|---|---|")
+        lines.append(
+            f"| {r['code']} | {r['name']} | {r['sector']} | {r['chg']:.2f}% | {r['turnover']:.2f}% | 强势加速且流动性匹配 | 波动加剧，严格止损 |"
+        )
 
     lines.append("")
     lines.append("## 开盘复核清单（通过才可进入正式观察仓）")
@@ -249,13 +316,17 @@ def build_report(main, idx_chg, observe, step_stats):
     )
     lines.append(
         f"4. 技术指标计算：输入 {step_stats['input_after_dedupe']} 只，"
-        f"历史数据失败 {step_stats['hist_failed']} 只，"
+        f"主源失败 {step_stats['hist_failed']} 只，"
+        f"腾讯回退成功 {step_stats['fallback_tx_used']} 只，"
+        f"腾讯回退失败 {step_stats['fallback_tx_failed']} 只，"
         f"历史长度不足 {step_stats['hist_too_short']} 只，"
         f"成功计算 {step_stats['indicator_ok']} 只"
     )
     lines.append(
-        f"5. 放宽规则筛选：最终候选 {step_stats['final_candidates']} 只，"
-        f"本轮筛选剔除 {step_stats['filtered_out']} 只"
+        f"5. 放宽规则筛选：观察仓 {step_stats['final_candidates']} 只，"
+        f"确认仓 {step_stats['confirm_count']} 只，"
+        f"进攻仓 {step_stats['attack_count']} 只，"
+        f"观察仓筛选剔除 {step_stats['filtered_out']} 只"
     )
 
     lines.append("")
@@ -275,9 +346,11 @@ def main():
     stocks, stock_stats = fetch_sector_stocks(main_sectors)
     df, indicator_stats = enrich_indicators(stocks, idx_chg)
 
-    # 放宽版筛选：仅供盯盘
+    # 三仓分层：观察 / 确认 / 进攻
     if df.empty:
         observe = df
+        confirm = df
+        attack = df
     else:
         observe = df[
             (df['chg'] >= 2.0)
@@ -288,14 +361,31 @@ def main():
             & (df['excess_vs_index'] >= 1.5)
         ].sort_values(['excess_vs_index', 'chg', 'turnover'], ascending=False).head(10)
 
+        confirm = observe[
+            (observe['excess_vs_index'] >= 3.0)
+            & (observe['excess_vs_sector'] >= 2.0)
+            & (observe['macd_ok'])
+            & (observe['rsi14'] >= 55)
+            & (observe['rsi14'] <= 85)
+            & (observe['vol_ratio5'] >= 1.0)
+        ].sort_values(['excess_vs_index', 'chg'], ascending=False).head(2)
+
+        attack = confirm[
+            (confirm['chg'] >= 7.0)
+            & (confirm['turnover'] >= 5.0)
+            & (confirm['turnover'] <= 15.0)
+        ].sort_values(['chg', 'turnover'], ascending=False).head(1)
+
     step_stats = {
         **stock_stats,
         **indicator_stats,
         'final_candidates': int(len(observe)),
         'filtered_out': int(max(indicator_stats['indicator_ok'] - len(observe), 0)),
+        'confirm_count': int(len(confirm)),
+        'attack_count': int(len(attack)),
     }
 
-    md = build_report(main_sectors, idx_chg, observe, step_stats)
+    md = build_report(main_sectors, idx_chg, observe, confirm, attack, step_stats)
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     d = datetime.now().strftime('%Y%m%d')
