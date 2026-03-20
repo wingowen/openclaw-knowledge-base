@@ -27,7 +27,7 @@ def conn_db():
 
 
 # ---------------------------------------------------------------------------
-# 主页：当日三仓看板
+# 主页：当日三仓看板 + 昨日胜率
 # ---------------------------------------------------------------------------
 @app.route("/")
 def index():
@@ -37,6 +37,7 @@ def index():
     conn = conn_db()
     cur = conn.cursor()
 
+    # 获取当日数据
     buckets = ["进攻", "确认", "观察"]
     data = {}
     for b in buckets:
@@ -51,8 +52,41 @@ def index():
         )
         data[b] = [dict(r) for r in cur.fetchall()]
 
+    # 获取昨日胜率（若有）
+    yesterday_stats = None
+    try:
+        from datetime import timedelta
+        yesterday = (datetime.strptime(date, "%Y-%m-%d") - timedelta(days=1)).strftime("%Y-%m-%d")
+        cur.execute(
+            """
+            SELECT status, COUNT(*) as cnt
+            FROM watchlist_records
+            WHERE report_date=?
+            GROUP BY status
+            """,
+            (yesterday,),
+        )
+        status_counts = {r["status"]: r["cnt"] for r in cur.fetchall()}
+        cur.execute("SELECT COUNT(*) as total FROM watchlist_records WHERE report_date=?", (yesterday,))
+        total = cur.fetchone()["total"]
+        settled = status_counts.get("已止盈", 0) + status_counts.get("已止损", 0) + status_counts.get("失效", 0)
+        if settled > 0 and total >= 3:
+            hit_rate = round(status_counts.get("已止盈", 0) / settled * 100, 1)
+            profit_rate = round(status_counts.get("已止盈", 0) / total * 100, 1)
+            loss_rate = round(status_counts.get("已止损", 0) / total * 100, 1)
+            yesterday_stats = {
+                "date": yesterday,
+                "total": total,
+                "settled": settled,
+                "hit_rate": f"{hit_rate}%",
+                "profit_rate": f"{profit_rate}%",
+                "loss_rate": f"{loss_rate}%",
+            }
+    except Exception:
+        yesterday_stats = None
+
     conn.close()
-    return render_template_string(TEMPLATE, date=date, data=data, today=today)
+    return render_template_string(TEMPLATE, date=date, data=data, today=today, yesterday_stats=yesterday_stats)
 
 
 # ---------------------------------------------------------------------------
@@ -101,7 +135,7 @@ def stats():
         SELECT status, COUNT(*) as cnt
         FROM watchlist_records
         GROUP BY status
-        """
+        """,
     )
     status_counts = {r["status"]: r["cnt"] for r in cur.fetchall()}
 
@@ -115,7 +149,7 @@ def stats():
         SELECT bucket, status, COUNT(*) as cnt
         FROM watchlist_records
         GROUP BY bucket, status
-        """
+        """,
     )
     bucket_stats = {}
     for r in cur.fetchall():
@@ -124,7 +158,7 @@ def stats():
     conn.close()
 
     # 计算比率（样本不足显示 N/A）
-    def pct(part, whole):
+def pct(part, whole):
         if whole < 3:
             return "N/A"
         return f"{round(part / whole * 100, 1)}%"
@@ -161,6 +195,7 @@ def stats():
 # ---------------------------------------------------------------------------
 # HTML 模板（单文件内嵌）
 # ---------------------------------------------------------------------------
+
 TEMPLATE = """<!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -175,7 +210,12 @@ TEMPLATE = """<!DOCTYPE html>
   .container { max-width: 1200px; margin: 0 auto; padding: 16px; }
   .date-nav { margin-bottom: 16px; display: flex; gap: 8px; align-items: center; }
   .date-nav input { padding: 6px 12px; border: 1px solid #ccc; border-radius: 4px; }
-  .date-nav button { padding: 6px 16px; background: #3498db; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+  .date-nav button { padding: 6px 16px; background: #3498db; color: #fff; border: none; border-radius: 4px; cursor: button; }
+  .stats-row { display: flex; gap: 16px; margin-bottom: 16px; }
+  .stat-card { background: #fff; border-radius: 8px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); flex: 1; }
+  .stat-card h3 { font-size: 14px; margin-bottom: 8px; color: #666; }
+  .stat-card .value { font-size: 24px; font-weight: 700; }
+  .stat-card .desc { font-size: 12px; color: #999; margin-top: 4px; }
   .buckets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .bucket { background: #fff; border-radius: 8px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
   .bucket h2 { font-size: 16px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #3498db; }
@@ -209,6 +249,25 @@ TEMPLATE = """<!DOCTYPE html>
     <input type="date" name="date" value="{{ date }}">
     <button type="submit">查看</button>
   </form>
+
+  {% if yesterday_stats %}
+  <div class="stats-row">
+    <div class="stat-card" style="border-left: 4px solid #3498db;">
+      <h3>昨日总票数</h3>
+      <div class="value">{{ yesterday_stats.total }}</div>
+    </div>
+    <div class="stat-card" style="border-left: 4px solid #27ae60;">
+      <h3>昨日命中率</h3>
+      <div class="value">{{ yesterday_stats.hit_rate }}</div>
+      <div class="desc">止盈 / 已结算</div>
+    </div>
+    <div class="stat-card" style="border-left: 4px solid #e74c3c;">
+      <h3>昨日止损率</h3>
+      <div class="value">{{ yesterday_stats.loss_rate }}</div>
+      <div class="desc">止损 / 总票数</div>
+    </div>
+  </div>
+  {% endif %}
 
   <div class="buckets">
     {% for bucket, label in [('进攻', 'attack'), ('确认', 'confirm'), ('观察', 'observe')] %}
