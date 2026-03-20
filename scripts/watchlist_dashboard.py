@@ -183,6 +183,19 @@ def index():
     conn = conn_db()
     cur = conn.cursor()
 
+    # 计算每只股票的最后出现日期（用于剩余天数）
+    cur.execute("""
+        SELECT code, MAX(report_date) as last_date
+        FROM watchlist_records
+        GROUP BY code
+    """)
+    last_date_map = {r['code']: r['last_date'] for r in cur.fetchall()}
+
+    # 最新数据日期
+    cur.execute("SELECT MAX(report_date) as latest FROM watchlist_records")
+    latest_row = cur.fetchone()
+    latest_date = datetime.strptime(latest_row['latest'], '%Y-%m-%d').date() if latest_row['latest'] else datetime.strptime(date, '%Y-%m-%d').date()
+
     # 获取当日数据
     buckets = ["进攻", "确认", "观察"]
     data = {}
