@@ -27,6 +27,79 @@ def conn_db():
 
 
 # ---------------------------------------------------------------------------
+# 新增：提供深度分析数据（从 daily_stock_analysis 数据库读取）
+# ---------------------------------------------------------------------------
+@app.route("/stock-details")
+def stock_details_api():
+    """返回单个股票的深度分析历史（JSON格式，供前端聚合页使用）"""
+    code = request.args.get("code")
+    if not code:
+        return jsonify({"error": "missing code parameter"}), 400
+
+    # daily_stock_analysis 的数据库路径
+    db_path = Path("/root/.openclaw/workspace/daily_stock_analysis/data/stock_analysis.db")
+    if not db_path.exists():
+        return jsonify({"error": "daily_stock_analysis database not found"}), 404
+
+    conn = sqlite3.connect(db_path)
+    conn.row_factory = sqlite3.Row
+    cur = conn.cursor()
+
+    try:
+        cur.execute("""
+            SELECT id, code, name, operation_advice, sentiment_score,
+                   ideal_buy, secondary_buy, stop_loss, take_profit,
+                   created_at
+            FROM analysis_history
+            WHERE code = ?
+            ORDER BY created_at ASC
+        """, (code,))
+        rows = [dict(r) for r in cur.fetchall()]
+    except Exception as e:
+        conn.close()
+        return jsonify({"error": str(e)}), 500
+    finally:
+        conn.close()
+
+    if not rows:
+        return jsonify({"total": 0, "records": []})
+
+    total = len(rows)
+    buy_count = sum(1 for r in rows if r['operation_advice'] in ['买入', '加仓'])
+    sell_count = sum(1 for r in rows if r['operation_advice'] in ['卖出', '减仓'])
+    avg_sentiment = round(sum(r['sentiment_score'] or 0 for r in rows) / total, 1) if total else 0
+
+    dates = []
+    sentiment_scores = []
+    ideal_buys = []
+    secondary_buys = []
+    stop_losses = []
+    take_profits = []
+
+    for r in rows:
+        dates.append(r['created_at'][:10] if r['created_at'] else '-')
+        sentiment_scores.append(r['sentiment_score'])
+        ideal_buys.append(r['ideal_buy'])
+        secondary_buys.append(r['secondary_buy'])
+        stop_losses.append(r['stop_loss'])
+        take_profits.append(r['take_profit'])
+
+    return jsonify({
+        "total": total,
+        "buy_count": buy_count,
+        "sell_count": sell_count,
+        "avg_sentiment": avg_sentiment,
+        "dates": dates,
+        "sentiment_scores": sentiment_scores,
+        "ideal_buys": ideal_buys,
+        "secondary_buys": secondary_buys,
+        "stop_losses": stop_losses,
+        "take_profits": take_profits,
+        "records": rows
+    })
+
+
+# ---------------------------------------------------------------------------
 # 主页：当日三仓看板 + 昨日胜率
 # ---------------------------------------------------------------------------
 @app.route("/")
@@ -439,6 +512,10 @@ STOCK_DETAIL_TEMPLATE = """<!DOCTYPE html>
   .status-已止盈 { background: #fff3e0; color: #e65100; }
   .status-已止损 { background: #ffebee; color: #c62828; }
   .status-失效 { background: #f5f5f5; color: #757575; }
+  /* 深度分析状态样式 */
+  .status-buy { background: #e8f5e9; color: #2e7d32; }
+  .status-sell { background: #ffebee; color: #c62828; }
+  .status-hold { background: #fff3e0; color: #ef6c00; }
   .chart-container { height: 300px; margin-top: 12px; }
   .back-link { display: inline-block; margin-bottom: 12px; color: #3498db; text-decoration: none; }
   .back-link:hover { text-decoration: underline; }
@@ -524,58 +601,154 @@ STOCK_DETAIL_TEMPLATE = """<!DOCTYPE html>
   </div>
   {% endif %}
 
+  <!-- 深度分析模块：从 daily_stock_analysis 同步数据 -->
+  <div class="section" id="deep-analysis-section">
+    <h2>🤖 AI 深度分析历史 <span style="font-size:12px; color:#999; font-weight:normal;">（数据来源：每日股票决策系统）</span></h2>
+    <div id="deep-analysis-loading" style="text-align:center; padding:20px; color:#666;">
+      正在加载分析数据...
+    </div>
+    <div id="deep-analysis-content" style="display:none;">
+      <!-- 统计卡片 -->
+      <div class="summary-cards" style="margin-bottom:16px;">
+        <div class="card" style="border-left:4px solid #1a237e;">
+          <h3>分析次数</h3>
+          <div class="value" id="da-total">-</div>
+        </div>
+        <div class="card" style="border-left:4px solid #2e7d32;">
+          <h3>买入/加仓</h3>
+          <div class="value" id="da-buy">-</div>
+        </div>
+        <div class="card" style="border-left:4px solid #c62828;">
+          <h3>卖出/减仓</h3>
+          <div class="value" id="da-sell">-</div>
+        </div>
+        <div class="card" style="border-left:4px solid #ef6c00;">
+          <h3>平均情绪分</h3>
+          <div class="value" id="da-sentiment">-</div>
+        </div>
+      </div>
+
+      <!-- 图表 -->
+      <div class="chart-container" style="height:300px; margin-bottom:16px;">
+        <canvas id="daChart"></canvas>
+      </div>
+
+      <!-- 明细表格 -->
+      <div style="overflow-x:auto;">
+        <table>
+          <thead><tr><th>日期</th><th>操作建议</th><th>情绪分</th><th>理想买点</th><th>次优买点</th><th>止损位</th><th>目标位</th></tr></thead>
+          <tbody id="da-table-body">
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div id="deep-analysis-empty" class="empty" style="display:none;">
+      暂无深度分析记录
+    </div>
+  </div>
+
 </div>
 <script>
-  // 技术指标趋势图
-  const ctx = document.getElementById('techChart').getContext('2d');
-  const chart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: {{ dates | tojson }},
-      datasets: [
-        {
-          label: '涨幅 %',
-          data: {{ chg_pcts | tojson }},
-          borderColor: '#3498db',
-          backgroundColor: 'rgba(52,152,219,0.1)',
-          fill: true,
-          tension: 0.3,
-        },
-        {
-          label: '理想买点',
-          data: {{ ideal_buys | tojson }},
-          borderColor: '#27ae60',
-          borderDash: [5,5],
-          fill: false,
-          pointRadius: 4,
-        },
-        {
-          label: '次优买点',
-          data: {{ secondary_buys | tojson }},
-          borderColor: '#f39c12',
-          borderDash: [5,5],
-          fill: false,
-          pointRadius: 4,
-        },
-        {
-          label: '止损位',
-          data: {{ stop_losses | tojson }},
-          borderColor: '#e74c3c',
-          borderDash: [5,5],
-          fill: false,
-          pointRadius: 4,
+  // 现有技术图标的渲染代码保持不变...
+
+  // 新增：从 daily_stock_analysis 拉取深度分析数据
+  (function() {
+    const code = '{{ code }}';
+    fetch('/stock-details?code=' + code)
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById('deep-analysis-loading').style.display = 'none';
+        if (!data.records || data.records.length === 0) {
+          document.getElementById('deep-analysis-empty').style.display = 'block';
+          return;
         }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: { mode: 'index', intersect: false },
-      scales: {
-        y: { beginAtZero: false }
-      }
-    }
-  });
+        const content = document.getElementById('deep-analysis-content');
+        content.style.display = 'block';
+
+        // 填充统计卡片
+        document.getElementById('da-total').textContent = data.total;
+        document.getElementById('da-buy').textContent = data.buy_count;
+        document.getElementById('da-sell').textContent = data.sell_count;
+        document.getElementById('da-sentiment').textContent = data.avg_sentiment || '-';
+
+        // 填充表格
+        const tbody = document.getElementById('da-table-body');
+        data.records.forEach(r => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${r.created_at ? r.created_at.substring(0,10) : '-'}</td>
+            <td><span class="status status-${r.operation_advice === '买入' || r.operation_advice === '加仓' ? 'buy' : r.operation_advice === '卖出' || r.operation_advice === '减仓' ? 'sell' : 'hold'}">${r.operation_advice || '-'}</span></td>
+            <td>${r.sentiment_score || '-'}</td>
+            <td>${r.ideal_buy || '-'}</td>
+            <td>${r.secondary_buy || '-'}</td>
+            <td>${r.stop_loss || '-'}</td>
+            <td>${r.take_profit || '-'}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        // 渲染 Chart.js 图表
+        const ctx = document.getElementById('daChart').getContext('2d');
+        if (window.daChart) window.daChart.destroy();
+        window.daChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: data.dates,
+            datasets: [
+              {
+                label: '情绪分',
+                data: data.sentiment_scores,
+                borderColor: '#1a237e',
+                backgroundColor: 'rgba(26,35,126,0.1)',
+                fill: true,
+                tension: 0.3,
+                yAxisID: 'y'
+              },
+              {
+                label: '理想买点',
+                data: data.ideal_buys,
+                borderColor: '#27ae60',
+                borderDash: [5,5],
+                fill: false,
+                pointRadius: 3,
+                yAxisID: 'y1'
+              },
+              {
+                label: '次优买点',
+                data: data.secondary_buys,
+                borderColor: '#f39c12',
+                borderDash: [5,5],
+                fill: false,
+                pointRadius: 3,
+                yAxisID: 'y1'
+              },
+              {
+                label: '止损位',
+                data: data.stop_losses,
+                borderColor: '#c62828',
+                borderDash: [5,5],
+                fill: false,
+                pointRadius: 3,
+                yAxisID: 'y1'
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            scales: {
+              y: { type: 'linear', display: true, position: 'left', title: { display: true, text: '情绪分 (0-100)' } },
+              y1: { type: 'linear', display: true, position: 'right', title: { display: true, text: '价格 (元)' }, grid: { drawOnChartArea: false } }
+            }
+          }
+        });
+      })
+      .catch(err => {
+        console.error('Failed to fetch deep analysis:', err);
+        document.getElementById('deep-analysis-loading').textContent = '加载失败：' + err.message;
+      });
+  })();
 </script>
 </body>
 </html>"""
