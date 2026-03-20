@@ -102,7 +102,7 @@ def history_pool():
 # ---------------------------------------------------------------------------
 # 新增：提供深度分析数据（从 daily_stock_analysis 数据库读取）
 # ---------------------------------------------------------------------------
-@app.route("/stock-details")
+@app.route("/api/stock-details")
 def stock_details_api():
     """返回单个股票的深度分析历史（JSON格式，供前端聚合页使用）"""
     code = request.args.get("code")
@@ -751,7 +751,7 @@ STOCK_DETAIL_TEMPLATE = """<!DOCTYPE html>
   // 新增：从 daily_stock_analysis 拉取深度分析数据
   (function() {
     const code = '{{ code }}';
-    fetch('/stock-details?code=' + code)
+    fetch('/api/stock-details?code=' + code)
       .then(r => r.json())
       .then(data => {
         document.getElementById('deep-analysis-loading').style.display = 'none';

@@ -8,7 +8,9 @@
 from __future__ import annotations
 
 import json
+import os
 import re
+import sys
 import time
 from datetime import datetime
 from pathlib import Path
@@ -16,6 +18,15 @@ from pathlib import Path
 import akshare as ak
 import pandas as pd
 import requests
+
+# ============================================
+# 交易日检查（非交易日直接跳过）
+# ============================================
+TRADING_DAY_CHECK_CMD = "python3 /root/.openclaw/workspace/scripts/check_trading_day.py --quiet"
+result = os.system(TRADING_DAY_CHECK_CMD)
+if result != 0:
+    print("❌ 非交易日，跳过候选池生成")
+    sys.exit(0)
 
 WORKSPACE = Path('/root/.openclaw/workspace')
 OUT_DIR = WORKSPACE / 'reports'
