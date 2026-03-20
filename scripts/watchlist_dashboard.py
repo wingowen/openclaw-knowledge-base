@@ -27,6 +27,79 @@ def conn_db():
 
 
 # ---------------------------------------------------------------------------
+# 新增：历史池视图（一周无信号自动归档）
+# ---------------------------------------------------------------------------
+@app.route("/history")
+def history_pool():
+    """显示历史池股票（连续超过指定天数未出现）"""
+    days = request.args.get("days", 7, type=int)
+    q = request.args.get("q", "").strip()  # 搜索关键词
+    page = request.args.get("page", 1, type=int)
+    per_page = 20
+
+    conn = conn_db()
+    cur = conn.cursor()
+
+    # 获取最新日期
+    cur.execute("SELECT MAX(report_date) as latest FROM watchlist_records")
+    latest_row = cur.fetchone()
+    if not latest_row or not latest_row['latest']:
+        conn.close()
+        return "<h1>暂无候选票数据</h1>"
+    latest_date = datetime.strptime(latest_row['latest'], '%Y-%m-%d').date()
+
+    # 获取所有活跃股票（未标记为'失效'的）及其最后出现日期
+    # 支持搜索过滤
+    if q:
+        cur.execute("""
+            SELECT code, name, sector, MAX(report_date) as last_date
+            FROM watchlist_records
+            WHERE status != '失效' AND (code LIKE ? OR name LIKE ?)
+            GROUP BY code, name, sector
+        """, (f"%{q}%", f"%{q}%"))
+    else:
+        cur.execute("""
+            SELECT code, name, sector, MAX(report_date) as last_date
+            FROM watchlist_records
+            WHERE status != '失效'
+            GROUP BY code, name, sector
+        """)
+    candidates = [dict(r) for r in cur.fetchall()]
+    conn.close()
+
+    # 筛选出超过阈值未出现的
+    stale = []
+    for cand in candidates:
+        last_dt = datetime.strptime(cand['last_date'], '%Y-%m-%d').date()
+        gap = (latest_date - last_dt).days
+        if gap >= days:
+            cand['gap_days'] = gap
+            stale.append(cand)
+
+    # 按最后出现日期倒序
+    stale.sort(key=lambda x: x['last_date'], reverse=True)
+
+    # 分页
+    total = len(stale)
+    start = (page - 1) * per_page
+    end = start + per_page
+    page_items = stale[start:end]
+    total_pages = (total + per_page - 1) // per_page
+
+    return render_template_string(
+        HISTORY_TEMPLATE,
+        stale=page_items,
+        days=days,
+        latest_date=latest_date,
+        total=total,
+        page=page,
+        total_pages=total_pages,
+        q=q
+    )
+
+
+
+# ---------------------------------------------------------------------------
 # 新增：提供深度分析数据（从 daily_stock_analysis 数据库读取）
 # ---------------------------------------------------------------------------
 @app.route("/stock-details")
@@ -123,7 +196,14 @@ def index():
             """,
             (date, b),
         )
-        data[b] = [dict(r) for r in cur.fetchall()]
+        rows = [dict(r) for r in cur.fetchall()]
+        # 为每条记录计算剩余天数
+        for r in rows:
+            last_dt = datetime.strptime(last_date_map.get(r['code'], date), '%Y-%m-%d').date()
+            gap = (latest_date - last_dt).days
+            r['remaining_days'] = max(0, 7 - gap)  # 剩余天数（小于等于2表示即将归档）
+        data[b] = rows
+
 
     # 获取昨日胜率（若有）
     yesterday_stats = None
@@ -418,6 +498,7 @@ INDEX_TEMPLATE = """<!DOCTYPE html>
     <label>切换日期：</label>
     <input type="date" name="date" value="{{ date }}">
     <button type="submit">查看</button>
+    <a href="/history" style="margin-left: 12px; padding: 6px 16px; background: #7f8c8d; color: white; text-decoration: none; border-radius: 4px; font-size: 14px;">📋 历史池</a>
   </form>
 
   {% if yesterday_stats %}
@@ -445,7 +526,7 @@ INDEX_TEMPLATE = """<!DOCTYPE html>
       <h2>{% if bucket == '进攻' %}🔥{% elif bucket == '确认' %}⚡{% else %}👁️{% endif %} {{ bucket }}仓</h2>
       {% if data[bucket] %}
       <table>
-        <thead><tr><th>代码</th><th>名称</th><th>涨幅</th><th>状态</th><th>目标</th></tr></thead>
+        <thead><tr><th>代码</th><th>名称</th><th>涨幅</th><th>状态</th><th>剩余</th><th>目标</th></tr></thead>
         <tbody>
         {% for r in data[bucket] %}
         <tr>
@@ -455,6 +536,9 @@ INDEX_TEMPLATE = """<!DOCTYPE html>
           <td>
             <span class="status status-{{ r.status }}">{{ r.status }}</span>
             {% if r.note %}<div class="note">{{ r.note }}</div>{% endif %}
+          </td>
+          <td style="color: {% if r.remaining_days is defined and r.remaining_days <= 2 %}#e74c3c;{% endif %}; font-weight: {% if r.remaining_days is defined and r.remaining_days <= 2 %}bold;{% endif %}">
+            {% if r.remaining_days is defined %}{{ r.remaining_days }}{% else %}-{% endif %}
           </td>
           <td>{{ r.target_range or '-' }}</td>
         </tr>
@@ -750,6 +834,149 @@ STOCK_DETAIL_TEMPLATE = """<!DOCTYPE html>
       });
   })();
 </script>
+</body>
+</html>"""
+
+
+HISTORY_TEMPLATE = """<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>历史候选池 - 股票聚合分析</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, sans-serif; background: #f5f5f5; color: #333; }
+  .header { background: #2c3e50; color: #fff; padding: 16px 24px; display: flex; align-items: center; gap: 16px; }
+  .header h1 { font-size: 20px; }
+  .header .meta { font-size: 14px; opacity: 0.8; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 16px; }
+  .back-link { display: inline-block; margin-bottom: 12px; color: #fff; text-decoration: none; }
+  .back-link:hover { text-decoration: underline; }
+  .card { background: #fff; border-radius: 8px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 16px; }
+  .stat-row { display: flex; gap: 16px; margin-bottom: 16px; }
+  .stat { flex: 1; text-align: center; padding: 12px; background: #f8f9fa; border-radius: 6px; }
+  .stat-value { font-size: 24px; font-weight: bold; color: #1a237e; }
+  .stat-label { font-size: 13px; color: #666; margin-top: 4px; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  th, td { padding: 12px 16px; text-align: left; }
+  th { background: #f8f9fa; font-weight: 600; color: #666; font-size: 13px; }
+  tr:hover { background: #fafafa; }
+  .empty { text-align: center; padding: 40px; color: #999; }
+  .badge { padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #e8f5e9; color: #2e7d32; text-decoration: none; }
+  .gap-days { font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="header">
+  <a href="/" class="back-link">← 返回看板</a>
+  <div>
+    <h1>📋 历史候选池</h1>
+    <div class="meta">超过 {{ days }} 天未出现信号的股票</div>
+  </div>
+</div>
+<div class="container">
+
+  <div class="card">
+    <div class="stat-row">
+      <div class="stat">
+        <div class="stat-value">{{ total }}</div>
+        <div class="stat-label">历史股票总数</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">{{ days }}</div>
+        <div class="stat-label">阈值（天）</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">{{ latest_date }}</div>
+        <div class="stat-label">最新数据日期</div>
+      </div>
+    </div>
+    <div class="stat-row" style="margin-top: 12px; border-top: 1px solid #eee; padding-top: 12px;">
+      <div class="stat">
+        <div class="stat-value">{{ stats.avg_gap|default(0) }}</div>
+        <div class="stat-label">平均闲置天数</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">{{ stats.max_gap|default(0) }}</div>
+        <div class="stat-label">最长闲置(天)</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">{{ stats.min_gap|default(0) }}</div>
+        <div class="stat-label">最短闲置(天)</div>
+      </div>
+    </div>
+    {% if stats.sector_counts %}
+    <div style="margin-top: 12px; border-top: 1px solid #eee; padding-top: 12px;">
+      <div style="font-size: 13px; color: #666; margin-bottom: 8px;">板块分布：</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+        {% for sector, count in stats.sector_counts.items() %}
+        <span style="padding: 4px 12px; background: #e8f5e9; border-radius: 12px; font-size: 12px; color: #2e7d32;">
+          {{ sector }} ({{ count }})
+        </span>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- 搜索框 -->
+  <div class="card" style="padding: 12px 16px; margin-bottom: 16px;">
+    <form method="get" action="/history" style="display: flex; gap: 8px; align-items: center;">
+      <input type="text" name="q" placeholder="搜索代码或名称..." value="{{ q or '' }}"
+             style="flex: 1; padding: 6px 12px; border: 1px solid #ddd; border-radius: 4px;">
+      <input type="hidden" name="days" value="{{ days }}">
+      <button type="submit" style="padding: 6px 16px; background: #3498db; color: #fff; border: none; border-radius: 4px; cursor: pointer;">搜索</button>
+      {% if q %}
+      <a href="/history?days={{ days }}" style="padding: 6px 16px; background: #95a5a6; color: #fff; text-decoration: none; border-radius: 4px;">清除</a>
+      {% endif %}
+    </form>
+  </div>
+
+  {% if stale %}
+  <table>
+    <thead><tr><th>代码</th><th>名称</th><th>板块</th><th>最后出现</th><th>间隔天数</th></tr></thead>
+    <tbody>
+    {% for s in stale %}
+    <tr>
+      <td><a href="/stock/{{ s.code }}" class="badge">{{ s.code }}</a></td>
+      <td>{{ s.name }}</td>
+      <td>{{ s.sector }}</td>
+      <td>{{ s.last_date }}</td>
+      <td>
+      <span class="gap-days" style="color: {% if s.gap_days >= days-2 %}#e74c3c; font-weight: 800;{% else %}#666;{% endif %}">
+        {{ s.gap_days }} 天
+      </span>
+      {% if s.gap_days >= days-2 %}<span style="font-size:11px; color:#e74c3c; margin-left:4px;">⚠️ 即将归档</span>{% endif %}
+    </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- 分页 -->
+  {% if total_pages > 1 %}
+  <div class="card" style="margin-top: 16px; text-align: center;">
+    <div class="pagination" style="display: flex; justify-content: center; gap: 8px; align-items: center;">
+      {% if page > 1 %}
+        <a href="/history?page={{ page-1 }}&days={{ days }}{% if q %}&q={{ q }}{% endif %}" style="padding: 6px 12px; background: #ecf0f1; border-radius: 4px; text-decoration: none; color: #333;">上一页</a>
+      {% endif %}
+
+      <span style="font-size: 14px; color: #666;">
+        第 {{ page }} / {{ total_pages }} 页（共 {{ total }} 条）
+      </span>
+
+      {% if page < total_pages %}
+        <a href="/history?page={{ page+1 }}&days={{ days }}{% if q %}&q={{ q }}{% endif %}" style="padding: 6px 12px; background: #ecf0f1; border-radius: 4px; text-decoration: none; color: #333;">下一页</a>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% else %}
+  <div class="empty">暂无符合条件的股票（所有候选票都在阈值内）</div>
+  {% endif %}
+
+</div>
 </body>
 </html>"""
 

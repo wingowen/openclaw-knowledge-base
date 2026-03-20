@@ -18,5 +18,13 @@
     5) 更新 `lastStockPoolReview` 为本周日期
 - 若不符合条件：跳过
 
+# 候选票历史池归档（每个交易日触发一次）
+- 检查 `memory/heartbeat-state.json` 中 `lastCandidateArchive` 是否为今日
+- 若不是，且当前时间在 09:30-15:00 之间（交易时段）：
+  1) 运行 `python3 /root/.openclaw/workspace/scripts/archive_stale_candidates.py --days 7`
+  2) 若归档结果 >0，发送通知给用户（列出被归档的股票）
+  3) 更新 `lastCandidateArchive` 为今日日期
+- 若已执行过：跳过
+
 # 默认
 - 若以上均不触发：回复 HEARTBEAT_OK
