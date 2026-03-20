@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""候选票追踪系统 Web 看板
+"""候选票追踪系统 Web 看板 - 增强版
 
 用法：
   python3 scripts/watchlist_dashboard.py
@@ -8,7 +8,7 @@
 访问：http://localhost:5000
 """
 
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 from flask import Flask, jsonify, request, render_template_string
@@ -43,7 +43,7 @@ def index():
     for b in buckets:
         cur.execute(
             """
-            SELECT code, name, sector, chg_pct, status, note, target_range
+            SELECT code, name, sector, chg_pct, status, note, target_range, ideal_buy, secondary_buy, stop_loss
             FROM watchlist_records
             WHERE report_date=? AND bucket=?
             ORDER BY chg_pct DESC
@@ -55,7 +55,6 @@ def index():
     # 获取昨日胜率（若有）
     yesterday_stats = None
     try:
-        from datetime import timedelta
         yesterday = (datetime.strptime(date, "%Y-%m-%d") - timedelta(days=1)).strftime("%Y-%m-%d")
         cur.execute(
             """
@@ -86,7 +85,103 @@ def index():
         yesterday_stats = None
 
     conn.close()
-    return render_template_string(TEMPLATE, date=date, data=data, today=today, yesterday_stats=yesterday_stats)
+    return render_template_string(INDEX_TEMPLATE, date=date, data=data, today=today, yesterday_stats=yesterday_stats)
+
+
+# ---------------------------------------------------------------------------
+# 股票聚合分析页面
+# ---------------------------------------------------------------------------
+@app.route("/stock/<code>")
+def stock_detail(code):
+    """展示单只股票的历史追溯分析"""
+    conn = conn_db()
+    cur = conn.cursor()
+
+    # 获取该股票所有历史记录
+    cur.execute(
+        """
+        SELECT * FROM watchlist_records
+        WHERE code = ?
+        ORDER BY report_date DESC
+        """,
+        (code,),
+    )
+    records = [dict(r) for r in cur.fetchall()]
+
+    if not records:
+        conn.close()
+        return f"<h1>未找到股票代码 {code} 的记录</h1><p><a href='/'>返回首页</a></p>"
+
+    # 基本信息
+    name = records[0]["name"]
+    sector = records[0]["sector"]
+
+    # 统计数据
+    total_appearances = len(records)
+    status_counts = {}
+    bucket_counts = {}
+    for r in records:
+        status_counts[r["status"]] = status_counts.get(r["status"], 0) + 1
+        bucket_counts[r["bucket"]] = bucket_counts.get(r["bucket"], 0) + 1
+
+    settled = status_counts.get("已止盈", 0) + status_counts.get("已止损", 0) + status_counts.get("失效", 0)
+    hit_rate = round(status_counts.get("已止盈", 0) / settled * 100, 1) if settled > 0 else None
+    profit_rate = round(status_counts.get("已止盈", 0) / total_appearances * 100, 1) if total_appearances > 0 else None
+
+    # 同板块关联分析
+    cur.execute(
+        """
+        SELECT code, name, COUNT(*) as appearances, MAX(report_date) as latest
+        FROM watchlist_records
+        WHERE sector = ? AND code != ?
+        GROUP BY code, name
+        ORDER BY appearances DESC, latest DESC
+        LIMIT 5
+        """,
+        (sector, code),
+    )
+    related_stocks = [dict(r) for r in cur.fetchall()]
+
+    # 准备图表数据（按日期序列）
+    dates = []
+    chg_pcts = []
+    ideal_buys = []
+    secondary_buys = []
+    stop_losses = []
+    status_sequence = []
+    bucket_sequence = []
+
+    for r in reversed(records):  # 时间正序
+        dates.append(r["report_date"])
+        chg_pcts.append(r["chg_pct"] if r["chg_pct"] is not None else None)
+        ideal_buys.append(r["ideal_buy"] if r["ideal_buy"] is not None else None)
+        secondary_buys.append(r["secondary_buy"] if r["secondary_buy"] is not None else None)
+        stop_losses.append(r["stop_loss"] if r["stop_loss"] is not None else None)
+        status_sequence.append(r["status"])
+        bucket_sequence.append(r["bucket"])
+
+    conn.close()
+
+    return render_template_string(
+        STOCK_DETAIL_TEMPLATE,
+        code=code,
+        name=name,
+        sector=sector,
+        records=records,
+        total_appearances=total_appearances,
+        status_counts=status_counts,
+        bucket_counts=bucket_counts,
+        hit_rate=hit_rate,
+        profit_rate=profit_rate,
+        related_stocks=related_stocks,
+        dates=dates,
+        chg_pcts=chg_pcts,
+        ideal_buys=ideal_buys,
+        secondary_buys=secondary_buys,
+        stop_losses=stop_losses,
+        status_sequence=status_sequence,
+        bucket_sequence=bucket_sequence,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -158,7 +253,7 @@ def stats():
     conn.close()
 
     # 计算比率（样本不足显示 N/A）
-def pct(part, whole):
+    def pct(part, whole):
         if whole < 3:
             return "N/A"
         return f"{round(part / whole * 100, 1)}%"
@@ -193,10 +288,10 @@ def pct(part, whole):
 
 
 # ---------------------------------------------------------------------------
-# HTML 模板（单文件内嵌）
+# HTML 模板
 # ---------------------------------------------------------------------------
 
-TEMPLATE = """<!DOCTYPE html>
+INDEX_TEMPLATE = """<!DOCTYPE html>
 <html lang="zh">
 <head>
 <meta charset="utf-8">
@@ -210,7 +305,7 @@ TEMPLATE = """<!DOCTYPE html>
   .container { max-width: 1200px; margin: 0 auto; padding: 16px; }
   .date-nav { margin-bottom: 16px; display: flex; gap: 8px; align-items: center; }
   .date-nav input { padding: 6px 12px; border: 1px solid #ccc; border-radius: 4px; }
-  .date-nav button { padding: 6px 16px; background: #3498db; color: #fff; border: none; border-radius: 4px; cursor: button; }
+  .date-nav button { padding: 6px 16px; background: #3498db; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
   .stats-row { display: flex; gap: 16px; margin-bottom: 16px; }
   .stat-card { background: #fff; border-radius: 8px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); flex: 1; }
   .stat-card h3 { font-size: 14px; margin-bottom: 8px; color: #666; }
@@ -236,6 +331,8 @@ TEMPLATE = """<!DOCTYPE html>
   .api-links { margin-top: 24px; background: #fff; padding: 16px; border-radius: 8px; }
   .api-links h3 { font-size: 14px; margin-bottom: 8px; }
   .api-links pre { background: #2c3e50; color: #ecf0f1; padding: 12px; border-radius: 4px; font-size: 12px; overflow-x: auto; }
+  .code-link { color: #3498db; text-decoration: none; }
+  .code-link:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
@@ -279,7 +376,7 @@ TEMPLATE = """<!DOCTYPE html>
         <tbody>
         {% for r in data[bucket] %}
         <tr>
-          <td>{{ r.code }}</td>
+          <td><a href="/stock/{{ r.code }}" class="code-link">{{ r.code }}</a></td>
           <td>{{ r.name }}</td>
           <td>{% if r.chg_pct %}{{ r.chg_pct }}%{% else %}-{% endif %}</td>
           <td>
@@ -309,6 +406,177 @@ GET /stats
     </pre>
   </div>
 </div>
+</body>
+</html>"""
+
+
+STOCK_DETAIL_TEMPLATE = """<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>{{ code }} {{ name }} - 股票聚合分析</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, sans-serif; background: #f5f5f5; color: #333; }
+  .header { background: #2c3e50; color: #fff; padding: 16px 24px; display: flex; align-items: center; gap: 16px; }
+  .header h1 { font-size: 20px; }
+  .header .meta { font-size: 14px; opacity: 0.8; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 16px; }
+  .summary-cards { display: flex; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+  .card { background: #fff; border-radius: 8px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); min-width: 160px; }
+  .card h3 { font-size: 13px; color: #666; margin-bottom: 8px; }
+  .card .value { font-size: 24px; font-weight: 700; }
+  .card .desc { font-size: 12px; color: #999; margin-top: 4px; }
+  .section { background: #fff; border-radius: 8px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  .section h2 { font-size: 16px; margin-bottom: 12px; color: #333; border-bottom: 2px solid #3498db; padding-bottom: 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid #eee; }
+  th { background: #f8f9fa; font-weight: 600; }
+  .status { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+  .status-待观察 { background: #e8f5e9; color: #2e7d32; }
+  .status-已入场 { background: #e3f2fd; color: #1565c0; }
+  .status-已止盈 { background: #fff3e0; color: #e65100; }
+  .status-已止损 { background: #ffebee; color: #c62828; }
+  .status-失效 { background: #f5f5f5; color: #757575; }
+  .chart-container { height: 300px; margin-top: 12px; }
+  .back-link { display: inline-block; margin-bottom: 12px; color: #3498db; text-decoration: none; }
+  .back-link:hover { text-decoration: underline; }
+  .related-table { width: 100%; }
+</style>
+</head>
+<body>
+<div class="header">
+  <a href="/" class="back-link">← 返回看板</a>
+  <div>
+    <h1>{{ code }} {{ name }}</h1>
+    <div class="meta">板块：{{ sector }} | 出现次数：{{ total_appearances }}次</div>
+  </div>
+</div>
+<div class="container">
+
+  <div class="summary-cards">
+    <div class="card" style="border-left: 4px solid #3498db;">
+      <h3>总出现次数</h3>
+      <div class="value">{{ total_appearances }}</div>
+    </div>
+    <div class="card" style="border-left: 4px solid #27ae60;">
+      <h3>止盈次数</h3>
+      <div class="value">{{ status_counts.get('已止盈', 0) }}</div>
+    </div>
+    <div class="card" style="border-left: 4px solid #e74c3c;">
+      <h3>止损次数</h3>
+      <div class="value">{{ status_counts.get('已止损', 0) }}</div>
+    </div>
+    {% if hit_rate is not none %}
+    <div class="card" style="border-left: 4px solid #f39c12;">
+      <h3>命中率</h3>
+      <div class="value">{{ hit_rate }}%</div>
+      <div class="desc">止盈/已结算</div>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="section">
+    <h2>📊 技术指标趋势</h2>
+    <div class="chart-container">
+      <canvas id="techChart"></canvas>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>📋 历史记录明细</h2>
+    <table>
+      <thead><tr><th>日期</th><th>仓位</th><th>涨幅</th><th>状态</th><th>理想买点</th><th>次优买点</th><th>止损位</th><th>目标位</th></tr></thead>
+      <tbody>
+      {% for r in records %}
+      <tr>
+        <td>{{ r.report_date }}</td>
+        <td>{{ r.bucket }}仓</td>
+        <td>{{ r.chg_pct if r.chg_pct is not none else '-' }}%</td>
+        <td><span class="status status-{{ r.status }}">{{ r.status }}</span></td>
+        <td>{{ r.ideal_buy if r.ideal_buy is not none else '-' }}</td>
+        <td>{{ r.secondary_buy if r.secondary_buy is not none else '-' }}</td>
+        <td>{{ r.stop_loss if r.stop_loss is not none else '-' }}</td>
+        <td>{{ r.target_range or '-' }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% if related_stocks %}
+  <div class="section">
+    <h2>🔗 同板块关联股票</h2>
+    <table class="related-table">
+      <thead><tr><th>代码</th><th>名称</th><th>出现次数</th><th>最近日期</th></tr></thead>
+      <tbody>
+      {% for s in related_stocks %}
+      <tr>
+        <td><a href="/stock/{{ s.code }}" class="code-link">{{ s.code }}</a></td>
+        <td>{{ s.name }}</td>
+        <td>{{ s.appearances }}</td>
+        <td>{{ s.latest }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+
+</div>
+<script>
+  // 技术指标趋势图
+  const ctx = document.getElementById('techChart').getContext('2d');
+  const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: {{ dates | tojson }},
+      datasets: [
+        {
+          label: '涨幅 %',
+          data: {{ chg_pcts | tojson }},
+          borderColor: '#3498db',
+          backgroundColor: 'rgba(52,152,219,0.1)',
+          fill: true,
+          tension: 0.3,
+        },
+        {
+          label: '理想买点',
+          data: {{ ideal_buys | tojson }},
+          borderColor: '#27ae60',
+          borderDash: [5,5],
+          fill: false,
+          pointRadius: 4,
+        },
+        {
+          label: '次优买点',
+          data: {{ secondary_buys | tojson }},
+          borderColor: '#f39c12',
+          borderDash: [5,5],
+          fill: false,
+          pointRadius: 4,
+        },
+        {
+          label: '止损位',
+          data: {{ stop_losses | tojson }},
+          borderColor: '#e74c3c',
+          borderDash: [5,5],
+          fill: false,
+          pointRadius: 4,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      scales: {
+        y: { beginAtZero: false }
+      }
+    }
+  });
+</script>
 </body>
 </html>"""
 
