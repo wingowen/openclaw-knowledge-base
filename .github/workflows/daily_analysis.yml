@@ -48,15 +48,18 @@ jobs:
           cache: 'pip'
       
       - name: 安装依赖
+        working-directory: daily_stock_analysis
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
       
       - name: 创建必要目录
+        working-directory: daily_stock_analysis
         run: |
           mkdir -p data logs reports
       
       - name: 执行股票分析
+        working-directory: daily_stock_analysis
         env:
           # ==========================================
           # AI 配置
@@ -244,6 +247,7 @@ jobs:
           fi
       
       - name: 上传分析报告
+        working-directory: daily_stock_analysis
         uses: actions/upload-artifact@v6
         if: always()
         with:
@@ -254,6 +258,7 @@ jobs:
           retention-days: 30
       
       - name: 显示运行结果
+        working-directory: daily_stock_analysis
         if: always()
         run: |
           echo ""
