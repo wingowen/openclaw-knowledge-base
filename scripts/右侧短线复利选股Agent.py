@@ -1,66 +1,361 @@
-# 右侧短线复利选股Agent
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+右侧短线复利选股Agent（V1.1）
+- 读取 daily_stock_analysis 报告
+- 生成 5 段式右侧选股报告（市场判断/观察仓/确认仓/进攻仓/交易计划）
+- 支持三档参数预设：aggressive / balanced / conservative
 
-import pandas as pd
-import numpy as np
+用法:
+  python3 scripts/右侧短线复利选股Agent.py --date 20260319 --preset balanced
+"""
+
+from __future__ import annotations
+
+import argparse
+import math
+import re
+from dataclasses import dataclass
 from datetime import datetime
+from pathlib import Path
+from typing import Dict, List, Tuple
 
-class 选股Agent:
-    def __init__(self):
-        self.观察仓比例 = 0.3
-        self.确认仓比例 = 0.4
-        self.进攻仓比例 = 0.3
-        self.止损比例 = 0.03
-        self.持仓周期 = 3-5
-        self.输出格式 = "<h3>{}</h3>\n{}\n\n{}"
 
-    def 筛选观察仓(self, 股票数据):
-        """
-        观察仓筛选规则:
-        1. 板块RPS>90（主线板块），个股RPS>85（全市场前15%强势股）
-        2. 5/10/20日均线多头排列，股价站稳5日均线上方
-        3. 量能温和放大，量比>1.5且<3（避免过度放量）
-        4. 突破近10日平台/箱体上沿，回踩不破关键位
-        5. 排除ST、*ST、退市整理期、停牌个股
-        """
-        # 示例筛选逻辑（需替换为实际数据）
-        # 假设 stock_data 是 DataFrame，包含股票信息
-        # 筛选满足条件的股票
-        # 返回符合条件的股票代码列表
-        pass
+WORKSPACE = Path("/root/.openclaw/workspace")
+REPORT_DIR = WORKSPACE / "daily_stock_analysis" / "reports"
+OUTPUT_DIR = WORKSPACE / "reports"
 
-    def 筛选确认仓(self, 股票数据):
-        """
-        确认仓筛选规则:
-        1. 从观察仓中筛选：明显强于大盘（相对大盘涨幅>3%）、强于同板块（相对板块涨幅>2%）
-        2. 当日放量突破关键阻力位（量能≥5日均量2倍）
-        3. MACD零轴上方金叉，RSI(14)在60-80区间（强势不超买）
-        4. 北向资金/主力资金净流入>5000万（资金确认）
-        """
-        pass
 
-    def 筛选进攻仓(self, 股票数据):
-        """
-        进攻仓筛选规则:
-        1. 从确认仓中筛选：市场情绪高涨，进入加速上涨段（连续2日涨停/大阳线）
-        2. 换手率在5%-15%区间（适中流动性，避免筹码松动）
-        3. 龙虎榜显示机构/游资净买入（资金共振）
-        4. 板块涨停家数>5家（板块效应确认）
-        """
-        pass
+PRESETS: Dict[str, dict] = {
+    "aggressive": {
+        "observe_min": 68,
+        "confirm_min": 78,
+        "attack_min": 86,
+        "stop_loss": 0.05,
+        "take_profit": (0.07, 0.15),
+        "observe_ratio": 0.30,
+        "confirm_ratio": 0.40,
+        "attack_ratio": 0.30,
+    },
+    "balanced": {
+        "observe_min": 70,
+        "confirm_min": 80,
+        "attack_min": 88,
+        "stop_loss": 0.04,
+        "take_profit": (0.05, 0.12),
+        "observe_ratio": 0.30,
+        "confirm_ratio": 0.40,
+        "attack_ratio": 0.30,
+    },
+    "conservative": {
+        "observe_min": 72,
+        "confirm_min": 83,
+        "attack_min": 90,
+        "stop_loss": 0.03,
+        "take_profit": (0.05, 0.10),
+        "observe_ratio": 0.40,
+        "confirm_ratio": 0.35,
+        "attack_ratio": 0.25,
+    },
+}
 
-    def 生成报告(self, 市场判断, 观察仓清单, 确认仓清单, 进攻仓清单):
-        """
-        输出格式:
-        1. 市场判断：当前市场情绪（强/中/弱）、主线板块、操作建议（观察/确认/进攻/空仓）
-        2. 观察仓清单：3-5只标的，含代码、名称、入选理由、胜率评估（0-100%）、止损位、目标价
-        3. 确认仓清单：1-2只标的，含代码、名称、加仓理由、资金分配建议、止盈区间
-        4. 进攻仓标的：0-1只标的，含代码、名称、满仓理由、风险提示、最佳入场时机
-        5. 交易计划：分仓比例、入场时机、持仓周期、卖出条件
-        """
-        report = f"<h1>右侧短线复利选股报告</h1>\n" + f"<h2>市场判断</h2>\n{市场判断}\n" + f"<h2>观察仓清单</h2>\n{观察仓清单}\n" + f"<h2>确认仓清单</h2>\n{确认仓清单}\n" + f"<h2>进攻仓标的</h2>\n{进攻仓清单}\n" + f"<h2>交易计划</h2>\n{交易计划}\n"
-        return report
 
-# 测试
+@dataclass
+class StockSnapshot:
+    code: str
+    name: str
+    decision: str
+    trend: str
+    current: float
+    volume_ratio: float
+    turnover: float
+    trend_strength: int
+    ma_bull: bool
+    industry_hint: str = ""
+
+
+def _safe_float(text: str, default: float = 0.0) -> float:
+    try:
+        return float(text)
+    except Exception:
+        return default
+
+
+def parse_dashboard_counts(md: str) -> Tuple[int, int, int]:
+    m = re.search(r"买入:(\d+).*?观望:(\d+).*?卖出:(\d+)", md)
+    if not m:
+        return 0, 0, 0
+    return int(m.group(1)), int(m.group(2)), int(m.group(3))
+
+
+def infer_market_mood(md: str) -> Tuple[str, str, str]:
+    buy, watch, sell = parse_dashboard_counts(md)
+    score = buy * 2 + watch - sell * 2
+
+    if score >= 2 and buy >= sell:
+        mood = "强"
+        action = "确认/进攻"
+    elif score <= -2 or sell > buy:
+        mood = "弱"
+        action = "观察/空仓"
+    else:
+        mood = "中"
+        action = "观察/确认"
+
+    # 主线板块：从文中常见关键词粗提取（无则回退）
+    sectors = []
+    for kw in ["煤炭", "航运", "银行", "石油", "化工", "有色", "保险", "水泥", "半导体", "AI"]:
+        if kw in md:
+            sectors.append(kw)
+    mainline = "、".join(list(dict.fromkeys(sectors))[:3]) if sectors else "主线分化，防御优先"
+
+    return mood, mainline, action
+
+
+def parse_stock_sections(md: str) -> List[StockSnapshot]:
+    blocks = re.findall(
+        r"##\s+[🟢🟡🔴⚪]\s*([^\n]+?)\s*\((\d{6})\)(.*?)(?=\n##\s+[🟢🟡🔴⚪]\s*[^\n]+\(\d{6}\)|\Z)",
+        md,
+        flags=re.S,
+    )
+    results: List[StockSnapshot] = []
+
+    for name, code, body in blocks:
+        decision_m = re.search(r"\*\*[🟢🟡🔴⚪]\s*([^*]+)\*\*\s*\|\s*([^\n]+)", body)
+        decision = decision_m.group(1).strip() if decision_m else "观望"
+        trend = decision_m.group(2).strip() if decision_m else "震荡"
+
+        current_m = re.search(r"\|\s*当前价\s*\|\s*([\d.]+)\s*\|", body)
+        volume_m = re.search(r"量比\s*([\d.]+)", body)
+        turnover_m = re.search(r"换手率\s*([\d.]+)%", body)
+        strength_m = re.search(r"趋势强度[:：]\s*(\d{1,3})/100", body)
+        ma_bull = bool(re.search(r"多头排列[:：]\s*✅", body) or re.search(r"MA5>MA10>MA20", body))
+
+        # 轻量行业提示：从板块字样反推
+        industry_hint = ""
+        ind_m = re.search(r"\*\*行业\*\*\s*\|\s*([^\n|]+)", body)
+        if ind_m:
+            industry_hint = ind_m.group(1).strip()
+
+        snap = StockSnapshot(
+            code=code,
+            name=name.strip(),
+            decision=decision,
+            trend=trend,
+            current=_safe_float(current_m.group(1), 0.0) if current_m else 0.0,
+            volume_ratio=_safe_float(volume_m.group(1), 1.0) if volume_m else 1.0,
+            turnover=_safe_float(turnover_m.group(1), 0.0) if turnover_m else 0.0,
+            trend_strength=int(strength_m.group(1)) if strength_m else 50,
+            ma_bull=ma_bull,
+            industry_hint=industry_hint,
+        )
+        results.append(snap)
+
+    return results
+
+
+def score_stock(s: StockSnapshot, mood: str) -> int:
+    trend_component = min(30, s.trend_strength * 0.30)
+
+    if "看多" in s.trend:
+        strength_component = 25
+    elif "震荡" in s.trend:
+        strength_component = 14
+    elif "看空" in s.trend:
+        strength_component = 6
+    else:
+        strength_component = 10
+
+    if 1.5 <= s.volume_ratio <= 3.0:
+        volume_component = 20
+    elif 1.2 <= s.volume_ratio < 1.5:
+        volume_component = 15
+    elif 0.9 <= s.volume_ratio < 1.2:
+        volume_component = 10
+    else:
+        volume_component = 5
+
+    if s.decision in ("买入", "持有"):
+        capital_component = 10
+    elif s.decision == "观望":
+        capital_component = 7
+    else:
+        capital_component = 3
+
+    mood_component = {"强": 10, "中": 6, "弱": 2}.get(mood, 5)
+
+    bonus = 0
+    if s.ma_bull:
+        bonus += 4
+    if s.turnover and 5 <= s.turnover <= 15:
+        bonus += 2
+
+    total = trend_component + strength_component + volume_component + capital_component + mood_component + bonus
+    return max(0, min(100, int(round(total))))
+
+
+def to_winrate(score: int) -> int:
+    # 将评分映射为可读胜率区间
+    return max(45, min(88, int(round(40 + score * 0.55))))
+
+
+def build_lists(stocks: List[StockSnapshot], mood: str, preset: dict):
+    ranked = []
+    for s in stocks:
+        sc = score_stock(s, mood)
+        ranked.append((sc, s))
+    ranked.sort(key=lambda x: x[0], reverse=True)
+
+    observe = [(sc, s) for sc, s in ranked if sc >= preset["observe_min"] and s.ma_bull][:5]
+    confirm = [(sc, s) for sc, s in observe if sc >= preset["confirm_min"] and s.volume_ratio >= 1.2][:2]
+
+    attack = []
+    if mood == "强":
+        attack = [
+            (sc, s)
+            for sc, s in confirm
+            if sc >= preset["attack_min"] and (s.turnover == 0 or 5 <= s.turnover <= 15)
+        ][:1]
+
+    return observe, confirm, attack
+
+
+def fmt_price(v: float) -> str:
+    return f"{v:.2f}"
+
+
+def build_report(date_str: str, mood: str, mainline: str, action: str, observe, confirm, attack, preset_name: str, preset: dict) -> str:
+    tp_min, tp_max = preset["take_profit"]
+    sl = preset["stop_loss"]
+
+    lines: List[str] = []
+    lines.append(f"# 右侧短线复利选股日报 - {date_str}")
+    lines.append("")
+    lines.append(f"> 参数预设：`{preset_name}` | 止损：{int(sl*100)}% | 止盈：{int(tp_min*100)}%-{int(tp_max*100)}%")
+    lines.append("")
+
+    # 1) 市场判断
+    lines.append("## 1. 市场判断")
+    lines.append(f"- 市场情绪：{mood}")
+    lines.append(f"- 主线板块：{mainline}")
+    lines.append(f"- 操作建议：{action}")
+    lines.append("- 说明：当前依据为日报中的买/观望/卖出结构与趋势强度综合评分。")
+    lines.append("")
+
+    # 2) 观察仓
+    lines.append("## 2. 观察仓清单（3-5只）")
+    if observe:
+        for i, (sc, s) in enumerate(observe[:5], 1):
+            stop = s.current * (1 - sl)
+            t_low = s.current * (1 + tp_min)
+            t_high = s.current * (1 + tp_max)
+            reason = f"趋势强度{sc}/100，均线多头，量比{s.volume_ratio:.2f}" + (f"，{s.industry_hint}" if s.industry_hint else "")
+            lines.append(f"{i}) {s.code} {s.name}")
+            lines.append(f"   - 入选理由：{reason}")
+            lines.append(f"   - 胜率评估：{to_winrate(sc)}%")
+            lines.append(f"   - 止损位：{fmt_price(stop)}")
+            lines.append(f"   - 目标价：{fmt_price(t_low)} ~ {fmt_price(t_high)}")
+    else:
+        lines.append("- 今日无满足条件的观察仓标的，建议空仓等待。")
+    lines.append("")
+
+    # 3) 确认仓
+    lines.append("## 3. 确认仓清单（1-2只）")
+    if confirm:
+        for i, (sc, s) in enumerate(confirm[:2], 1):
+            alloc = "20%-25%" if i == 1 else "15%-20%"
+            lines.append(f"{i}) {s.code} {s.name}")
+            lines.append(f"   - 加仓理由：评分{sc}，放量/趋势信号优于观察仓平均")
+            lines.append(f"   - 资金分配建议：{alloc}")
+            lines.append(f"   - 止盈区间：+{int(tp_min*100)}% ~ +{int(tp_max*100)}%")
+    else:
+        lines.append("- 今日无确认仓标的（信号未达到确认阈值）。")
+    lines.append("")
+
+    # 4) 进攻仓
+    lines.append("## 4. 进攻仓标的（0-1只）")
+    if attack:
+        sc, s = attack[0]
+        lines.append(f"- 标的：{s.code} {s.name}")
+        lines.append(f"- 满仓理由：评分{sc}，处于高分段且市场情绪=强")
+        lines.append("- 风险提示：高位波动可能放大，严格执行止损，不补仓。")
+        lines.append("- 最佳入场时机：分时回踩关键位不破后再上车。")
+    else:
+        lines.append("- 标的：无")
+        lines.append("- 满仓理由：当前不满足进攻仓阈值或市场情绪非强。")
+        lines.append("- 风险提示：宁缺毋滥，避免情绪化追高。")
+        lines.append("- 最佳入场时机：等待确认仓出现加速信号再评估。")
+    lines.append("")
+
+    # 5) 交易计划
+    lines.append("## 5. 交易计划")
+    lines.append(
+        f"- 分仓比例：观察仓{int(preset['observe_ratio']*100)}% / 确认仓{int(preset['confirm_ratio']*100)}% / 进攻仓{int(preset['attack_ratio']*100)}%"
+    )
+    lines.append("- 入场时机：优先回踩不破关键均线后介入，避免脉冲追高。")
+    lines.append("- 持仓周期：3-5天")
+    lines.append("- 卖出条件：")
+    lines.append(f"  1. 止盈达到 +{int(tp_min*100)}%~+{int(tp_max*100)}% 分批止盈")
+    lines.append(f"  2. 止损触发 -{int(sl*100)}% 无条件卖出")
+    lines.append("  3. 超过5天趋势转弱则退出")
+    lines.append("")
+
+    return "\n".join(lines)
+
+
+def resolve_input_report(date_str: str) -> Path:
+    p = REPORT_DIR / f"report_{date_str}.md"
+    if p.exists():
+        return p
+    candidates = sorted(REPORT_DIR.glob("report_*.md"), reverse=True)
+    if not candidates:
+        raise FileNotFoundError("未找到 daily_stock_analysis 报告文件")
+    return candidates[0]
+
+
+def main():
+    parser = argparse.ArgumentParser(description="右侧短线复利选股Agent")
+    parser.add_argument("--date", help="报告日期 YYYYMMDD，默认取最新报告")
+    parser.add_argument("--preset", choices=list(PRESETS.keys()), default="balanced")
+    args = parser.parse_args()
+
+    if args.date:
+        date_str = args.date
+    else:
+        date_str = datetime.now().strftime("%Y%m%d")
+
+    report_path = resolve_input_report(date_str)
+    md = report_path.read_text(encoding="utf-8")
+
+    mood, mainline, action = infer_market_mood(md)
+    stocks = parse_stock_sections(md)
+    if not stocks:
+        raise RuntimeError("未解析到个股分段，请检查输入报告格式")
+
+    preset = PRESETS[args.preset]
+    observe, confirm, attack = build_lists(stocks, mood, preset)
+
+    out_date = re.search(r"(\d{8})", report_path.name)
+    out_date_str = out_date.group(1) if out_date else date_str
+
+    out_md = build_report(
+        date_str=out_date_str,
+        mood=mood,
+        mainline=mainline,
+        action=action,
+        observe=observe,
+        confirm=confirm,
+        attack=attack,
+        preset_name=args.preset,
+        preset=preset,
+    )
+
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    out_path = OUTPUT_DIR / f"right_compound_selection_{out_date_str}.md"
+    out_path.write_text(out_md, encoding="utf-8")
+
+    print(f"✅ 生成完成: {out_path}")
+
+
 if __name__ == "__main__":
-    agent = 选股Agent()
-    print(agent.生成报告("强", ["600036", "002142"], ["601899", "600362"], ["601318"]))
+    main()
