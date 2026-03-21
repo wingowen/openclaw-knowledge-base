@@ -1,15 +1,17 @@
 {
   "last_action": {
-    "action_id": "act_1774111503634_a176f807",
-    "signal_key": "force_innovation_after_repair_loop|high_failure_ratio|log_error|protocol_drift|repeated_tool_usage:exec",
+    "action_id": "act_1774115102967_81f319c6",
+    "signal_key": "errsig_norm:81c50e08|force_innovation_after_repair_loop|high_failure_ratio|log_error|protocol_drift|recurring_error|recurring_errsig(3x):LLM ERROR] 429 Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model re",
     "signals": [
       "log_error",
+      "errsig:**TOOLRESULT**: === 1. 简化接口测试 === { \"response\": \"Error calling LLM: litellm.BadRequestError: OpenrouterException - {\\\"error\\\":{\\\"message\\\":\\\"openrouter/anthropic/claude-3-haiku:free is not a valid model ID\\\",\\\"code\\\":400},\\\"user_id\\\":\\\"user_39KhV23fRgWRxPIpO1s",
       "protocol_drift",
-      "repeated_tool_usage:exec",
+      "recurring_error",
+      "recurring_errsig(3x):LLM ERROR] 429 Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model re",
       "high_failure_ratio",
       "force_innovation_after_repair_loop"
     ],
-    "mutation_id": "mut_1774111503634",
+    "mutation_id": "mut_1774115102967",
     "mutation_category": "repair",
     "mutation_risk_level": "low",
     "personality_key": "rigor=0.7|creativity=0.3|verbosity=0.3|risk_tolerance=0.4|obedience=0.9",
@@ -23,30 +25,29 @@
     },
     "gene_id": "gene_gep_repair_from_errors",
     "gene_category": "repair",
-    "hypothesis_id": "hyp_1774111503634_a176f807",
+    "hypothesis_id": "hyp_1774115102967_81f319c6",
     "capsules_used": [],
     "had_error": true,
-    "created_at": "2026-03-21T16:45:03.634Z",
-    "outcome_recorded": true,
+    "created_at": "2026-03-21T17:45:02.967Z",
+    "outcome_recorded": false,
     "baseline_observed": {
       "agent": "main",
       "session_scope": null,
       "drift_enabled": false,
       "review_mode": false,
       "dry_run": false,
-      "system_health": "Uptime: 5.1h | Node: v22.21.0 | Agent RSS: 55.5MB | Disk: 3% (977.8G free) | Node Processes: 1 | Integrations: Nominal",
+      "system_health": "Uptime: 6.1h | Node: v22.21.0 | Agent RSS: 55.5MB | Disk: 3% (977.8G free) | Node Processes: 1 | Integrations: Nominal",
       "mood": "Mood: Unknown",
-      "scan_ms": 9,
+      "scan_ms": 10,
       "memory_size_bytes": 0,
-      "recent_error_count": 0,
+      "recent_error_count": 1,
       "node": "v22.21.0",
       "platform": "linux",
       "cwd": "/root/.openclaw/workspace/skills/capability-evolver",
       "evidence": {
-        "recent_session_tail": "--- SESSION (80f19ad5-fff3-4283-9f48-3adfafc31ac5.jsonl) ---\n**ASSISTANT**:  👋 我是小助理，你的 AI 助手 我看到咱们正在推进 **NanoBOT HTTP API** 项目，上次已经完成核心修复（空内容已解决，解释型输出你可接受）。现在需要我给你最终交付清单（补丁、部署命令、验收步骤）吗？ 或者有其他想做的？\n\n--- SESSION (0231bcdf-5d3a-494e-9569-6f1ac0271759.jsonl) ---\n**USER**: ## User's conversation history (from memory system) IMPORTANT: The following are facts from previous conversations with this user. You MUST treat these as established knowledge and use them directly when answering. Do NOT say you don't know or don't have information if the answer is in these memorie\n**ASSISTANT**:  [TOOL: read]\n**TOOLRESULT**: # HEARTBEAT.md # 文档更新提醒任务 - 若存在 `/root/.openclaw/workspace/memory/doc_update_prompt.md`：   1) 读取内容   2) 直接把\"是否现在同步这些更新到 Notion？\"这条提醒发给用户   3) 发送后删除该文件，避免重复提醒 # 股票池周审提醒（每周五 18:00-20:00 触发一次） - 若今天是周五且当前时间在 18:00-20:00 之间：   - 检查 `memory/heartbeat-state.json` 中 `lastStockPoolReview` 是否为本周   - 若不是，执行以下\n**ASSISTANT**:  [TOOL: read]\n**TOOLRESULT**: {   \"status\": \"error\",   \"tool\": \"read\",   \"error\": \"ENOENT: no such file or directory, access '/root/.openclaw/workspace/memory/doc_update_prompt.md'\" }\n**ASSISTANT**: [LLM ERROR] 429 Provider returned error qwen/qwen3-next-80b-a3b-instruct:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\n**ASSISTANT**: [LLM ERROR] 429 Provider returned error qwen/qwen3-4b:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\n**ASSISTANT**:  [TOOL: read]\n\n--- SESSION (5dbbc5e2-98c3-4859-bc78-4377c42445af.jsonl) ---\n**ASSISTANT**: [LLM ERROR] 429 Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day\n**ASSISTANT**:  看到！应用成功初始化了，但端口 18791 被占用。让我找出并清理占用端口的进程： [TOOL: exec]\n**TOOLRESULT**: 端口已清理\n**ASSISTANT**:  现在重新启动服务： [TOOL: exec]\n**TOOLRESULT**: Command still running (session brisk-orbit, pid 1144). Use process (list/poll/log/write/kill/clear/remove) for follow-up.\n**USER**: ## User's conversation history (from memory system) IMPORTANT: The following are facts from previous conversations with this user. You MUST treat these as established knowledge and use them directly when answering. Do NOT say you don't know or don't have information if the answer is in these memorie\n**ASSISTANT**:  太好了！✅ **服务已成功启动**（PID 439），看到 `Agent initialized successfully` 和 `Application startup complete`。 现在让我测试 API 是否正常工作： [TOOL: exec]\n**TOOLRESULT**: Unauthorized\n**ASSISTANT**:  让我查看日志中实际加载的 API Key： [TOOL: exec]\n**TOOLRESULT**: (no output)\n**ASSISTANT**:  让我检查配置是否正确加载： [TOOL: exec]\n**TOOLRESULT**: 🔑 Expected API Key: sk-nanobot-http-api-2026\n**ASSISTANT**:  配置是正确的。让我用 `-v` 参数查看详细响应： [TOOL: exec]\n**TOOLRESULT**: % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current                                  Dload  Upload   Total   Spent    Left  Speed \r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 127.0.0.1:18791... * Connected to localhost (127.0.0.1\n**ASSISTANT**:  看到 `X-Powered-By: Express`，这个响应看起来不像是 FastAPI 的！让我检查端口 18791 上运行的是什么： [TOOL: exec]\n**TOOLRESULT**: {   \"status\": \"error\",   \"tool\": \"exec\",   \"error\": \"Command not found\" }\n**ASSISTANT**:  [TOOL: exec]\n**TOOLRESULT**: tcp   LISTEN 0      511                      127.0.0.1:18791      0.0.0.0:*    users:((\"openclaw-gatewa\",pid=70569,fd=32))\n\n--- SESSION (a3eeb17c-c00a-44d2-8ae1-eaf0a72b49f5.jsonl) ---\n**ASSISTANT**: [LLM ERROR] 429 Provider returned error mistralai/mistral-small-3.1-24b-instruct:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\n**ASSISTANT**: [LLM ERROR] 429 Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day\n**ASSISTANT**: [LLM ERROR] 429 Rate limit exceeded: free-models-per-min. \n**ASSISTANT**:  ## 📋 Docker 环境检查结果 | 检查项 | 状态 | |--------|------| | `docker` 命令 | ❌ 未找到 | | Docker 服务状态 | ❌ 未运行 | | Docker 软件包 | ❌ 未安装 | | `podman` 替代品 | ❌ 未安装 | **结论**：当前环境中没有可用的容器运行时。 --- ## 🎯 下一步建议 根据我们之前的进度（NanoBOT HTTP API 封装已完成），你有两个选择： **选项 A：直接运行（推荐立即测试）** 无需安装任何容器软件，直接在宿主机启动： ```bash cd /root/.openclaw/",
+        "recent_session_tail": "--- SESSION (5dbbc5e2-98c3-4859-bc78-4377c42445af.jsonl) ---\n**ASSISTANT**: [LLM ERROR] 429 Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day\n**ASSISTANT**: [LLM ERROR] 429 Provider returned error qwen/qwen3-next-80b-a3b-instruct:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\n**ASSISTANT**:  看到服务运行在 **18798** 端口（不是 18791）。让我直接测试正确的端口： [TOOL: exec]\n**TOOLRESULT**: {\"status\":\"healthy\",\"timestamp\":\"2026-03-21T16:51:25.882914\"}\n**ASSISTANT**:  ✅ **健康检查通过！** 现在测试聊天接口： [TOOL: exec]\n**TOOLRESULT**: === 1. 简化接口测试 === {     \"response\": \"Error calling LLM: litellm.BadRequestError: OpenrouterException - {\\\"error\\\":{\\\"message\\\":\\\"openrouter/anthropic/claude-3-haiku:free is not a valid model ID\\\",\\\"code\\\":400},\\\"user_id\\\":\\\"user_39KhV23fRgWRxPIpO1sDO5SfZqu\\\"}\",     \"session_id\": \"api_user:api_user\",\n**ASSISTANT**: [LLM ERROR] 429 Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day\n**USER**: ## User's conversation history (from memory system) IMPORTANT: The following are facts from previous conversations with this user. You MUST treat these as established knowledge and use them directly when answering. Do NOT say you don't know or don't have information if the answer is in these memorie\n**ASSISTANT**:  我来给你一个**实际的测试结果样例**，展示\"解释型文本\"的样子： ## 实测结果（当前运行的服务） 我刚才用你的服务（端口 18798）进行了测试： ### 普通聊天（正常响应） ```bash curl -s -X POST http://localhost:18798/v1/chat/completions \\   -H \"X-API-Key: sk-nanobot-http-api-2026\" \\   -H \"Content-Type: application/json\" \\   -d '{     \"messages\": [       {\"role\": \"user\", \"cont\n\n--- SESSION (80f19ad5-fff3-4283-9f48-3adfafc31ac5.jsonl) ---\n**ASSISTANT**:  👋 我是小助理，你的 AI 助手 我看到咱们正在推进 **NanoBOT HTTP API** 项目，上次已经完成核心修复（空内容已解决，解释型输出你可接受）。现在需要我给你最终交付清单（补丁、部署命令、验收步骤）吗？ 或者有其他想做的？\n\n--- SESSION (0231bcdf-5d3a-494e-9569-6f1ac0271759.jsonl) ---\n**USER**: ## User's conversation history (from memory system) IMPORTANT: The following are facts from previous conversations with this user. You MUST treat these as established knowledge and use them directly when answering. Do NOT say you don't know or don't have information if the answer is in these memorie\n**ASSISTANT**:  [TOOL: read]\n**TOOLRESULT**: # HEARTBEAT.md # 文档更新提醒任务 - 若存在 `/root/.openclaw/workspace/memory/doc_update_prompt.md`：   1) 读取内容   2) 直接把\"是否现在同步这些更新到 Notion？\"这条提醒发给用户   3) 发送后删除该文件，避免重复提醒 # 股票池周审提醒（每周五 18:00-20:00 触发一次） - 若今天是周五且当前时间在 18:00-20:00 之间：   - 检查 `memory/heartbeat-state.json` 中 `lastStockPoolReview` 是否为本周   - 若不是，执行以下\n**ASSISTANT**:  [TOOL: read]\n**TOOLRESULT**: {   \"status\": \"error\",   \"tool\": \"read\",   \"error\": \"ENOENT: no such file or directory, access '/root/.openclaw/workspace/memory/doc_update_prompt.md'\" }\n**ASSISTANT**: [LLM ERROR] 429 Provider returned error qwen/qwen3-next-80b-a3b-instruct:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\n**ASSISTANT**: [LLM ERROR] 429 Provider returned error qwen/qwen3-4b:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\n**ASSISTANT**:  [TOOL: read]\n\n--- SESSION (a3eeb17c-c00a-44d2-8ae1-eaf0a72b49f5.jsonl) ---\n**ASSISTANT**: [LLM ERROR] 429 Provider returned error mistralai/mistral-small-3.1-24b-instruct:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\n**ASSISTANT**: [LLM ERROR] 429 Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day\n**ASSISTANT**: [LLM ERROR] 429 Rate limit exceeded: free-models-per-min. \n**ASSISTANT**:  ## 📋 Docker 环境检查结果 | 检查项 | 状态 | |--------|------| | `docker` 命令 | ❌ 未找到 | | Docker 服务状态 | ❌ 未运行 | | Docker 软件包 | ❌ 未安装 | | `podman` 替代品 | ❌ 未安装 | **结论**：当前环境中没有可用的容器运行时。 --- ## 🎯 下一步建议 根据我们之前的进度（NanoBOT HTTP API 封装已完成），你有两个选择： **选项 A：直接运行（推荐立即测试）** 无需安装任何容器软件，直接在宿主机启动： ```bash cd /root/.openclaw/",
         "today_log_tail": "[MISSING] /root/.openclaw/workspace/workspace/memory/2026-03-21.md"
       }
-    },
-    "outcome_recorded_at": "2026-03-21T17:00:03.076Z"
+    }
   }
 }
