@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>股票深度分析看板</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; padding: 0; background: #f5f7fa; color: #333; }
+.header { background: #1a73e8; color: white; padding: 16px 24px; }
+.header h1 { margin: 0; font-size: 20px; }
+.container { display: flex; height: calc(100vh - 60px); }
+.sidebar { width: 400px; background: white; border-right: 1px solid #ddd; overflow-y: auto; padding: 16px; }
+.main { flex: 1; padding: 16px; overflow-y: auto; }
+.card { background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+.card h3 { margin-top: 0; color: #1a73e8; font-size: 16px; }
+.bucket { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; margin: 2px; }
+.bucket.进攻 { background: #e3f2fd; color: #1565c0; }
+.bucket.确认 { background: #e8f5e9; color: #2e7d32; }
+.bucket.观察 { background: #fff3e0; color: #ef6c00; }
+.stock-row { padding: 8px; border-bottom: 1px solid #eee; cursor: pointer; }
+.stock-row:hover { background: #f5f5f5; }
+.stock-row.selected { background: #e3f2fd; }
+.stock-name { font-weight: 500; }
+.stock-code { color: #666; font-size: 12px; }
+.stock-pct { float: right; font-weight: 500; }
+.positive { color: #c62828; }
+.negative { color: #2e7d32; }
+.empty { padding: 20px; text-align: center; color: #999; }
+.loading { padding: 20px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="header">
+<h1>📈 股票深度分析看板</h1>
+</div>
+<div class="container">
+<div class="sidebar" id="sidebar">
+<div class="card">
+<h3>📋 候选池（最新日）</h3>
+<div id="watchlist"></div>
+</div>
+</div>
+<div class="main" id="main">
+<div class="card">
+<h3>📊 深度分析</h3>
+<div id="details" class="empty">请从左侧选择一只股票</div>
+</div>
+</div>
+</div>
+
+<script>
+const API_BASE = '/api'; // 如果 8000 独立运行，手动改为 http://127.0.0.1:8000
+let watchlistData = [];
+
+async function loadWatchlist() {
+  const res = await fetch(`${API_BASE}/dashboard`);
+  const json = await res.json();
+  watchlistData = json.latest_watchlist || [];
+  renderWatchlist();
+}
+
+function renderWatchlist() {
+  const container = document.getElementById('watchlist');
+  if (watchlistData.length === 0) {
+    container.innerHTML = '<div class="empty">暂无候选池数据</div>';
+    return;
+  }
+  let html = '';
+  watchlistData.forEach(stock => {
+    const pctClass = stock.chg_pct >= 0 ? 'positive' : 'negative';
+    const pct = stock.chg_pct ? `${stock.chg_pct > 0 ? '+' : ''}${stock.chg_pct}%` : '';
+    html += `
+      <div class="stock-row" onclick="loadDetails('${stock.code}')" data-code="${stock.code}">
+        <div class="stock-name">${stock.name} <span class="stock-code">${stock.code}</span></div>
+        <div class="stock-pct ${pctClass}">${pct}</div>
+        <div style="clear:both"></div>
+        <div style="font-size:12px;color:#666">${stock.sector} · ${stock.bucket}</div>
+      </div>
+    `;
+  });
+  container.innerHTML = html;
+}
+
+async function loadDetails(code) {
+  const detailsDiv = document.getElementById('details');
+  detailsDiv.innerHTML = '<div class="loading">加载中...</div>';
+
+  // 高亮选中
+  document.querySelectorAll('.stock-row').forEach(el => {
+    el.classList.toggle('selected', el.dataset.code === code);
+  });
+
+  try {
+    const res = await fetch(`${API_BASE}/stock-details?code=${code}`);
+    const json = await res.json();
+    if (json.error) {
+      detailsDiv.innerHTML = `<div class="empty">${json.error}</div>`;
+      return;
+    }
+    renderDetails(json);
+  } catch (e) {
+    detailsDiv.innerHTML = `<div class="empty">请求失败: ${e.message}</div>`;
+  }
+}
+
+function renderDetails(d) {
+  const container = document.getElementById('details');
+  let html = `
+    <div style="margin-bottom:12px;">
+      <strong>分析记录数：</strong> ${d.total} 条
+      &nbsp;&nbsp; <strong>买入建议：</strong> ${d.buy_count} 次
+      &nbsp;&nbsp; <strong>卖出建议：</strong> ${d.sell_count} 次
+      &nbsp;&nbsp; <strong>平均情绪分：</strong> ${d.avg_sentiment}
+    </div>
+    <table border="1" cellpadding="8" cellspacing="0" style="width:100%;border-collapse:collapse;">
+      <thead style="background:#f0f0f0">
+        <tr>
+          <th>日期</th><th>建议</th><th>情绪分</th><th>理想买点</th><th>次优买点</th><th>止损</th><th>目标位</th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
+  d.records.forEach(r => {
+    const day = r.created_at ? r.created_at.substring(0, 10) : '-';
+    html += `
+      <tr>
+        <td>${day}</td>
+        <td>${r.operation_advice}</td>
+        <td>${r.sentiment_score ?? '-'}</td>
+        <td>${r.ideal_buy ?? '-'}</td>
+        <td>${r.secondary_buy ?? '-'}</td>
+        <td>${r.stop_loss ?? '-'}</td>
+        <td>${r.take_profit ?? '-'}</td>
+      </tr>
+    `;
+  });
+  html += '</tbody></table>';
+  container.innerHTML = html;
+}
+
+// 初始化
+loadWatchlist();
+</script>
+</body>
+</html>
