@@ -1,14 +1,16 @@
 {
   "last_action": {
-    "action_id": "act_1774122302593_79a2b023",
-    "signal_key": "force_innovation_after_repair_loop|high_failure_ratio|log_error|protocol_drift",
+    "action_id": "act_1774125912976_224fbf70",
+    "signal_key": "force_innovation_after_repair_loop|high_failure_ratio|log_error|protocol_drift|recurring_error|recurring_errsig(3x):LLM ERROR] 429 Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model re",
     "signals": [
       "log_error",
       "protocol_drift",
+      "recurring_error",
+      "recurring_errsig(3x):LLM ERROR] 429 Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model re",
       "high_failure_ratio",
       "force_innovation_after_repair_loop"
     ],
-    "mutation_id": "mut_1774122302592",
+    "mutation_id": "mut_1774125912975",
     "mutation_category": "repair",
     "mutation_risk_level": "low",
     "personality_key": "rigor=0.7|creativity=0.3|verbosity=0.3|risk_tolerance=0.4|obedience=0.9",
@@ -22,10 +24,10 @@
     },
     "gene_id": "gene_gep_repair_from_errors",
     "gene_category": "repair",
-    "hypothesis_id": "hyp_1774122302592_37a009a6",
+    "hypothesis_id": "hyp_1774125912976_6c4c6257",
     "capsules_used": [],
     "had_error": true,
-    "created_at": "2026-03-21T19:45:02.593Z",
+    "created_at": "2026-03-21T20:45:12.976Z",
     "outcome_recorded": false,
     "baseline_observed": {
       "agent": "main",
@@ -33,16 +35,16 @@
       "drift_enabled": false,
       "review_mode": false,
       "dry_run": false,
-      "system_health": "Uptime: 8.1h | Node: v22.21.0 | Agent RSS: 55.5MB | Disk: 3% (977.8G free) | Node Processes: 1 | Integrations: Nominal",
+      "system_health": "Uptime: 9.1h | Node: v22.21.0 | Agent RSS: 55.5MB | Disk: 3% (977.8G free) | Node Processes: 1 | Integrations: Nominal",
       "mood": "Mood: Unknown",
-      "scan_ms": 8,
+      "scan_ms": 10885,
       "memory_size_bytes": 0,
       "recent_error_count": 0,
       "node": "v22.21.0",
       "platform": "linux",
       "cwd": "/root/.openclaw/workspace/skills/capability-evolver",
       "evidence": {
-        "recent_session_tail": "--- SESSION (5dbbc5e2-98c3-4859-bc78-4377c42445af.jsonl) ---\n**USER**: ## User's conversation history (from memory system) IMPORTANT: The following are facts from previous conversations with this user. You MUST treat these as established knowledge and use them directly when answering. Do NOT say you don't know or don't have information if the answer is in these memorie\n**ASSISTANT**: [LLM ERROR] 429 Provider returned error qwen/qwen3-next-80b-a3b-instruct:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\n**ASSISTANT**: [LLM ERROR] 429 Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day\n**ASSISTANT**:  我看到了错误原因，有两个问题： 1. `logger.exception()` 调用错误（传了 `error` 参数） 2. `AgentLoop.process_direct()` 的参数名不对（用了 `messages`） 让我修复 `chat_router.py`： [TOOL: read]\n**TOOLRESULT**:                     messages, response.content, tool_call_dicts,                     reasoning_content=response.reasoning_content,                     thinking_blocks=response.thinking_blocks,                 )                 for tool_call in response.tool_calls:                     tools_used.appe\n**ASSISTANT**:  [TOOL: read]\n**TOOLRESULT**:                 self._mcp_stack = None         finally:             self._mcp_connecting = False     def _set_tool_context(self, channel: str, chat_id: str, message_id: str | None = None) -> None:         \"\"\"Update context for all tools that need routing info.\"\"\"         for name in (\"message\", \"spa\n**ASSISTANT**:  [TOOL: exec]\n**TOOLRESULT**: 505:    async def process_direct(\n**ASSISTANT**:  [TOOL: read]\n**TOOLRESULT**:     async def process_direct(         self,         content: str,         session_key: str = \"cli:direct\",         channel: str = \"cli\",         chat_id: str = \"direct\",         on_progress: Callable[[str], Awaitable[None]] | None = None,     ) -> str:         \"\"\"Process a message directly (for CLI \n\n--- SESSION (80f19ad5-fff3-4283-9f48-3adfafc31ac5.jsonl) ---\n**ASSISTANT**:  👋 我是小助理，你的 AI 助手 我看到咱们正在推进 **NanoBOT HTTP API** 项目，上次已经完成核心修复（空内容已解决，解释型输出你可接受）。现在需要我给你最终交付清单（补丁、部署命令、验收步骤）吗？ 或者有其他想做的？\n\n--- SESSION (0231bcdf-5d3a-494e-9569-6f1ac0271759.jsonl) ---\n**USER**: ## User's conversation history (from memory system) IMPORTANT: The following are facts from previous conversations with this user. You MUST treat these as established knowledge and use them directly when answering. Do NOT say you don't know or don't have information if the answer is in these memorie\n**ASSISTANT**:  [TOOL: read]\n**TOOLRESULT**: # HEARTBEAT.md # 文档更新提醒任务 - 若存在 `/root/.openclaw/workspace/memory/doc_update_prompt.md`：   1) 读取内容   2) 直接把\"是否现在同步这些更新到 Notion？\"这条提醒发给用户   3) 发送后删除该文件，避免重复提醒 # 股票池周审提醒（每周五 18:00-20:00 触发一次） - 若今天是周五且当前时间在 18:00-20:00 之间：   - 检查 `memory/heartbeat-state.json` 中 `lastStockPoolReview` 是否为本周   - 若不是，执行以下\n**ASSISTANT**:  [TOOL: read]\n**TOOLRESULT**: {   \"status\": \"error\",   \"tool\": \"read\",   \"error\": \"ENOENT: no such file or directory, access '/root/.openclaw/workspace/memory/doc_update_prompt.md'\" }\n**ASSISTANT**: [LLM ERROR] 429 Provider returned error qwen/qwen3-next-80b-a3b-instruct:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\n**ASSISTANT**: [LLM ERROR] 429 Provider returned error qwen/qwen3-4b:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\n**ASSISTANT**:  [TOOL: read]\n\n--- SESSION (a3eeb17c-c00a-44d2-8ae1-eaf0a72b49f5.jsonl) ---\n**ASSISTANT**: [LLM ERROR] 429 Provider returned error mistralai/mistral-small-3.1-24b-instruct:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\n**ASSISTANT**: [LLM ERROR] 429 Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day\n**ASSISTANT**: [LLM ERROR] 429 Rate limit exceeded: free-models-per-min. \n**ASSISTANT**:  ## 📋 Docker 环境检查结果 | 检查项 | 状态 | |--------|------| | `docker` 命令 | ❌ 未找到 | | Docker 服务状态 | ❌ 未运行 | | Docker 软件包 | ❌ 未安装 | | `podman` 替代品 | ❌ 未安装 | **结论**：当前环境中没有可用的容器运行时。 --- ## 🎯 下一步建议 根据我们之前的进度（NanoBOT HTTP API 封装已完成），你有两个选择： **选项 A：直接运行（推荐立即测试）** 无需安装任何容器软件，直接在宿主机启动： ```bash cd /root/.openclaw/",
+        "recent_session_tail": "--- SESSION (2692f90e-97c9-42cb-a397-0158ed0e1a60.jsonl) ---\n**USER**: ## User's conversation history (from memory system) IMPORTANT: The following are facts from previous conversations with this user. You MUST treat these as established knowledge and use them directly when answering. Do NOT say you don't know or don't have information if the answer is in these memorie\n**ASSISTANT**: [LLM ERROR] 429 Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day\n**ASSISTANT**:  我需要先查看 HEARTBEAT.md 以了解当前是否有需要处理的任务，然后给你展示解释型文本的实际样例。 [TOOL: read]\n**TOOLRESULT**: # HEARTBEAT.md # 文档更新提醒任务 - 若存在 `/root/.openclaw/workspace/memory/doc_update_prompt.md`：   1) 读取内容   2) 直接把\"是否现在同步这些更新到 Notion？\"这条提醒发给用户   3) 发送后删除该文件，避免重复提醒 # 股票池周审提醒（每周五 18:00-20:00 触发一次） - 若今天是周五且当前时间在 18:00-20:00 之间：   - 检查 `memory/heartbeat-state.json` 中 `lastStockPoolReview` 是否为本周   - 若不是，执行以下\n**ASSISTANT**: [LLM ERROR] 429 Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day\n\n--- SESSION (80f19ad5-fff3-4283-9f48-3adfafc31ac5.jsonl) ---\n**ASSISTANT**:  👋 我是小助理，你的 AI 助手 我看到咱们正在推进 **NanoBOT HTTP API** 项目，上次已经完成核心修复（空内容已解决，解释型输出你可接受）。现在需要我给你最终交付清单（补丁、部署命令、验收步骤）吗？ 或者有其他想做的？\n\n--- SESSION (0231bcdf-5d3a-494e-9569-6f1ac0271759.jsonl) ---\n**USER**: ## User's conversation history (from memory system) IMPORTANT: The following are facts from previous conversations with this user. You MUST treat these as established knowledge and use them directly when answering. Do NOT say you don't know or don't have information if the answer is in these memorie\n**ASSISTANT**:  [TOOL: read]\n**TOOLRESULT**: # HEARTBEAT.md # 文档更新提醒任务 - 若存在 `/root/.openclaw/workspace/memory/doc_update_prompt.md`：   1) 读取内容   2) 直接把\"是否现在同步这些更新到 Notion？\"这条提醒发给用户   3) 发送后删除该文件，避免重复提醒 # 股票池周审提醒（每周五 18:00-20:00 触发一次） - 若今天是周五且当前时间在 18:00-20:00 之间：   - 检查 `memory/heartbeat-state.json` 中 `lastStockPoolReview` 是否为本周   - 若不是，执行以下\n**ASSISTANT**:  [TOOL: read]\n**TOOLRESULT**: {   \"status\": \"error\",   \"tool\": \"read\",   \"error\": \"ENOENT: no such file or directory, access '/root/.openclaw/workspace/memory/doc_update_prompt.md'\" }\n**ASSISTANT**: [LLM ERROR] 429 Provider returned error qwen/qwen3-next-80b-a3b-instruct:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\n**ASSISTANT**: [LLM ERROR] 429 Provider returned error qwen/qwen3-4b:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\n**ASSISTANT**:  [TOOL: read]\n\n--- SESSION (a3eeb17c-c00a-44d2-8ae1-eaf0a72b49f5.jsonl) ---\n**ASSISTANT**: [LLM ERROR] 429 Provider returned error mistralai/mistral-small-3.1-24b-instruct:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\n**ASSISTANT**: [LLM ERROR] 429 Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day\n**ASSISTANT**: [LLM ERROR] 429 Rate limit exceeded: free-models-per-min. \n**ASSISTANT**:  ## 📋 Docker 环境检查结果 | 检查项 | 状态 | |--------|------| | `docker` 命令 | ❌ 未找到 | | Docker 服务状态 | ❌ 未运行 | | Docker 软件包 | ❌ 未安装 | | `podman` 替代品 | ❌ 未安装 | **结论**：当前环境中没有可用的容器运行时。 --- ## 🎯 下一步建议 根据我们之前的进度（NanoBOT HTTP API 封装已完成），你有两个选择： **选项 A：直接运行（推荐立即测试）** 无需安装任何容器软件，直接在宿主机启动： ```bash cd /root/.openclaw/",
         "today_log_tail": "[MISSING] /root/.openclaw/workspace/workspace/memory/2026-03-21.md"
       }
     }

@@ -1,7 +1,7 @@
 {
   "last_run": {
-    "run_id": "run_1774122302593",
-    "created_at": "2026-03-21T19:45:02.617Z",
+    "run_id": "run_1774125912994",
+    "created_at": "2026-03-21T20:45:13.000Z",
     "parent_event_id": "evt_1773322595330",
     "selected_gene_id": "gene_gep_repair_from_errors",
     "selected_capsule_id": null,
@@ -9,8 +9,8 @@
       "selected": "gene_gep_repair_from_errors",
       "reason": [
         "signals match gene.signals_match",
-        "signals: log_error, protocol_drift, high_failure_ratio, force_innovation_after_repair_loop",
-        "memory_graph: memory_prefer:gene_gep_repair_from_errors | gene_prior:0.043",
+        "signals: log_error, protocol_drift, recurring_error, recurring_errsig(3x):LLM ERROR] 429 Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model re, high_failure_ratio, force_innovation_after_repair_loop",
+        "memory_graph: memory_prefer:gene_gep_repair_from_errors | gene_prior:0.037",
         "drift_intensity: 0.707"
       ],
       "alternatives": [
@@ -20,16 +20,20 @@
     "signals": [
       "log_error",
       "protocol_drift",
+      "recurring_error",
+      "recurring_errsig(3x):LLM ERROR] 429 Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model re",
       "high_failure_ratio",
       "force_innovation_after_repair_loop"
     ],
     "mutation": {
       "type": "Mutation",
-      "id": "mut_1774122302592",
+      "id": "mut_1774125912975",
       "category": "repair",
       "trigger_signals": [
         "log_error",
         "protocol_drift",
+        "recurring_error",
+        "recurring_errsig(3x):LLM ERROR] 429 Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model re",
         "high_failure_ratio",
         "force_innovation_after_repair_loop"
       ],
@@ -37,7 +41,7 @@
       "expected_effect": "reduce runtime errors, increase stability, and lower failure rate",
       "risk_level": "low"
     },
-    "mutation_id": "mut_1774122302592",
+    "mutation_id": "mut_1774125912975",
     "personality_state": {
       "type": "PersonalityState",
       "rigor": 0.7,
@@ -56,14 +60,14 @@
     "reused_source_node": null,
     "reused_chain_id": null,
     "baseline_untracked": [
-      "workspace/memory/evolution/gep_prompt_Cycle_#0018_run_1774119602351.json",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0018_run_1774119602351.txt",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0019_run_1774120501848.json",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0019_run_1774120501848.txt",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0020_run_1774121402708.json",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0020_run_1774121402708.txt"
+      "workspace/memory/evolution/gep_prompt_Cycle_#0022_run_1774123203377.json",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0022_run_1774123203377.txt",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0023_run_1774124105499.json",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0023_run_1774124105499.txt",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0024_run_1774125003084.json",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0024_run_1774125003084.txt"
     ],
-    "baseline_git_head": "5618951b6056809a353d998870db8bda7594b8e3",
+    "baseline_git_head": "c34caa00ceefee0c725cbbf380f4ddc96ad2d50a",
     "blast_radius_estimate": {
       "files": 12,
       "lines": 960
