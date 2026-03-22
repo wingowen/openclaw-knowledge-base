@@ -1,0 +1,121 @@
+# RSS 订阅配置 - AI/科技 + 财经
+# 生成时间：2026-03-22
+# 策略：主源（高可用）+ 备用源（容错）
+
+feeds:
+  # === AI/科技 垂直媒体（稳定源）===
+  - name: "Hacker News"
+    url: "https://hnrss.org/frontpage"
+    category: "tech"
+
+  - name: "阮一峰周刊"
+    url: "https://www.ruanyifeng.com/blog/atom.xml"
+    category: "tech"
+
+  - name: "36氪"
+    url: "https://36kr.com/feed"
+    category: "tech"
+
+  - name: "TechCrunch"
+    url: "https://techcrunch.com/feed/"
+    category: "tech"
+
+  - name: "MIT Tech Review"
+    url: "https://www.technologyreview.com/feed/"
+    category: "tech"
+
+  # === 新增：Web 技术源（替代国内不稳定源）===
+  - name: "InfoQ"
+    url: "https://www.infoq.com/feed/"
+    category: "tech"
+
+  - name: "少数派"
+    url: "https://sspai.com/feed"
+    category: "tech"
+
+  # === 学术论文（AI 前沿）===
+  - name: "arXiv cs.CL"
+    url: "https://rss.arxiv.org/rss/cs.CL"
+    category: "academic"
+
+  - name: "arXiv cs.AI"
+    url: "https://rss.arxiv.org/rss/cs.AI"
+    category: "academic"
+
+  # === 财经/金融（现有国内源问题多，优先使用国际源）===
+  # 注意：国内财经RSS多数在WSL下不可达（rsshub.app、新浪、网易等均失败）
+  # 建议：继续使用自有的 daily_stock_analysis 报告系统
+
+  # 备用尝试（如有外网环境）：
+  # - Bloomberg: https://www.bloomberg.com/feed/  (需订阅)
+  # - Reuters: https://www.reuters.com/tools/rss  (可订阅)
+
+# LLM 配置 - 使用 OpenRouter 免费模型池
+llm:
+  provider: "openai"
+  openai_model: "openrouter/free"
+  openai_api_key: "${OPENROUTER_API_KEY}"
+  base_url: "https://openrouter.ai/api/v1"
+  # 模型回退列表（按优先级）
+  fallback_models:
+    - "openrouter/free"
+    - "stepfun/step-3.5-flash:free"
+    - "nvidia/nemotron-3-nano-30b-a3b:free"
+    - "qwen/qwen3-next-80b-a3b-instruct:free"
+
+  # 摘要提示词 - 严格格式输出
+  summary_prompt: |
+    【强制指令】请严格按照下面的格式为新闻生成结构化摘要。不要添加任何多余文字、解释或开场白。
+
+    新闻标题：{title}
+    新闻内容（如有）：{content}
+
+    【输出格式】
+
+    🏷️ [中文标题深化/翻译]
+
+    📌 [核心观点一句话，不超过30字]
+
+    🔍 [关键要点，3-5条]
+
+    💡 [对AI行业/投资者的价值]
+
+    🪙 A股影响 [如果新闻涉及中国股市、央行、国务院、国资委、证监会、或者其他可能影响A股的政策/事件，必须在此列出1-3只具体股票代码或行业ETF，并简要说明影响理由。如果完全不相关，则省略此行。]
+
+    【示例】如果新闻是"央行降准0.5个百分点"，输出：
+
+    🏷️ 央行降准0.5个百分点
+    📌 央行降准释放长期资金1万亿元，利好银行板块
+    🔍 - 降准0.5个百分点，释放资金约1万亿元
+      - 保持流动性合理充裕，支持实体经济发展
+      - 分析人士认为利好银行板块净息差
+    💡 银行股有望受提振，可关注净息差较高的上市银行
+    🪙 A股影响 招商银行(600036)、宁波银行(002142)：降准直接利好银行板块净息差；中国平安(601318)作为保险股也间接受益于流动性改善。
+
+    现在请输出：
+
+# 调度配置
+schedule:
+  interval_minutes: 60  # 每小时一次
+  max_age_hours: 24     # 只处理24小时内新闻
+  max_articles_per_run: 10  # 每轮最多处理10篇（避免限流）
+
+# 通知渠道配置
+notify:
+  # 飞书推送（推荐）
+  feishu:
+    enabled: false  # 设置为 true 后填入 webhook
+    webhook_url: "${FEISHU_WEBHOOK}"
+
+  # Telegram
+  telegram:
+    enabled: false
+
+  # 邮件推送（已配置 QQ 邮箱）
+  email:
+    enabled: true
+    smtp_host: "smtp.qq.com"
+    smtp_port: 465  # SSL
+    username: "1318263468@qq.com"
+    password: "${QQ_MAIL_AUTH_CODE}"  # 从环境变量读取
+    to: "1318263468@qq.com"

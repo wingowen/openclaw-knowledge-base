@@ -1,7 +1,7 @@
 {
   "last_run": {
-    "run_id": "run_1774147534587",
-    "created_at": "2026-03-22T02:45:35.411Z",
+    "run_id": "run_1774151105423",
+    "created_at": "2026-03-22T03:45:05.430Z",
     "parent_event_id": "evt_1773322595330",
     "selected_gene_id": "gene_gep_repair_from_errors",
     "selected_capsule_id": null,
@@ -9,8 +9,8 @@
       "selected": "gene_gep_repair_from_errors",
       "reason": [
         "signals match gene.signals_match",
-        "signals: log_error, errsig:**TOOLRESULT**: Error: Target exists: /root/.openclaw/workspace/skills/blogwatcher (use --force to overwrite) (Command exited with code 1), protocol_drift, high_tool_usage:exec, repeated_tool_usage:exec, high_failure_ratio, force_innovation_after_repair_loop",
-        "memory_graph: memory_prefer:gene_gep_repair_from_errors | gene_prior:0.020",
+        "signals: log_error, errsig:**TOOLRESULT**: Error: Target exists: /root/.openclaw/workspace/skills/blogwatcher (use --force to overwrite) (Command exited with code 1), protocol_drift, repeated_tool_usage:exec, high_failure_ratio, force_innovation_after_repair_loop",
+        "memory_graph: memory_prefer:gene_gep_repair_from_errors | gene_prior:0.018",
         "drift_intensity: 0.707"
       ],
       "alternatives": [
@@ -21,20 +21,18 @@
       "log_error",
       "errsig:**TOOLRESULT**: Error: Target exists: /root/.openclaw/workspace/skills/blogwatcher (use --force to overwrite) (Command exited with code 1)",
       "protocol_drift",
-      "high_tool_usage:exec",
       "repeated_tool_usage:exec",
       "high_failure_ratio",
       "force_innovation_after_repair_loop"
     ],
     "mutation": {
       "type": "Mutation",
-      "id": "mut_1774147534586",
+      "id": "mut_1774151105422",
       "category": "repair",
       "trigger_signals": [
         "log_error",
         "errsig:**TOOLRESULT**: Error: Target exists: /root/.openclaw/workspace/skills/blogwatcher (use --force to overwrite) (Command exited with code 1)",
         "protocol_drift",
-        "high_tool_usage:exec",
         "repeated_tool_usage:exec",
         "high_failure_ratio",
         "force_innovation_after_repair_loop"
@@ -43,7 +41,7 @@
       "expected_effect": "reduce runtime errors, increase stability, and lower failure rate",
       "risk_level": "low"
     },
-    "mutation_id": "mut_1774147534586",
+    "mutation_id": "mut_1774151105422",
     "personality_state": {
       "type": "PersonalityState",
       "rigor": 0.7,
@@ -62,16 +60,17 @@
     "reused_source_node": null,
     "reused_chain_id": null,
     "baseline_untracked": [
-      "skills/blogwatcher/SKILL.md",
-      "skills/blogwatcher/_meta.json",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0046_run_1774144802378.json",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0046_run_1774144802378.txt",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0047_run_1774145702856.json",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0047_run_1774145702856.txt",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0048_run_1774146603279.json",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0048_run_1774146603279.txt"
+      "config/rss_config.yaml",
+      "reports/rss_stability_report_2026-03-22.md",
+      "reports/rss_stability_report_2026-03-22.pdf",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0050_run_1774148403218.json",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0050_run_1774148403218.txt",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0051_run_1774149303946.json",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0051_run_1774149303946.txt",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0052_run_1774150203199.json",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0052_run_1774150203199.txt"
     ],
-    "baseline_git_head": "5efa2f9b3b6e61a8894f0678c7df163b4a151f12",
+    "baseline_git_head": "09d5d06c3657c4d56f259198ed1bcb21ea6e1bad",
     "blast_radius_estimate": {
       "files": 12,
       "lines": 960
