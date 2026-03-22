@@ -1,6 +1,7 @@
 {
-  "lastAskedAt": "2026-03-21T17:00:02.183Z",
+  "lastAskedAt": "2026-03-22T04:15:01.813Z",
   "recentQuestions": [
-    "Recurring error in evolution cycle that auto-repair cannot resolve: LLM ERROR] 429 Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model re -- What approaches or patches have worked for similar issues?"
+    "Recurring error in evolution cycle that auto-repair cannot resolve: LLM ERROR] 429 Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model re -- What approaches or patches have worked for similar issues?",
+    "Recurring error in evolution cycle that auto-repair cannot resolve: LLM ERROR] 401 User not found. **USER**: ## Memory system — ACTION REQUIRED Auto-recall found no res -- What approaches or patches have worked for similar issues?"
   ]
 }
