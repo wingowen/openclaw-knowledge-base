@@ -75,7 +75,17 @@
       },
       "validation": [
         "node scripts/validate-modules.js ./src/evolve ./src/gep/prompt"
-      ]
+      ],
+      "epigenetic_marks": [
+        {
+          "context": "linux/x64/v22.21.0",
+          "boost": -0.1,
+          "reason": "failure_in_environment",
+          "created_at": "2026-03-28T22:15:31.268Z"
+        }
+      ],
+      "schema_version": "1.6.0",
+      "asset_id": "sha256:3c17cd9e2fbc96aacb922539fb3d7da86447ad9ff153a61181cb264628cf1261"
     }
   ]
 }
