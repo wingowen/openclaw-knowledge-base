@@ -17,7 +17,14 @@ REPORT_PATH="$(python3 /root/.openclaw/workspace/scripts/generate_preopen_watchl
 if [[ ! -f "$REPORT_PATH" ]]; then
   REPORT_PATH="/root/.openclaw/workspace/reports/preopen_watchlist_${DATE}.md"
 fi
-
+YQ|
+ZM|# 2) 自动入库候选票
+PS|python3 /root/.openclaw/workspace/scripts/watchlist_tracker.py ingest --file "$REPORT_PATH"
+NV|
+QZ|# 3) 同步情绪分
+KN|python3 /root/.openclaw/workspace/scripts/watchlist_tracker.py sync-sentiment
+KN|
+QZ|# 4) 发送邮件
 # 2) 自动入库候选票
 python3 /root/.openclaw/workspace/scripts/watchlist_tracker.py ingest --file "$REPORT_PATH"
 

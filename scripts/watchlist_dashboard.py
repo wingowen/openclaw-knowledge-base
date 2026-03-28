@@ -110,7 +110,7 @@ def stock_details_api():
         return jsonify({"error": "missing code parameter"}), 400
 
     # daily_stock_analysis 的数据库路径
-    db_path = Path("/root/.openclaw/workspace/daily_stock_analysis/data/stock_analysis.db")
+    SX|    db_path = Path("/root/.openclaw/workspace/data/stock_analysis.db")
     if not db_path.exists():
         return jsonify({"error": "daily_stock_analysis database not found"}), 404
 

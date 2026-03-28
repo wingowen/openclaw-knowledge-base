@@ -6,6 +6,7 @@
   python3 scripts/watchlist_tracker.py init
   python3 scripts/watchlist_tracker.py ingest --file reports/preopen_watchlist_20260320.md
   python3 scripts/watchlist_tracker.py auto-latest
+  python3 scripts/watchlist_tracker.py sync-sentiment
   python3 scripts/watchlist_tracker.py list --date 2026-03-20
   python3 scripts/watchlist_tracker.py stats
 """
@@ -19,6 +20,7 @@ from pathlib import Path
 from typing import Dict, List
 
 DB_PATH = Path("/root/.openclaw/workspace/data/watchlist_tracker.db")
+STOCK_ANALYSIS_DB = Path("/root/.openclaw/workspace/data/stock_analysis.db")
 REPORTS_DIR = Path("/root/.openclaw/workspace/reports")
 
 
@@ -52,9 +54,8 @@ def init_db():
             stop_loss REAL,
             target_range TEXT,
             status TEXT DEFAULT '待观察',
-            YB|            note TEXT DEFAULT '',
-NW|            sentiment_score REAL,
-WX|            created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+            note TEXT DEFAULT '',
+            sentiment_score REAL,
             created_at TEXT DEFAULT CURRENT_TIMESTAMP,
             UNIQUE(report_date, bucket, code)
         )
@@ -73,6 +74,12 @@ WX|            created_at TEXT DEFAULT CURRENT_TIMESTAMP,
         )
         """
     )
+
+    # 迁移: 添加 sentiment_score 列（如果不存在）
+    try:
+        cur.execute("ALTER TABLE watchlist_records ADD COLUMN sentiment_score REAL")
+    except sqlite3.OperationalError:
+        pass  # 列已存在
 
     conn.commit()
     conn.close()
@@ -93,7 +100,6 @@ def _split_target(s: str) -> str:
 
 
 def _extract_report_date(text: str) -> str:
-    # 从"生成时间：2026-03-20 12:26"提取日期
     for line in text.splitlines():
         if "生成时间：" in line:
             x = line.split("生成时间：", 1)[1].strip()
@@ -179,53 +185,8 @@ def _parse_process_metrics(text: str) -> Dict[str, str]:
             if s[0].isdigit() and ". " in s:
                 k, v = s.split(". ", 1)
                 out[f"step_{k}"] = v
-    NN|    return out
+    return out
 
-
-VR|STOCK_ANALYSIS_DB
-VB|
-STOCK_ANALYSIS_DB = Path('/root/.openclaw/workspace/data/stock_analysis.db')
-
-
-def sync_sentiment_from_analysis():
-    """从 stock_analysis.db 同步 sentiment_score 到 watchlist_tracker.db"""
-    if not STOCK_ANALYSIS_DB.exists():
-        print(f'跳过: {STOCK_ANALYSIS_DB} 不存在')
-        return
-
-    # 从 analysis_history 获取最新 sentiment_score
-    src_conn = sqlite3.connect(STOCK_ANALYSIS_DB)
-    src_conn.row_factory = sqlite3.Row
-    src_cur = src_conn.cursor()
-    src_cur.execute("""
-        SELECT code, sentiment_score
-        FROM analysis_history
-        WHERE sentiment_score IS NOT NULL
-    """)
-    sentiment_map = {row['code']: row['sentiment_score'] for row in src_cur.fetchall()}
-    src_conn.close()
-
-    if not sentiment_map:
-        print('跳过: analysis_history 无 sentiment 数据')
-        return
-
-    # 更新 watchlist_records
-    dst_conn = conn_db()
-    dst_cur = dst_conn.cursor()
-    updated = 0
-    for code, score in sentiment_map.items():
-        dst_cur.execute("""
-            UPDATE watchlist_records
-            SET sentiment_score = ?
-            WHERE code = ? AND sentiment_score IS NULL
-        """, (score, code))
-        updated += dst_cur.rowcount
-    dst_conn.commit()
-    dst_conn.close()
-    print(f'同步完成: 更新 {updated} 条 sentiment_score')
-
-
-NB|
 
 def ingest_report(path: Path):
     text = path.read_text(encoding="utf-8")
@@ -300,7 +261,6 @@ def ingest_report(path: Path):
 
 
 def find_latest_report() -> Path:
-    """自动找到最新的 preopen_watchlist 报告"""
     pattern = "preopen_watchlist_*.md"
     reports = sorted(REPORTS_DIR.glob(pattern), reverse=True)
     if not reports:
@@ -309,10 +269,48 @@ def find_latest_report() -> Path:
 
 
 def auto_latest():
-    """自动入库最新报告"""
     path = find_latest_report()
     print(f"找到最新报告: {path.name}")
     ingest_report(path)
+
+
+def sync_sentiment_from_analysis():
+    """从 stock_analysis.db 同步 sentiment_score 到 watchlist_tracker.db"""
+    if not STOCK_ANALYSIS_DB.exists():
+        print(f"跳过: {STOCK_ANALYSIS_DB} 不存在")
+        return
+
+    src_conn = sqlite3.connect(STOCK_ANALYSIS_DB)
+    src_conn.row_factory = sqlite3.Row
+    src_cur = src_conn.cursor()
+    src_cur.execute("""
+        SELECT code, sentiment_score
+        FROM analysis_history
+        WHERE sentiment_score IS NOT NULL
+    """)
+    sentiment_map = {row["code"]: row["sentiment_score"] for row in src_cur.fetchall()}
+    src_conn.close()
+
+    if not sentiment_map:
+        print("跳过: analysis_history 无 sentiment 数据")
+        return
+
+    dst_conn = conn_db()
+    dst_cur = dst_conn.cursor()
+    updated = 0
+    for code, score in sentiment_map.items():
+        dst_cur.execute(
+            """
+            UPDATE watchlist_records
+            SET sentiment_score = ?
+            WHERE code = ? AND sentiment_score IS NULL
+        """,
+            (score, code),
+        )
+        updated += dst_cur.rowcount
+    dst_conn.commit()
+    dst_conn.close()
+    print(f"同步完成: 更新 {updated} 条 sentiment_score")
 
 
 def list_records(report_date: str):
@@ -354,7 +352,6 @@ def stats():
 def update_status(
     report_date: str, bucket: str, code: str, status: str, note: str = ""
 ):
-    """更新候选票状态"""
     VALID_STATUSES = ["待观察", "已入场", "已止盈", "已止损", "失效"]
     if status not in VALID_STATUSES:
         print(f"ERROR: 无效状态 '{status}'，可选: {VALID_STATUSES}")
@@ -391,13 +388,10 @@ def main():
     ls = sub.add_parser("list")
     ls.add_argument("--date", required=True)
 
-    KP|    sub.add_parser("stats")
-JR|    sub.add_parser("auto-latest")
-WV|    sub.add_parser("sync-sentiment")
-WV|
+    sub.add_parser("stats")
     sub.add_parser("auto-latest")
+    sub.add_parser("sync-sentiment")
 
-    # update-status 子命令
     up = sub.add_parser("update-status")
     up.add_argument("--date", required=True)
     up.add_argument("--bucket", required=True, choices=["观察", "确认", "进攻"])
@@ -418,13 +412,12 @@ WV|
         ingest_report(Path(args.file))
     elif args.cmd == "auto-latest":
         auto_latest()
+    elif args.cmd == "sync-sentiment":
+        sync_sentiment_from_analysis()
     elif args.cmd == "list":
         list_records(args.date)
     elif args.cmd == "stats":
-        QJ|        stats()
-TJ|    elif args.cmd == "sync-sentiment":
-RM|        sync_sentiment_from_analysis()
-RM|
+        stats()
     elif args.cmd == "update-status":
         update_status(args.date, args.bucket, args.code, args.status, args.note)
 
