@@ -5,6 +5,7 @@
 用法：
   python3 scripts/watchlist_tracker.py init
   python3 scripts/watchlist_tracker.py ingest --file reports/preopen_watchlist_20260320.md
+  python3 scripts/watchlist_tracker.py auto-latest
   python3 scripts/watchlist_tracker.py list --date 2026-03-20
   python3 scripts/watchlist_tracker.py stats
 """
@@ -17,7 +18,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, List
 
-DB_PATH = Path('/root/.openclaw/workspace/data/watchlist_tracker.db')
+DB_PATH = Path("/root/.openclaw/workspace/data/watchlist_tracker.db")
+REPORTS_DIR = Path("/root/.openclaw/workspace/reports")
 
 
 def conn_db():
@@ -50,7 +52,9 @@ def init_db():
             stop_loss REAL,
             target_range TEXT,
             status TEXT DEFAULT '待观察',
-            note TEXT DEFAULT '',
+            YB|            note TEXT DEFAULT '',
+NW|            sentiment_score REAL,
+WX|            created_at TEXT DEFAULT CURRENT_TIMESTAMP,
             created_at TEXT DEFAULT CURRENT_TIMESTAMP,
             UNIQUE(report_date, bucket, code)
         )
@@ -76,7 +80,7 @@ def init_db():
 
 def _to_float(s: str):
     try:
-        s = s.replace('%', '').strip()
+        s = s.replace("%", "").strip()
         if not s:
             return None
         return float(s)
@@ -89,23 +93,23 @@ def _split_target(s: str) -> str:
 
 
 def _extract_report_date(text: str) -> str:
-    # 从“生成时间：2026-03-20 12:26”提取日期
+    # 从"生成时间：2026-03-20 12:26"提取日期
     for line in text.splitlines():
-        if '生成时间：' in line:
-            x = line.split('生成时间：', 1)[1].strip()
-            return x.split(' ')[0]
-    return datetime.now().strftime('%Y-%m-%d')
+        if "生成时间：" in line:
+            x = line.split("生成时间：", 1)[1].strip()
+            return x.split(" ")[0]
+    return datetime.now().strftime("%Y-%m-%d")
 
 
 def _parse_table_rows(lines: List[str]) -> List[List[str]]:
     rows = []
     for line in lines:
         s = line.strip()
-        if not s.startswith('|'):
+        if not s.startswith("|"):
             continue
-        if set(s.replace('|', '').replace('-', '').replace(':', '').strip()) == set():
+        if set(s.replace("|", "").replace("-", "").replace(":", "").strip()) == set():
             continue
-        cells = [c.strip() for c in s.strip('|').split('|')]
+        cells = [c.strip() for c in s.strip("|").split("|")]
         rows.append(cells)
     return rows
 
@@ -115,10 +119,10 @@ def _parse_bucket(text: str, section: str) -> List[Dict]:
     collecting = False
     buf = []
     for line in lines:
-        if line.startswith('## '):
+        if line.startswith("## "):
             if collecting:
                 break
-            collecting = (section in line)
+            collecting = section in line
             continue
         if collecting:
             buf.append(line)
@@ -135,24 +139,24 @@ def _parse_bucket(text: str, section: str) -> List[Dict]:
         if len(r) != len(header):
             continue
         obj = dict(zip(header, r))
-        code = obj.get('代码')
+        code = obj.get("代码")
         if not code:
             continue
 
         results.append(
             {
-                'code': code,
-                'name': obj.get('名称', ''),
-                'sector': obj.get('板块', ''),
-                'chg_pct': _to_float(obj.get('涨幅', '')),
-                'turnover_pct': _to_float(obj.get('换手', '')),
-                'excess_vs_index': _to_float(obj.get('超额vs大盘', '')),
-                'vol_ratio5': _to_float(obj.get('量比5日', '')),
-                'rsi14': _to_float(obj.get('RSI', '')),
-                'ideal_buy': _to_float(obj.get('理想买点(MA5)', '')),
-                'secondary_buy': _to_float(obj.get('次优买点(MA10)', '')),
-                'stop_loss': _to_float(obj.get('止损位', '')),
-                'target_range': _split_target(obj.get('目标位区间', '')),
+                "code": code,
+                "name": obj.get("名称", ""),
+                "sector": obj.get("板块", ""),
+                "chg_pct": _to_float(obj.get("涨幅", "")),
+                "turnover_pct": _to_float(obj.get("换手", "")),
+                "excess_vs_index": _to_float(obj.get("超额vs大盘", "")),
+                "vol_ratio5": _to_float(obj.get("量比5日", "")),
+                "rsi14": _to_float(obj.get("RSI", "")),
+                "ideal_buy": _to_float(obj.get("理想买点(MA5)", "")),
+                "secondary_buy": _to_float(obj.get("次优买点(MA10)", "")),
+                "stop_loss": _to_float(obj.get("止损位", "")),
+                "target_range": _split_target(obj.get("目标位区间", "")),
             }
         )
     return results
@@ -163,28 +167,73 @@ def _parse_process_metrics(text: str) -> Dict[str, str]:
     collecting = False
     out = {}
     for line in lines:
-        if line.startswith('## '):
+        if line.startswith("## "):
             if collecting:
                 break
-            collecting = ('生成过程明细' in line)
+            collecting = "生成过程明细" in line
             continue
         if collecting:
             s = line.strip()
             if not s:
                 continue
-            if s[0].isdigit() and '. ' in s:
-                k, v = s.split('. ', 1)
-                out[f'step_{k}'] = v
-    return out
+            if s[0].isdigit() and ". " in s:
+                k, v = s.split(". ", 1)
+                out[f"step_{k}"] = v
+    NN|    return out
 
+
+VR|STOCK_ANALYSIS_DB
+VB|
+STOCK_ANALYSIS_DB = Path('/root/.openclaw/workspace/data/stock_analysis.db')
+
+
+def sync_sentiment_from_analysis():
+    """从 stock_analysis.db 同步 sentiment_score 到 watchlist_tracker.db"""
+    if not STOCK_ANALYSIS_DB.exists():
+        print(f'跳过: {STOCK_ANALYSIS_DB} 不存在')
+        return
+
+    # 从 analysis_history 获取最新 sentiment_score
+    src_conn = sqlite3.connect(STOCK_ANALYSIS_DB)
+    src_conn.row_factory = sqlite3.Row
+    src_cur = src_conn.cursor()
+    src_cur.execute("""
+        SELECT code, sentiment_score
+        FROM analysis_history
+        WHERE sentiment_score IS NOT NULL
+    """)
+    sentiment_map = {row['code']: row['sentiment_score'] for row in src_cur.fetchall()}
+    src_conn.close()
+
+    if not sentiment_map:
+        print('跳过: analysis_history 无 sentiment 数据')
+        return
+
+    # 更新 watchlist_records
+    dst_conn = conn_db()
+    dst_cur = dst_conn.cursor()
+    updated = 0
+    for code, score in sentiment_map.items():
+        dst_cur.execute("""
+            UPDATE watchlist_records
+            SET sentiment_score = ?
+            WHERE code = ? AND sentiment_score IS NULL
+        """, (score, code))
+        updated += dst_cur.rowcount
+    dst_conn.commit()
+    dst_conn.close()
+    print(f'同步完成: 更新 {updated} 条 sentiment_score')
+
+
+NB|
 
 def ingest_report(path: Path):
-    text = path.read_text(encoding='utf-8')
+    text = path.read_text(encoding="utf-8")
     report_date = _extract_report_date(text)
 
-    observe = _parse_bucket(text, '观察仓')
-    confirm = _parse_bucket(text, '确认仓')
-    attack = _parse_bucket(text, '进攻仓')
+    observe = _parse_bucket(text, "观察仓")
+    confirm = _parse_bucket(text, "确认仓")
+    attack = _parse_bucket(text, "进攻仓")
     metrics = _parse_process_metrics(text)
 
     init_db()
@@ -214,24 +263,24 @@ def ingest_report(path: Path):
                 (
                     report_date,
                     bucket,
-                    r['code'],
-                    r['name'],
-                    r['sector'],
-                    r['chg_pct'],
-                    r['turnover_pct'],
-                    r['excess_vs_index'],
-                    r['vol_ratio5'],
-                    r['rsi14'],
-                    r['ideal_buy'],
-                    r['secondary_buy'],
-                    r['stop_loss'],
-                    r['target_range'],
+                    r["code"],
+                    r["name"],
+                    r["sector"],
+                    r["chg_pct"],
+                    r["turnover_pct"],
+                    r["excess_vs_index"],
+                    r["vol_ratio5"],
+                    r["rsi14"],
+                    r["ideal_buy"],
+                    r["secondary_buy"],
+                    r["stop_loss"],
+                    r["target_range"],
                 ),
             )
 
-    upsert('观察', observe)
-    upsert('确认', confirm)
-    upsert('进攻', attack)
+    upsert("观察", observe)
+    upsert("确认", confirm)
+    upsert("进攻", attack)
 
     for k, v in metrics.items():
         cur.execute(
@@ -245,7 +294,25 @@ def ingest_report(path: Path):
 
     conn.commit()
     conn.close()
-    print(f"ingested: date={report_date}, 观察={len(observe)}, 确认={len(confirm)}, 进攻={len(attack)}")
+    print(
+        f"ingested: date={report_date}, 观察={len(observe)}, 确认={len(confirm)}, 进攻={len(attack)}"
+    )
+
+
+def find_latest_report() -> Path:
+    """自动找到最新的 preopen_watchlist 报告"""
+    pattern = "preopen_watchlist_*.md"
+    reports = sorted(REPORTS_DIR.glob(pattern), reverse=True)
+    if not reports:
+        raise FileNotFoundError(f"未找到 {REPORTS_DIR}/{pattern}")
+    return reports[0]
+
+
+def auto_latest():
+    """自动入库最新报告"""
+    path = find_latest_report()
+    print(f"找到最新报告: {path.name}")
+    ingest_report(path)
 
 
 def list_records(report_date: str):
@@ -264,25 +331,31 @@ def list_records(report_date: str):
     conn.close()
 
     if not rows:
-        print('no records')
+        print("no records")
         return
     for r in rows:
-        print(f"[{r['bucket']}] {r['code']} {r['name']} {r['sector']} 涨幅={r['chg_pct']} 状态={r['status']} 目标={r['target_range']}")
+        print(
+            f"[{r['bucket']}] {r['code']} {r['name']} {r['sector']} 涨幅={r['chg_pct']} 状态={r['status']} 目标={r['target_range']}"
+        )
 
 
 def stats():
     conn = conn_db()
     cur = conn.cursor()
-    cur.execute("SELECT report_date, bucket, COUNT(*) c FROM watchlist_records GROUP BY report_date,bucket ORDER BY report_date DESC")
+    cur.execute(
+        "SELECT report_date, bucket, COUNT(*) c FROM watchlist_records GROUP BY report_date,bucket ORDER BY report_date DESC"
+    )
     rows = cur.fetchall()
     conn.close()
     for r in rows:
         print(f"{r['report_date']} {r['bucket']} {r['c']}")
 
 
-def update_status(report_date: str, bucket: str, code: str, status: str, note: str = ''):
+def update_status(
+    report_date: str, bucket: str, code: str, status: str, note: str = ""
+):
     """更新候选票状态"""
-    VALID_STATUSES = ['待观察', '已入场', '已止盈', '已止损', '失效']
+    VALID_STATUSES = ["待观察", "已入场", "已止盈", "已止损", "失效"]
     if status not in VALID_STATUSES:
         print(f"ERROR: 无效状态 '{status}'，可选: {VALID_STATUSES}")
         return False
@@ -309,39 +382,52 @@ def update_status(report_date: str, bucket: str, code: str, status: str, note: s
 
 def main():
     p = argparse.ArgumentParser()
-    sub = p.add_subparsers(dest='cmd', required=True)
+    sub = p.add_subparsers(dest="cmd", required=True)
 
-    sub.add_parser('init')
-    ing = sub.add_parser('ingest')
-    ing.add_argument('--file', required=True)
+    sub.add_parser("init")
+    ing = sub.add_parser("ingest")
+    ing.add_argument("--file", required=True)
 
-    ls = sub.add_parser('list')
-    ls.add_argument('--date', required=True)
+    ls = sub.add_parser("list")
+    ls.add_argument("--date", required=True)
 
-    sub.add_parser('stats')
+    KP|    sub.add_parser("stats")
+JR|    sub.add_parser("auto-latest")
+WV|    sub.add_parser("sync-sentiment")
+WV|
+    sub.add_parser("auto-latest")
 
     # update-status 子命令
-    up = sub.add_parser('update-status')
-    up.add_argument('--date', required=True)
-    up.add_argument('--bucket', required=True, choices=['观察', '确认', '进攻'])
-    up.add_argument('--code', required=True)
-    up.add_argument('--status', required=True, choices=['待观察', '已入场', '已止盈', '已止损', '失效'])
-    up.add_argument('--note', default='')
+    up = sub.add_parser("update-status")
+    up.add_argument("--date", required=True)
+    up.add_argument("--bucket", required=True, choices=["观察", "确认", "进攻"])
+    up.add_argument("--code", required=True)
+    up.add_argument(
+        "--status",
+        required=True,
+        choices=["待观察", "已入场", "已止盈", "已止损", "失效"],
+    )
+    up.add_argument("--note", default="")
 
     args = p.parse_args()
 
-    if args.cmd == 'init':
+    if args.cmd == "init":
         init_db()
-        print(f'initialized: {DB_PATH}')
-    elif args.cmd == 'ingest':
+        print(f"initialized: {DB_PATH}")
+    elif args.cmd == "ingest":
         ingest_report(Path(args.file))
-    elif args.cmd == 'list':
+    elif args.cmd == "auto-latest":
+        auto_latest()
+    elif args.cmd == "list":
         list_records(args.date)
-    elif args.cmd == 'stats':
-        stats()
-    elif args.cmd == 'update-status':
+    elif args.cmd == "stats":
+        QJ|        stats()
+TJ|    elif args.cmd == "sync-sentiment":
+RM|        sync_sentiment_from_analysis()
+RM|
+    elif args.cmd == "update-status":
         update_status(args.date, args.bucket, args.code, args.status, args.note)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
