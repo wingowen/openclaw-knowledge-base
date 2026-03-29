@@ -1,7 +1,7 @@
 {
   "last_run": {
-    "run_id": "run_1774794811287",
-    "created_at": "2026-03-29T14:33:31.804Z",
+    "run_id": "run_1774798206481",
+    "created_at": "2026-03-29T15:30:07.012Z",
     "parent_event_id": "evt_1774736130832",
     "selected_gene_id": "gene_gep_optimize_prompt_and_assets",
     "selected_capsule_id": null,
@@ -9,24 +9,26 @@
       "selected": "gene_gep_optimize_prompt_and_assets",
       "reason": [
         "signals match gene.signals_match",
-        "signals: protocol_drift, repeated_tool_usage:exec, high_failure_ratio, force_innovation_after_repair_loop",
-        "memory_graph: memory_prefer:gene_gep_optimize_prompt_and_assets | gene_prior:0.926",
+        "signals: protocol_drift, high_tool_usage:exec, repeated_tool_usage:exec, high_failure_ratio, force_innovation_after_repair_loop",
+        "memory_graph: memory_prefer:gene_gep_optimize_prompt_and_assets | gene_prior:0.928",
         "drift_intensity: 0.707"
       ],
       "alternatives": []
     },
     "signals": [
       "protocol_drift",
+      "high_tool_usage:exec",
       "repeated_tool_usage:exec",
       "high_failure_ratio",
       "force_innovation_after_repair_loop"
     ],
     "mutation": {
       "type": "Mutation",
-      "id": "mut_1774794811276",
+      "id": "mut_1774798206470",
       "category": "innovate",
       "trigger_signals": [
         "protocol_drift",
+        "high_tool_usage:exec",
         "repeated_tool_usage:exec",
         "high_failure_ratio",
         "force_innovation_after_repair_loop"
@@ -35,7 +37,7 @@
       "expected_effect": "explore new strategy combinations to escape local optimum",
       "risk_level": "medium"
     },
-    "mutation_id": "mut_1774794811276",
+    "mutation_id": "mut_1774798206470",
     "personality_state": {
       "type": "PersonalityState",
       "rigor": 0.7,
@@ -54,14 +56,15 @@
     "reused_source_node": null,
     "reused_chain_id": null,
     "baseline_untracked": [
-      "workspace/memory/evolution/gep_prompt_Cycle_#0169_run_1774791907105.json",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0169_run_1774791907105.txt",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0170_run_1774793050914.json",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0170_run_1774793050914.txt",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0171_run_1774793706510.json",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0171_run_1774793706510.txt"
+      "workspace/memory/evolution/gep_prompt_Cycle_#0173_run_1774795506716.json",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0173_run_1774795506716.txt",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0174_run_1774796408235.json",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0174_run_1774796408235.txt",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0175_run_1774797306888.json",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0175_run_1774797306888.txt",
+      "workspace/memory/evolution/logs/status_0173.json"
     ],
-    "baseline_git_head": "73a1638ae10343c6452b82152e42049813d04e8f",
+    "baseline_git_head": "27634e56ab81c16be7aacbe44fb3e28da0d4231e",
     "blast_radius_estimate": {
       "files": 20,
       "lines": 1600
