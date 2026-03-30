@@ -1,7 +1,7 @@
 {
   "last_run": {
-    "run_id": "run_1774861377386",
-    "created_at": "2026-03-30T09:02:57.392Z",
+    "run_id": "run_1774864952211",
+    "created_at": "2026-03-30T10:02:32.218Z",
     "parent_event_id": "evt_1774736130832",
     "selected_gene_id": "gene_gep_optimize_prompt_and_assets",
     "selected_capsule_id": null,
@@ -10,7 +10,7 @@
       "reason": [
         "signals match gene.signals_match",
         "signals: protocol_drift, high_failure_ratio, force_innovation_after_repair_loop",
-        "memory_graph: memory_prefer:gene_gep_optimize_prompt_and_assets | memory_ban:gene_gep_repair_from_errors | gene_prior:0.928",
+        "memory_graph: memory_prefer:gene_gep_optimize_prompt_and_assets | memory_ban:gene_gep_repair_from_errors | gene_prior:0.929",
         "drift_intensity: 0.707"
       ],
       "alternatives": []
@@ -22,7 +22,7 @@
     ],
     "mutation": {
       "type": "Mutation",
-      "id": "mut_1774861377384",
+      "id": "mut_1774864952209",
       "category": "innovate",
       "trigger_signals": [
         "protocol_drift",
@@ -33,7 +33,7 @@
       "expected_effect": "explore new strategy combinations to escape local optimum",
       "risk_level": "medium"
     },
-    "mutation_id": "mut_1774861377384",
+    "mutation_id": "mut_1774864952209",
     "personality_state": {
       "type": "PersonalityState",
       "rigor": 0.7,
@@ -52,14 +52,12 @@
     "reused_source_node": null,
     "reused_chain_id": null,
     "baseline_untracked": [
-      "workspace/memory/evolution/gep_prompt_Cycle_#0214_run_1774858518397.json",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0214_run_1774858518397.txt",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0215_run_1774859686898.json",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0215_run_1774859686898.txt",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0216_run_1774860412162.json",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0216_run_1774860412162.txt"
+      "workspace/memory/evolution/gep_prompt_Cycle_#0218_run_1774862104876.json",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0218_run_1774862104876.txt",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0219_run_1774864057212.json",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0219_run_1774864057212.txt"
     ],
-    "baseline_git_head": "8bdef58953db343da51198a678f7c16056277910",
+    "baseline_git_head": "bea5310f5e70fbf57bc830ad09a29d6d85a2160f",
     "blast_radius_estimate": {
       "files": 20,
       "lines": 1600
