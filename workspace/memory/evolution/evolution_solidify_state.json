@@ -1,7 +1,7 @@
 {
   "last_run": {
-    "run_id": "run_1774886409731",
-    "created_at": "2026-03-30T16:00:10.248Z",
+    "run_id": "run_1774890011903",
+    "created_at": "2026-03-30T17:00:12.407Z",
     "parent_event_id": "evt_1774736130832",
     "selected_gene_id": "gene_gep_optimize_prompt_and_assets",
     "selected_capsule_id": null,
@@ -10,7 +10,7 @@
       "reason": [
         "signals match gene.signals_match",
         "signals: protocol_drift, repeated_tool_usage:exec, high_failure_ratio, force_innovation_after_repair_loop",
-        "memory_graph: memory_prefer:gene_gep_optimize_prompt_and_assets | gene_prior:0.913",
+        "memory_graph: memory_prefer:gene_gep_optimize_prompt_and_assets | gene_prior:0.915",
         "drift_intensity: 0.707"
       ],
       "alternatives": []
@@ -23,7 +23,7 @@
     ],
     "mutation": {
       "type": "Mutation",
-      "id": "mut_1774886409717",
+      "id": "mut_1774890011891",
       "category": "innovate",
       "trigger_signals": [
         "protocol_drift",
@@ -35,7 +35,7 @@
       "expected_effect": "explore new strategy combinations to escape local optimum",
       "risk_level": "medium"
     },
-    "mutation_id": "mut_1774886409717",
+    "mutation_id": "mut_1774890011891",
     "personality_state": {
       "type": "PersonalityState",
       "rigor": 0.7,
@@ -54,14 +54,14 @@
     "reused_source_node": null,
     "reused_chain_id": null,
     "baseline_untracked": [
-      "workspace/memory/evolution/gep_prompt_Cycle_#0241_run_1774883706277.json",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0241_run_1774883706277.txt",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0242_run_1774884606647.json",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0242_run_1774884606647.txt",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0243_run_1774885519725.json",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0243_run_1774885519725.txt"
+      "workspace/memory/evolution/gep_prompt_Cycle_#0245_run_1774887323967.json",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0245_run_1774887323967.txt",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0246_run_1774888403346.json",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0246_run_1774888403346.txt",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0247_run_1774889106584.json",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0247_run_1774889106584.txt"
     ],
-    "baseline_git_head": "1e9e876e56f683ab0b33d065cf7c2f0b1ab910ed",
+    "baseline_git_head": "74e8d4213ed6ad60623a9e2e508dcd3181e7bf38",
     "blast_radius_estimate": {
       "files": 20,
       "lines": 1600
