@@ -1,0 +1,15 @@
+{
+  "type": "GepPromptArtifact",
+  "at": "2026-03-31T16:45:06.564Z",
+  "cycle_id": "Cycle #0341",
+  "run_id": "run_1774975506555",
+  "prompt_path": "/root/.openclaw/workspace/workspace/memory/evolution/gep_prompt_Cycle_#0341_run_1774975506555.txt",
+  "meta": {
+    "agent": "main",
+    "drift_enabled": false,
+    "review_mode": false,
+    "dry_run": false,
+    "mutation_id": "mut_1774975506554",
+    "personality_key": "rigor=0.7|creativity=0.3|verbosity=0.3|risk_tolerance=0.4|obedience=0.9"
+  }
+}
