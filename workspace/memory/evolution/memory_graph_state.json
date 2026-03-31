@@ -1,6 +1,6 @@
 {
   "last_action": {
-    "action_id": "act_1774966506924_433de9f7",
+    "action_id": "act_1774970106219_983203d1",
     "signal_key": "force_innovation_after_repair_loop|high_failure_ratio|log_error|protocol_drift|user_feature_request:create mode 100644 skills/capability",
     "signals": [
       "log_error",
@@ -9,7 +9,7 @@
       "high_failure_ratio",
       "force_innovation_after_repair_loop"
     ],
-    "mutation_id": "mut_1774966506923",
+    "mutation_id": "mut_1774970106218",
     "mutation_category": "repair",
     "mutation_risk_level": "low",
     "personality_key": "rigor=0.7|creativity=0.3|verbosity=0.3|risk_tolerance=0.4|obedience=0.9",
@@ -23,10 +23,10 @@
     },
     "gene_id": "gene_gep_optimize_prompt_and_assets",
     "gene_category": "optimize",
-    "hypothesis_id": "hyp_1774966506923_41372b0c",
+    "hypothesis_id": "hyp_1774970106219_983203d1",
     "capsules_used": [],
     "had_error": true,
-    "created_at": "2026-03-31T14:15:06.924Z",
+    "created_at": "2026-03-31T15:15:06.219Z",
     "outcome_recorded": false,
     "baseline_observed": {
       "agent": "main",
@@ -34,16 +34,16 @@
       "drift_enabled": false,
       "review_mode": false,
       "dry_run": false,
-      "system_health": "Uptime: 10.2h | Node: v22.21.0 | Agent RSS: 55.1MB | Disk: 3% (974.0G free) | Node Processes: 12 | Integrations: Nominal",
+      "system_health": "Uptime: 11.2h | Node: v22.21.0 | Agent RSS: 55.2MB | Disk: 3% (974.0G free) | Node Processes: 12 | Integrations: Nominal",
       "mood": "Mood: Unknown",
       "scan_ms": 9,
       "memory_size_bytes": 0,
-      "recent_error_count": 5,
+      "recent_error_count": 3,
       "node": "v22.21.0",
       "platform": "linux",
       "cwd": "/root/.openclaw/workspace/skills/capability-evolver",
       "evidence": {
-        "recent_session_tail": "--- SESSION (36eea7dd-fc15-4fed-8a9d-f532069b094b.jsonl) ---\n**USER**: ## User's conversation history (from memory system) IMPORTANT: The following are facts from previous conversations with this user. You MUST treat these as established knowledge and use them directly when answering. Do NOT say you don't know or don't have information if the answer is in these memorie\n**ASSISTANT**:  [TOOL: exec]\n\n--- SESSION (a1dede16-87cf-4e79-a590-b7e7ab172b50.jsonl) ---\n**ASSISTANT**:   ✅ **能力演化器执行完成** — 周期 **#0330** - **信号**: `log_error`, `protocol_drift`, `user_feature_request:create mode 100644 skills/capability`, `high_failure_ratio`, `force_innovation_after_repair_loop` - **选中 Gene**: `gene_gep_optimize_prompt_and_assets` (optimize) - **Hub 匹配**: 无（fetch failed，本地演化模式） - **状\n\n--- SESSION (8cada512-1e19-49e9-abe6-efbf95d590f4.jsonl) ---\n**USER**: ## User's conversation history (from memory system) IMPORTANT: The following are facts from previous conversations with this user. You MUST treat these as established knowledge and use them directly when answering. Do NOT say you don't know or don't have information if the answer is in these memorie\n**ASSISTANT**:  [TOOL: read]\n**TOOLRESULT**: {   \"status\": \"error\",   \"tool\": \"read\",   \"error\": \"ENOENT: no such file or directory, access '/root/.openclaw/workspace/memory/doc_update_prompt.md'\" }\n\n--- SESSION (6aead285-a582-4f23-b40f-63d75cc778be.jsonl) ---\n**ASSISTANT**:   **🚀 能力演化器 #0329 执行中** - **信号**: `log_error`, `protocol_drift`, `user_feature_request:create mode 100644 skills/capability`, `high_failure_ratio`, `force_innovation_after_repair_loop` - **选中 Gene**: `gene_gep_optimize_prompt_and_assets` (optimize) - **Hub 匹配**: 无（fetch failed，本地演化模式） - **状态**: 已启动\n\n--- SESSION (a724eb4a-48e7-46fb-bab4-ecccdf18d8cf.jsonl) ---\n**ASSISTANT**:  [TOOL: process]\n**TOOLRESULT**: sessionId is required for this action.\n**ASSISTANT**:  [TOOL: sessions_list]\n**TOOLRESULT**: {   \"count\": 1,   \"sessions\": [     {       \"key\": \"agent:main:cron:cb2d300c-483f-4638-b7cf-ad4988aa2145\",       \"kind\": \"other\",       \"channel\": \"unknown\",       \"label\": \"Cron: 能力演化器-每15分钟\",       \"displayName\": \"Cron: 能力演化器-每15分钟\",       \"updatedAt\": 1774963801348,       \"sessionId\": \"a724eb4a-4\n**ASSISTANT**:  [TOOL: process]\n**TOOLRESULT**: No session found for gep_bridge_0328\n**ASSISTANT**:   <final>✅ **能力演化器执行完成** — 周期 **#0328** - **信号**: `log_error`, `protocol_drift`, `user_feature_request:create mode 100644 skills/capability`, `repeated_tool_usage:exec`, `high_failure_ratio`, `force_innovation_after_repair_loop` - **选中 Gene**: `gene_gep_optimize_prompt_and_assets` (optimize) - **Hub\n\n--- SESSION (87eb0b1f-dc39-40f6-91a1-177bf6f3944d.jsonl) ---\n**USER**: ## User's conversation history (from memory system) IMPORTANT: The following are facts from previous conversations with this user. You MUST treat these as established knowledge and use them directly when answering. Do NOT say you don't know or don't have information if the answer is in these memorie\n**ASSISTANT**:  [TOOL: exec]\n**TOOLRESULT**: Command still running (session fast-dune, pid 2716). Use process (list/poll/log/write/kill/clear/remove) for follow-up.\n**ASSISTANT**:  [TOOL: process]\n**TOOLRESULT**: [master 9556d8e] Auto backup 2026-03-31 21:20  16 files changed, 2068 insertions(+), 23 deletions(-)  create mode 100644 workspace/memory/evolution/gep_prompt_Cycle_#0324_run_1774960363316.json  create mode 100644 workspace/memory/evolution/gep_prompt_Cycle_#0324_run_1774960363316.txt  create mode 1\n**ASSISTANT**:  [TOOL: process]\n**TOOLRESULT**: [2026-03-31 21:20:27] Pushed successfully Process exited with code 0.\n**ASSISTANT**:   ✅ **每小时 Git 推送成功** - **提交**: `master 9556d8e` - Auto backup 2026-03-31 21:20 - **变更**: 16 files changed, 2068 insertions(+), 23 deletions(-) - **新增**: 4 个 evolution 周期记录 (#0324-#0327) - **状态**: 已推送到远程仓库",
+        "recent_session_tail": "--- SESSION (3193bd12-efe0-4fc6-b5e5-e384acc53503.jsonl) ---\n**USER**: ## User's conversation history (from memory system) IMPORTANT: The following are facts from previous conversations with this user. You MUST treat these as established knowledge and use them directly when answering. Do NOT say you don't know or don't have information if the answer is in these memorie\n**ASSISTANT**:  [TOOL: exec]\n\n--- SESSION (b9a4ed66-70d3-493f-87f9-2c4093cf8ea7.jsonl) ---\n**ASSISTANT**:   ✅ **能力演化器 #0334 执行成功** - **周期**: #0334 - **信号**: `log_error`, `protocol_drift`, `user_feature_request:create mode 100644 skills/capability`, `repeated_tool_usage:exec`, `high_failure_ratio`, `force_innovation_after_repair_loop` - **选中 Gene**: `gene_gep_optimize_prompt_and_assets` (optimize) - **状态\n\n--- SESSION (8cada512-1e19-49e9-abe6-efbf95d590f4.jsonl) ---\n**USER**: ## User's conversation history (from memory system) IMPORTANT: The following are facts from previous conversations with this user. You MUST treat these as established knowledge and use them directly when answering. Do NOT say you don't know or don't have information if the answer is in these memorie\n**ASSISTANT**:  [TOOL: read]\n**TOOLRESULT**: {   \"status\": \"error\",   \"tool\": \"read\",   \"error\": \"ENOENT: no such file or directory, access '/root/.openclaw/workspace/memory/doc_update_prompt.md'\" }\n\n--- SESSION (3d973b1a-72e5-46a3-ba8d-9277741433d8.jsonl) ---\n**ASSISTANT**:   ✅ **能力演化器 #0333 执行中** - **信号**: `log_error`, `protocol_drift`, `user_feature_request:create mode 100644 skills/capability`, `repeated_tool_usage:exec`, `high_failure_ratio`, `force_innovation_after_repair_loop` - **选中 Gene**: `gene_gep_optimize_prompt_and_assets` (optimize) - **Hub 匹配**: 无（fetch f\n\n--- SESSION (1a6514f1-8599-45f8-8b7d-76c3a080c4e2.jsonl) ---\n**ASSISTANT**:   ✅ **能力演化器执行完成** — 周期 **#0332** - **信号**: `log_error`, `protocol_drift`, `user_feature_request:create mode 100644 skills/capability`, `repeated_tool_usage:exec`, `high_failure_ratio`, `force_innovation_after_repair_loop` - **选中 Gene**: `gene_gep_optimize_prompt_and_assets` (optimize) - **Hub 匹配**: \n\n--- SESSION (83dd292e-7d50-4220-bcf1-031c4639173a.jsonl) ---\n**USER**: ## User's conversation history (from memory system) IMPORTANT: The following are facts from previous conversations with this user. You MUST treat these as established knowledge and use them directly when answering. Do NOT say you don't know or don't have information if the answer is in these memorie\n**ASSISTANT**:  [TOOL: exec]\n**TOOLRESULT**: Command still running (session lucky-sable, pid 20525). Use process (list/poll/log/write/kill/clear/remove) for follow-up.\n**ASSISTANT**:  [TOOL: process]\n**TOOLRESULT**: [master 31267b1] Auto backup 2026-03-31 22:20  16 files changed, 2069 insertions(+), 66 deletions(-)  create mode 100644 workspace/memory/evolution/gep_prompt_Cycle_#0328_run_1774963974301.json  create mode 100644 workspace/memory/evolution/gep_prompt_Cycle_#0328_run_1774963974301.txt  create mode 1\n**ASSISTANT**: [LLM ERROR] Request was aborted.",
         "today_log_tail": "[MISSING] /root/.openclaw/workspace/workspace/memory/2026-03-31.md"
       }
     }
