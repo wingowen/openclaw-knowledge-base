@@ -1,7 +1,7 @@
 {
   "last_run": {
-    "run_id": "run_1774962906449",
-    "created_at": "2026-03-31T13:15:06.456Z",
+    "run_id": "run_1774966506924",
+    "created_at": "2026-03-31T14:15:06.931Z",
     "parent_event_id": "evt_1774736130832",
     "selected_gene_id": "gene_gep_optimize_prompt_and_assets",
     "selected_capsule_id": null,
@@ -10,7 +10,7 @@
       "reason": [
         "signals match gene.signals_match",
         "signals: log_error, protocol_drift, user_feature_request:create mode 100644 skills/capability, high_failure_ratio, force_innovation_after_repair_loop",
-        "memory_graph: memory_prefer:gene_gep_optimize_prompt_and_assets | gene_prior:0.710",
+        "memory_graph: memory_prefer:gene_gep_optimize_prompt_and_assets | gene_prior:0.701",
         "drift_intensity: 0.707"
       ],
       "alternatives": [
@@ -26,7 +26,7 @@
     ],
     "mutation": {
       "type": "Mutation",
-      "id": "mut_1774962906448",
+      "id": "mut_1774966506923",
       "category": "repair",
       "trigger_signals": [
         "log_error",
@@ -39,7 +39,7 @@
       "expected_effect": "reduce runtime errors, increase stability, and lower failure rate",
       "risk_level": "low"
     },
-    "mutation_id": "mut_1774962906448",
+    "mutation_id": "mut_1774966506923",
     "personality_state": {
       "type": "PersonalityState",
       "rigor": 0.7,
@@ -58,14 +58,14 @@
     "reused_source_node": null,
     "reused_chain_id": null,
     "baseline_untracked": [
-      "workspace/memory/evolution/gep_prompt_Cycle_#0324_run_1774960363316.json",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0324_run_1774960363316.txt",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0325_run_1774961105768.json",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0325_run_1774961105768.txt",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0326_run_1774962006547.json",
-      "workspace/memory/evolution/gep_prompt_Cycle_#0326_run_1774962006547.txt"
+      "workspace/memory/evolution/gep_prompt_Cycle_#0328_run_1774963974301.json",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0328_run_1774963974301.txt",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0329_run_1774964705311.json",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0329_run_1774964705311.txt",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0330_run_1774965743584.json",
+      "workspace/memory/evolution/gep_prompt_Cycle_#0330_run_1774965743584.txt"
     ],
-    "baseline_git_head": "daaf87bcf641cad37bd447d21672d6fedb706e70",
+    "baseline_git_head": "9556d8ee3d67de7a3dacb61971d8066d72b8cbae",
     "blast_radius_estimate": {
       "files": 20,
       "lines": 1600
